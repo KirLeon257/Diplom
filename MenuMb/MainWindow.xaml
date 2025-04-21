@@ -54,12 +54,11 @@
                 Margin="0,60,0,35" 
                 VerticalAlignment="Stretch" 
                 HorizontalAlignment="Stretch">
-            <ScrollViewer>
-                <Grid x:Name="MainConteiner">
-                    <Grid x:Name="Grid1" Visibility="Visible">
-
+            <Grid>
+                <Frame x:Name="MainConteiner" NavigationUIVisibility="Automatic"></Frame>
+                <!--<Grid x:Name="Grid1" Visibility="Visible">
                         <DataGrid Margin="0,40,0,40" x:Name="OC_Nomenclatura">
-                            
+                           
                         </DataGrid>
                     </Grid>
                     <Grid x:Name="Grid2" Visibility="Collapsed">
@@ -76,9 +75,8 @@
                         <StackPanel Orientation="Vertical">
                             <Button Width="100" Height="30"></Button>
                         </StackPanel>
-                    </Grid>
-                </Grid>
-            </ScrollViewer>
+                    </Grid>-->
+            </Grid>
         </Border>
         <StatusBar Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
             <StatusBarItem>

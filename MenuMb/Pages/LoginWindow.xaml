@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         Source="LoginPage.xaml"
-        Background="Transparent"
+        Background="White"
         mc:Ignorable="d"
-        Title="Авторизация" Height="400" Width="300" ShowsNavigationUI="False" Navigating="NavigationWindow_Navigating" Icon="/profile.png"/>
+        Title="Авторизация" Height="400" Width="300" ShowsNavigationUI="False" Navigating="NavigationWindow_Navigating" Icon="/profile.png">
+</NavigationWindow>

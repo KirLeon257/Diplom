@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MenuMb.Pages;
 
 namespace MenuMb;
 
@@ -21,10 +22,23 @@ namespace MenuMb;
 public partial class MainWindow : Window
 {
     bool isMenuClose = true;
+
     public MainWindow()
     {
         InitializeComponent();
+        Closed += MainWindow_Closed;
+        MainConteiner.Navigated += MainConteiner_Navigated;
         
+    }
+
+    private void MainConteiner_Navigated(object sender, NavigationEventArgs e)
+    {
+        
+    }
+
+    private void MainWindow_Closed(object? sender, EventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 
     private void MenuOpenBtn_Click(object sender, RoutedEventArgs e)
@@ -39,15 +53,17 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn1_Click(object sender, RoutedEventArgs e)
     {
-        ShowBlock(Grid1);
+        ShowBlock(new MainPage());
     }
 
-    private void ShowBlock(Grid grid)
+    private void ShowBlock(/*Grid grid*/Page page)
     {
-        Grid1.Visibility = Visibility.Collapsed;
-        Grid2.Visibility = Visibility.Collapsed;
-        Grid3.Visibility = Visibility.Collapsed;
-        grid.Visibility = Visibility.Visible;
+        //Grid1.Visibility = Visibility.Collapsed;
+        //Grid2.Visibility = Visibility.Collapsed;
+        //Grid3.Visibility = Visibility.Collapsed;
+        //grid.Visibility = Visibility.Visible;
+        MainConteiner.NavigationService.Navigate(page);
+        
         MenuAnim();
     }
 
@@ -74,12 +90,12 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)
     {
-        ShowBlock(Grid2);
+        ShowBlock(new Page2());
     }
 
     private void MenuItemBtn3_Click(object sender, RoutedEventArgs e)
     {
-        ShowBlock(Grid3);
+        //ShowBlock(Grid3);
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
