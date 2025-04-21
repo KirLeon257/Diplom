@@ -8,4 +8,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="free-icon-setting-4443102.png" />
+    <None Remove="profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="free-icon-setting-4443102.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="profile.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\free-icon-setting-4443102.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

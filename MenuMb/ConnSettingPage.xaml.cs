@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace MenuMb
 {
     /// <summary>
-    /// Логика взаимодействия для LoginPage.xaml
+    /// Логика взаимодействия для ConnSettingPage.xaml
     /// </summary>
-    public partial class LoginPage : Page
+    public partial class ConnSettingPage : Page
     {
-        RegistrationPage registrationPage;
-        public LoginPage()
+        public ConnSettingPage()
         {
             InitializeComponent();
-        }
-
-        private void RegBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new RegistrationPage());
         }
     }
 }
