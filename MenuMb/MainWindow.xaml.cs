@@ -90,7 +90,7 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)
     {
-        ShowBlock(new Page2());
+        //ShowBlock(new Page2());
     }
 
     private void MenuItemBtn3_Click(object sender, RoutedEventArgs e)
