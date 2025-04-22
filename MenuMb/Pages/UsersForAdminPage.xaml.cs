@@ -1,5 +1,4 @@
-﻿using MenuMb.Classes.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,21 +16,18 @@ using System.Windows.Shapes;
 namespace MenuMb.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainPage.xaml
+    /// Логика взаимодействия для UsersForAdminPage.xaml
     /// </summary>
-    public partial class ReferenceInformationPage : Page
+    public partial class UsersForAdminPage : Page
     {
-        public ReferenceInformationPage()
+        public UsersForAdminPage()
         {
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (LoginUser.User.Role == "Admin")
-            {
-                
-            }
+            this.NavigationService.Navigate(new RegistrationPage());
         }
     }
 }

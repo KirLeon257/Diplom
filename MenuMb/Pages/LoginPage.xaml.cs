@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DotNetEnv;
+using MenuMb.Classes;
 using MenuMb.Classes.Users;
 
 namespace MenuMb
@@ -24,18 +26,21 @@ namespace MenuMb
     /// </summary>
     public partial class LoginPage : Page
     {
+
         HttpClient HttpClient;
 
         public LoginPage()
         {
             InitializeComponent();
+            Env.Load();
             Loaded += LoginPage_Loaded;
         }
 
         private void LoginPage_Loaded(object sender, RoutedEventArgs e)
         {
 
-            Env.Load();
+            ConnectionServerSetings.ServerIp = Env.GetString("SERVER_IP");
+            HttpClient = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         }
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
@@ -48,52 +53,52 @@ namespace MenuMb
             LoginBtn.IsEnabled = false;
             try
             {
-                string address = Env.GetString("SERVER_IP");
-                HttpClient = new HttpClient() { BaseAddress = new Uri(address) };
-                string param = $"login={LoginTxt.Text}&pwd={PwdTxt.Password}";
-                var response = await HttpClient.GetAsync("/user/login?" + param);
-                if (response.IsSuccessStatusCode)
-                {
-                     var user = await response.Content.ReadFromJsonAsync<User>();
-                    if (user != null)
-                    {
-                        Application.Current.MainWindow.Hide();
-
-                        LoginUser.User = user;
-                        var newWindow = new MainWindow();
-                        newWindow.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Не удалось войти :(");
-                    }
-                }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)422)
-                {
-                    MessageBox.Show("Вы ввели некоректные данные");
-                }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)404)
-                {
-                    MessageBox.Show("Неправильный логин и/или пароль");
-                }
-                else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
-                {
-                    MessageBox.Show("Произошла ошибка на сервере");
-                }
-                else
-                {
-                    MessageBox.Show("Не удалось подключится");
-                }
+               await GetUserInfo();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось подключится");
             }
             finally { LoginBtn.IsEnabled = true; }
-
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ConnSettingPage());
+        }
+
+        async Task GetUserInfo()
+        {
+            string param = $"login={LoginTxt.Text}&pwd={PwdTxt.Password}";
+            var response = await HttpClient.GetAsync("/user/login?" + param);
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                if (user != null)
+                {
+                    Application.Current.MainWindow.Hide();
+
+                    LoginUser.User = user;
+                    var newWindow = new MainWindow();
+                    newWindow.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось войти :(");
+                }
+            }
+            else if (response.StatusCode == (System.Net.HttpStatusCode)422)
+            {
+                MessageBox.Show("Вы ввели некоректные данные");
+            }
+            else if (response.StatusCode == (System.Net.HttpStatusCode)404)
+            {
+                MessageBox.Show("Неправильный логин и/или пароль");
+            }
+            else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
+            {
+                MessageBox.Show("Произошла ошибка на сервере");
+            }
         }
     }
 }

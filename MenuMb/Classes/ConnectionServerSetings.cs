@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes
 {
-    public enum RoleEnum
+    public static class ConnectionServerSetings
     {
-        Admin = 0,
-        User = 1
+        public static string ServerIp;
     }
 }

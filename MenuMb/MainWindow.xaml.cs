@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MenuMb.Pages;
+using MenuMb.Classes;
 
 namespace MenuMb;
 
@@ -27,21 +28,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        StatusUpdater.StatusTextBlock = this.LoadStatusText;
         Closed += MainWindow_Closed;
-        
-        Loaded += MainWindow_Loaded;
     }
-
-    
-
-    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        if (LoginUser.User.Role == "Admin")
-        {
-
-        }
-    }
-
 
     private void MainWindow_Closed(object? sender, EventArgs e)
     {
@@ -60,7 +49,7 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn1_Click(object sender, RoutedEventArgs e)
     {
-        ShowBlock(new MainPage());
+        ShowBlock(new ReferenceInformationPage());
     }
 
     private void ShowBlock(/*Grid grid*/Page page)
@@ -107,15 +96,33 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        GetUserMenu();
+        GetMenu(LoginUser.User.Role); 
     }
 
-    private void GetUserMenu()
+    private void GetMenu(string Role)
     {
-        UserMenu menu = new UserMenu();
-        menu.MenuItemBtn1.Click += MenuItemBtn1_Click;
-        menu.MenuItemBtn2.Click += MenuItemBtn2_Click;
-        menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
-        MenuButtonsContainer.Children.Add(menu);
+        if(Role == "Admin")
+        {
+            AdminMenu menu = new AdminMenu();
+            menu.UserMenu.MenuItemBtn1.Click += MenuItemBtn1_Click;
+            menu.UserMenu.MenuItemBtn2.Click += MenuItemBtn2_Click;
+            menu.UserMenu.MenuItemBtn3.Click += MenuItemBtn3_Click;
+            menu.AdminMenuItemBtn1.Click += AdminMenuItemBtn1_Click;
+            MenuButtonsContainer.Children.Add(menu);
+        }
+        else if(Role == "User")
+        {
+            UserMenu menu = new UserMenu();
+            menu.MenuItemBtn1.Click += MenuItemBtn1_Click;
+            menu.MenuItemBtn2.Click += MenuItemBtn2_Click;
+            menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
+            MenuButtonsContainer.Children.Add(menu);
+        }
+       
+    }
+
+    private void AdminMenuItemBtn1_Click(object sender, RoutedEventArgs e)
+    {
+        ShowBlock(new UsersForAdminPage());
     }
 }

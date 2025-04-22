@@ -6,30 +6,23 @@
              xmlns:local="clr-namespace:MenuMb"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="160">
-    <ScrollViewer>
-        <StackPanel>
-            <StackPanel HorizontalAlignment="Center">
-                <Button x:Name="MenuItemBtn1" 
+    <StackPanel Orientation="Vertical">
+        <Button x:Name="MenuItemBtn1" 
                 Width="140" Height="40" 
                 Margin="10,10,10,5">
-                    <!--Click="MenuItemBtn1_Click"-->
-                     Справочники
-                </Button>
-                <Button x:Name="MenuItemBtn2" 
+            Справочники
+        </Button>
+        <Button x:Name="MenuItemBtn2" 
                 Width="140" 
                 Height="40" 
                 Margin="10,10,10,5">
-                    <!--Click="MenuItemBtn2_Click"-->
-                    Операции с ОС
-                </Button>
-                <Button x:Name="MenuItemBtn3" 
+            Операции с ОС
+        </Button>
+        <Button x:Name="MenuItemBtn3" 
                 Width="140" 
                 Height="40" 
                 Margin="10,10,10,5">
-                    <!--Click="MenuItemBtn3_Click"-->
-                    Кнопка3
-                </Button>
-            </StackPanel>
-        </StackPanel>
-    </ScrollViewer>
+            Кнопка3
+        </Button>
+    </StackPanel>
 </UserControl>

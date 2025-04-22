@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:MenuMb"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="160">
-    <StackPanel>
-        
+    <StackPanel Orientation="Vertical">
+        <local:UserMenu x:Name="UserMenu"></local:UserMenu>
+        <Button x:Name="AdminMenuItemBtn1" 
+        Width="140" Height="40" 
+        Margin="10,10,10,5">
+            <TextBlock Text="Пользователи"></TextBlock>
+        </Button>
     </StackPanel>
 </UserControl>

@@ -24,13 +24,19 @@
                     <TextBox x:Name="PatronymicTxt" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></TextBox>
                     <Label Height="30" HorizontalAlignment="Left">Дата рождения</Label>
                     <DatePicker x:Name="DateOfBirth" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></DatePicker>
+                    <Label Height="30" HorizontalAlignment="Left">Роль пользователя</Label>
+                    <ComboBox x:Name="RoleComboBox" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0">
+                        <ComboBoxItem>Администратор</ComboBoxItem>
+                        <ComboBoxItem>Пользователь</ComboBoxItem>
+                    </ComboBox>
+                    
                     <Label Height="30" HorizontalAlignment="Left">Новый логин</Label>
                     <TextBox x:Name="NewLoginTxt" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></TextBox>
                     <Label Height="30" HorizontalAlignment="Left">Новый пароль</Label>
                     <PasswordBox x:Name="NewPwdTxt1" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></PasswordBox>
                     <Label Height="30" HorizontalAlignment="Left">Повторите пароль</Label>
                     <PasswordBox x:Name="NewPwdTxt2" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></PasswordBox>
-                    <Button x:Name="RegBtn" Height="35" Margin="10,10,10,10" Content="Зарегистрироваться"/>
+                    <Button x:Name="RegBtn" Height="35" Margin="10,10,10,10" Content="Зарегистрироваться" Click="RegBtn_Click"/>
                     <Button x:Name="BackBtn" Height="35" Margin="10,5,10,10" Click="BackBtn_Click">Назад</Button>
                 </StackPanel>
             </ScrollViewer>

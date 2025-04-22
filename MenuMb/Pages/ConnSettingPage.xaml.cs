@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DotNetEnv;
+using MenuMb.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +22,29 @@ namespace MenuMb
     /// </summary>
     public partial class ConnSettingPage : Page
     {
-        public ConnSettingPage()
+        string DefaultAddress;
+        public ConnSettingPage() 
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            this.NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            ServerIpTxt.Text = ConnectionServerSetings.ServerIp;
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //if (ConnectionServerSetings.ServerIp != ServerIpTxt.Text)
+            //{
+            //    ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
+            //}
             this.NavigationService.GoBack();
         }
     }
