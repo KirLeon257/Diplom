@@ -1,7 +1,7 @@
 ﻿namespace MenuMb.Classes.Users
 {
-    class LoginUser : User
+    static class LoginUser 
     {
-        
+        static public User User { get; set; }
     }
 }

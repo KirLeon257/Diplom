@@ -10,8 +10,8 @@
       Title="Главная страница">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Visible">
-            <Grid>
-                <DataGrid x:Name="OC_Nomenclatura">
+            <StackPanel Orientation="Vertical">
+                <DataGrid x:Name="OC_Nomenclatura" Height="400">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="fgdfg"></DataGridTextColumn>
                         <DataGridTextColumn Header="fgdfg"></DataGridTextColumn>
@@ -20,16 +20,7 @@
                         <DataGridTextColumn Header="fgdfg"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-                <Button Width="100" Height="30" VerticalAlignment="Bottom"></Button>
-            </Grid>
+            </StackPanel>
         </ScrollViewer>
-        
     </Grid>
 </Page>

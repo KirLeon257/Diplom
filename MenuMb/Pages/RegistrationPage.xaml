@@ -30,11 +30,10 @@
                     <PasswordBox x:Name="NewPwdTxt1" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></PasswordBox>
                     <Label Height="30" HorizontalAlignment="Left">Повторите пароль</Label>
                     <PasswordBox x:Name="NewPwdTxt2" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></PasswordBox>
-                    <Button x:Name="RegBtn" Height="35" Margin="10,10,10,10">Зарегистрироватся</Button>
+                    <Button x:Name="RegBtn" Height="35" Margin="10,10,10,10" Content="Зарегистрироваться"/>
                     <Button x:Name="BackBtn" Height="35" Margin="10,5,10,10" Click="BackBtn_Click">Назад</Button>
                 </StackPanel>
             </ScrollViewer>
-            
         </Border>
     </Grid>
 </Page>

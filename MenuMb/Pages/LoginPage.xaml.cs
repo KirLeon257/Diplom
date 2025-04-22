@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DotNetEnv;
+using MenuMb.Classes.Users;
 
 namespace MenuMb
 {
@@ -52,19 +54,27 @@ namespace MenuMb
                 var response = await HttpClient.GetAsync("/user/login?" + param);
                 if (response.IsSuccessStatusCode)
                 {
-                    string msg = await response.Content.ReadAsStringAsync();
-                    if(msg == "OK")
+                     var user = await response.Content.ReadFromJsonAsync<User>();
+                    if (user != null)
                     {
                         Application.Current.MainWindow.Hide();
 
-                        
+                        LoginUser.User = user;
                         var newWindow = new MainWindow();
                         newWindow.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось войти :(");
                     }
                 }
                 else if (response.StatusCode == (System.Net.HttpStatusCode)422)
                 {
                     MessageBox.Show("Вы ввели некоректные данные");
+                }
+                else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
+                {
+                    MessageBox.Show("Произошла ошибка на сервере");
                 }
                 else
                 {

@@ -9,6 +9,6 @@
       Title="ConnSettingPage">
 
     <Grid>
-        
+        <Button Width="100" Height="30" Click="Button_Click">Назад</Button>
     </Grid>
 </Page>
