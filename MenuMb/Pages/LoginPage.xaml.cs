@@ -25,7 +25,7 @@ namespace MenuMb
     public partial class LoginPage : Page
     {
         HttpClient HttpClient;
-        RegistrationPage registrationPage;
+
         public LoginPage()
         {
             InitializeComponent();
@@ -71,6 +71,10 @@ namespace MenuMb
                 else if (response.StatusCode == (System.Net.HttpStatusCode)422)
                 {
                     MessageBox.Show("Вы ввели некоректные данные");
+                }
+                else if (response.StatusCode == (System.Net.HttpStatusCode)404)
+                {
+                    MessageBox.Show("Неправильный логин и/или пароль");
                 }
                 else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
                 {

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="free-icon-setting-4443102.png" />
+    <None Remove="Pages\atlant_logo.png" />
     <None Remove="profile.png" />
   </ItemGroup>
 
@@ -21,6 +22,7 @@
     <Resource Include="free-icon-setting-4443102.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\atlant_logo.png" />
     <Resource Include="profile.png" />
   </ItemGroup>
 

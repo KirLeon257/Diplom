@@ -6,6 +6,20 @@
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
         Title="Тест меню" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Storyboard x:Key="FadeOutStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             To="0"
+                             Duration="0:0:0.3"/>
+        </Storyboard>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0"
+                             To="1"
+                             Duration="0:0:0.3"/>
+        </Storyboard>
+    </Window.Resources>
+    
     <Grid>
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">

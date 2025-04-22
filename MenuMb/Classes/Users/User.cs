@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes.Users
 {
-    class User
+    public  class User
     {
-        static public int Id;
-        static public string FIO;
-        static public string Role;
-        static public string ApiToken;
+         public int Id { get; }
+         public string FIO { get; }
+         public string Role { get; }
+         public string ApiToken { get; }
     }
 }

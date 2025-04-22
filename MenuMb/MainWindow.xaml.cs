@@ -22,19 +22,26 @@ namespace MenuMb;
 public partial class MainWindow : Window
 {
     bool isMenuClose = true;
+    private object _nextPage;
 
     public MainWindow()
     {
         InitializeComponent();
         Closed += MainWindow_Closed;
-        MainConteiner.Navigated += MainConteiner_Navigated;
         
+        Loaded += MainWindow_Loaded;
     }
 
-    private void MainConteiner_Navigated(object sender, NavigationEventArgs e)
+    
+
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        
+        if (LoginUser.User.Role == "Admin")
+        {
+
+        }
     }
+
 
     private void MainWindow_Closed(object? sender, EventArgs e)
     {
@@ -111,6 +118,4 @@ public partial class MainWindow : Window
         menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
         MenuButtonsContainer.Children.Add(menu);
     }
-
-    
 }
