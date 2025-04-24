@@ -8,8 +8,9 @@ namespace MenuMb.Classes.Users
 {
     public class User
     {
-        public int Id { get; set; }
-        public string FIO { get;set;}
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Patronymic { get; set; }
         RoleEnum _role;
         public string Role
         {
@@ -19,10 +20,10 @@ namespace MenuMb.Classes.Users
             }
             set
             {
-                if (value == "Admin")
+                if (value == "Admin" || value == "Администратор")
                 {
                     _role = RoleEnum.Admin;
-                }else if (value == "User")
+                }else if (value == "User" || value == "Пользователь")
                 {
                     _role = RoleEnum.User;
                 }
@@ -34,5 +35,13 @@ namespace MenuMb.Classes.Users
 
         }
         public string ApiToken { get; set; }
+    }
+
+    class NewUserInfo : User
+    {
+        public DateTime DateOfBirth { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string ApiTokenAdmin { get; set; }
     }
 }

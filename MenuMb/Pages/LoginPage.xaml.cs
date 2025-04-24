@@ -28,7 +28,7 @@ namespace MenuMb
     {
 
         HttpClient HttpClient;
-
+        MainWindow newWindow;
         public LoginPage()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace MenuMb
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new RegistrationPage());
+           MessageBox.Show("Для регистрации обратитесь к администратору");
         }
 
         private async void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -69,18 +69,32 @@ namespace MenuMb
 
         async Task GetUserInfo()
         {
-            string param = $"login={LoginTxt.Text}&pwd={PwdTxt.Password}";
+            string param = $"login={LoginTxt.Text}&pwd={PasswordHash.GetPasswordHash(PwdTxt.Password)}";
             var response = await HttpClient.GetAsync("/user/login?" + param);
             if (response.IsSuccessStatusCode)
             {
                 var user = await response.Content.ReadFromJsonAsync<User>();
                 if (user != null)
                 {
-                    Application.Current.MainWindow.Hide();
+                    // Сохранение ссылки на NavigationWindow
+                    var navigationWindow = Application.Current.MainWindow as NavigationWindow;
 
+                    // Скрываем NavigationWindow
+                    if (navigationWindow != null)
+                    {
+                        navigationWindow.Hide();
+                    }
+
+                    // Сохраняем данные пользователя
                     LoginUser.User = user;
-                    var newWindow = new MainWindow();
-                    newWindow.Show();
+
+                    // Открываем MainWindow
+                    var mainWindow = new MainWindow
+                    {
+                        Owner = navigationWindow // Устанавливаем владельца окна
+                    };
+                    ClearFields();
+                    mainWindow.Show();
                 }
                 else
                 {
@@ -99,6 +113,19 @@ namespace MenuMb
             {
                 MessageBox.Show("Произошла ошибка на сервере");
             }
+        }
+
+        private void ClearFields()
+        {
+            LoginTxt.Clear();
+            PwdTxt.Clear();
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            LoginUser.User = null;
+            newWindow.Close();
+            
         }
     }
 }

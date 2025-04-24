@@ -2,6 +2,6 @@
 {
     public static class LoginUser 
     {
-        static public User User { get; set; }
+        static public User? User { get; set; }
     }
 }

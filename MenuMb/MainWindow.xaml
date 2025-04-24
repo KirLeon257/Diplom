@@ -31,23 +31,25 @@
                   Opacity="0.5">
                 </DropShadowEffect>
             </StackPanel.Effect>
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Button x:Name="MenuCloseBtn" 
                         Width="70" 
                         Height="40" 
                         Margin="10,10,0,10"
                     Click="MenuCloseBtn_Click">
-                    <StackPanel>
-                        <TextBlock Text="Закрыть"></TextBlock>
-                    </StackPanel>
+                    <TextBlock Text="Закрыть"></TextBlock>
                 </Button>
+                <Button x:Name="ExitBtn" 
+                        Width="70" 
+                        Height="40" 
+                        Margin="10,10,0,10" Click="ExitBtn_Click_1">Выйти</Button>
             </StackPanel>
             <ScrollViewer>
                 <StackPanel x:Name="MenuButtonsContainer" Orientation="Vertical" HorizontalAlignment="Center">
-                    
+
                 </StackPanel>
             </ScrollViewer>
-            
+
         </StackPanel>
 
 

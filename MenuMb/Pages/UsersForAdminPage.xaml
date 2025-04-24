@@ -6,13 +6,21 @@
       xmlns:local="clr-namespace:MenuMb.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Страница пользователей" Background="White">
-    <Grid>
-        <Menu VerticalAlignment="Top" Height="30" Background="Azure">
-            <MenuItem Header="Пользователь" Height="30">
-                <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
-            </MenuItem>
-
-        </Menu>
-    </Grid>
+      Title="Страница пользователей" Background="White" Loaded="Page_Loaded">
+    <ScrollViewer>
+        <Grid>
+            <Menu VerticalAlignment="Top"  Background="Azure">
+                <MenuItem Header="Пользователь" Height="35">
+                    <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
+                </MenuItem>
+            </Menu>
+            <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" Width="450" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </ScrollViewer>
 </Page>

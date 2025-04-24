@@ -1,36 +1,15 @@
 ﻿using MenuMb.Classes;
 using MenuMb.Classes.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using MenuMb.Classes;
 
 namespace MenuMb
 {
 
-    class UserData
-    {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Patronymic { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Role { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string ApiTokenAdmin { get; set; }
-    }
     /// <summary>
     /// Логика взаимодействия для RegistrationPage.xaml
     /// </summary>
@@ -53,7 +32,7 @@ namespace MenuMb
 
             if (ValidFields())
             {
-                var userData = new UserData
+                var userData = new NewUserInfo()
                 {
                     Name = NameTxt.Text,
                     Surname = SurnameTxt.Text,
@@ -61,16 +40,15 @@ namespace MenuMb
                     DateOfBirth = DateOfBirth.SelectedDate.Value,
                     Role = RoleComboBox.Text,
                     Login = NewLoginTxt.Text,
-                    Password = NewPwdTxt1.Password,
+                    Password = PasswordHash.GetPasswordHash(NewPwdTxt1.Password),
                     ApiTokenAdmin = LoginUser.User.ApiToken
                 };
 
-                // Сериализация объекта в JSON
                 string jsonString = JsonSerializer.Serialize(userData);
                 StatusUpdater.UpdateStatusBar("Регистрация нового пользователя");
                 if (await RegisterNewUserAsync(jsonString) == true)
                 {
-
+                    StatusUpdater.UpdateStatusBar("Пользователь зарегистрирован");
                 }
 
             }
@@ -143,14 +121,15 @@ namespace MenuMb
             try
             {
                 var response = await client.PostAsync("user/registration/", content);
-                if (response.IsSuccessStatusCode) 
-                { 
+                if (response.IsSuccessStatusCode)
+                {
                     var text = await response.Content.ReadAsStringAsync();
                     if (text == "OK")
                     {
                         return true;
                     }
                 }
+                StatusUpdater.UpdateStatusBar("Не удалось зарегистрировать пользователя :(");
                 return false;
             }
             catch (Exception)
@@ -159,6 +138,9 @@ namespace MenuMb
                 return false;
             }
         }
+
+
+       
 
     }
 }

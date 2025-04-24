@@ -125,4 +125,20 @@ public partial class MainWindow : Window
     {
         ShowBlock(new UsersForAdminPage());
     }
+
+    private void ExitBtn_Click_1(object sender, RoutedEventArgs e)
+    {
+        // Очищаем данные пользователя
+        LoginUser.User = null;
+
+        // Закрываем MainWindow
+        this.Close();
+
+        // Отображаем NavigationWindow
+        var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+        if (navigationWindow != null)
+        {
+            navigationWindow.Show();
+        }
+    }
 }
