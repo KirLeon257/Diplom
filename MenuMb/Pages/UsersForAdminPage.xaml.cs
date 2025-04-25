@@ -24,7 +24,7 @@ namespace MenuMb.Pages
     /// </summary>
     public partial class UsersForAdminPage : Page
     {
-        
+
         public UsersForAdminPage()
         {
             InitializeComponent();
@@ -37,13 +37,34 @@ namespace MenuMb.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) }) 
+            using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) })
             {
                 string param = $"?ApiToken={LoginUser.User.ApiToken}";
-                var UserList = await client.GetFromJsonAsync<List<User>>("/user/list"+param);
-                if(UserList != null)
+                var UserList = await client.GetFromJsonAsync<List<User>>("/user/list" + param);
+                if (UserList != null)
                 {
                     UsersDataGrid.ItemsSource = UserList;
+                }
+            }
+        }
+
+        private async void UserDeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var SelectedUser = UsersDataGrid.SelectedItem as User;
+            if (SelectedUser != null)
+            {
+                using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp)}) 
+                {
+                    var param = $"?UserId={SelectedUser.Id}&ApiToken={LoginUser.User.ApiToken}";
+                    var responseMessage = await client.DeleteAsync("/user/delete"+param);
+                    if (responseMessage.IsSuccessStatusCode) 
+                    { 
+                        var text = await responseMessage.Content.ReadAsStringAsync();
+                        if (text == "OK") 
+                        { 
+                            this.NavigationService.Refresh();
+                        }
+                    }
                 }
             }
         }

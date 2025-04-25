@@ -69,8 +69,10 @@ namespace MenuMb
 
         async Task GetUserInfo()
         {
-            string param = $"login={LoginTxt.Text}&pwd={PasswordHash.GetPasswordHash(PwdTxt.Password)}";
-            var response = await HttpClient.GetAsync("/user/login?" + param);
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+
+            string param = $"?login={LoginTxt.Text}&pwd={PasswordHash.GetPasswordHash(PwdTxt.Password)}";
+            var response = await HttpClient.GetAsync("/user/login" + param);
             if (response.IsSuccessStatusCode)
             {
                 var user = await response.Content.ReadFromJsonAsync<User>();

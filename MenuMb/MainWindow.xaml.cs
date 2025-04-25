@@ -29,12 +29,27 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         StatusUpdater.StatusTextBlock = this.LoadStatusText;
-        Closed += MainWindow_Closed;
+        Closing += MainWindow_Closing;
     }
 
-    private void MainWindow_Closed(object? sender, EventArgs e)
+    private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
-        Application.Current.Shutdown();
+        if (new ExitWindowDialog().ShowDialog() == true) 
+        { 
+            Application.Current.Shutdown();
+        }
+        else
+        {
+            // Очищаем данные пользователя
+            LoginUser.User = null;
+
+            // Отображаем NavigationWindow
+            var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+            if (navigationWindow != null)
+            {
+                navigationWindow.Show();
+            }
+        }
     }
 
     private void MenuOpenBtn_Click(object sender, RoutedEventArgs e)
@@ -52,7 +67,7 @@ public partial class MainWindow : Window
         ShowBlock(new ReferenceInformationPage());
     }
 
-    private void ShowBlock(/*Grid grid*/Page page)
+    private void ShowBlock(Page page)
     {
         //Grid1.Visibility = Visibility.Collapsed;
         //Grid2.Visibility = Visibility.Collapsed;

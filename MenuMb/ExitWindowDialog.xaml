@@ -1,0 +1,18 @@
+﻿<Window x:Class="MenuMb.ExitWindowDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuMb"
+        mc:Ignorable="d"
+        Title="Выйти из программы?" Height="130" Width="380" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Grid >
+        <StackPanel Orientation="Vertical" Height="85" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top">Закрыть программу полностью или выйти из учетной записи?</Label>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Button TabIndex="1" Width="150" Height="30" Margin="0,0,10,0" Click="Button_Click">Закрыть программу</Button>
+                <Button TabIndex="2" Width="150" Height="30" Click="Button_Click_1">Выйти из учетной записи</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

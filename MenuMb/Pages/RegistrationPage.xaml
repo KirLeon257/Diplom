@@ -6,11 +6,11 @@
       xmlns:local="clr-namespace:MenuMb"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="300"
-      Title="RegistrationPage" Background="White">
+      Title="Регистрация пользователя" Background="White">
     <Grid>
         
         <Button Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Background="White" Margin="0,10,10,0" BorderThickness="0">
-            <Image Source="./free-icon-setting-4443102.png"></Image>
+            <Image Source="/Images/free-icon-setting-4443102.png"></Image>
         </Button>
         <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10" Margin="10,10,10,10">
             <ScrollViewer>
@@ -29,7 +29,6 @@
                         <ComboBoxItem>Администратор</ComboBoxItem>
                         <ComboBoxItem>Пользователь</ComboBoxItem>
                     </ComboBox>
-                    
                     <Label Height="30" HorizontalAlignment="Left">Новый логин</Label>
                     <TextBox x:Name="NewLoginTxt" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></TextBox>
                     <Label Height="30" HorizontalAlignment="Left">Новый пароль</Label>

@@ -7,20 +7,26 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Страница пользователей" Background="White" Loaded="Page_Loaded">
-    <ScrollViewer>
-        <Grid>
-            <Menu VerticalAlignment="Top"  Background="Azure">
-                <MenuItem Header="Пользователь" Height="35">
-                    <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
-                </MenuItem>
-            </Menu>
-            <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" Width="450" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0">
+    <Grid>
+        <Menu Panel.ZIndex="1" VerticalAlignment="Top"  Background="Azure">
+            <MenuItem Header="Пользователь" Height="35">
+                <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ScrollViewer>
+            <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" Width="450" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" IsReadOnly="True" CanUserAddRows="False">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="UserDeleteBtn" Click="UserDeleteBtn_Click" Header="Удалить"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding Role}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </Page>
