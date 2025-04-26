@@ -45,6 +45,7 @@ namespace MenuMb
             //{
             //    ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
             //}
+            ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
             this.NavigationService.GoBack();
         }
     }

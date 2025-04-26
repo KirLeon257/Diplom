@@ -1,8 +1,14 @@
-﻿using MenuMb.Classes.Users;
+﻿using MenuMb.Classes;
+using MenuMb.Classes.OC;
+using MenuMb.Classes.Users;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,24 +18,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using MenuMb.Classes;
 using System.Windows.Shapes;
-using MenuMb.Classes.OC;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Collections.ObjectModel;
-using System.Text.Json;
+using MenuMb.Classes;
 
 namespace MenuMb.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для DepartmentPage.xaml
+    /// Логика взаимодействия для ResponseblePersonePage.xaml
     /// </summary>
-    public partial class DepartmentPage : Page
+    public partial class ResponseblePersonePage : Page
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
-        ObservableCollection<Department> departmentList;
-        public DepartmentPage()
+        ObservableCollection<ResponseblePerson> personsList;
+        public ResponseblePersonePage()
         {
             InitializeComponent();
         }
@@ -43,31 +44,31 @@ namespace MenuMb.Pages
                 deleteMenuItem.Header = "Удалить";
                 deleteMenuItem.Click += async (o, e) =>
                 {
-                    var SelectedDepartment = DepartmentDataGrid.SelectedItem as Department;
-                    if (MessageBox.Show($"Вы уверены что хотите удалить подразделение {SelectedDepartment.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    var SelectedPerson = ResponseblePersonsDataGrid.SelectedItem as ResponseblePerson;
+                    if (MessageBox.Show($"Вы уверены что хотите удалить подразделение {SelectedPerson.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        var param = $"?DepId={SelectedDepartment?.Id}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/department/delete" + param);
+                        var param = $"?Code={SelectedPerson?.Code}&ApiToken={LoginUser.User.ApiToken}";
+                        var response = await client.DeleteAsync("/responsebleperson/delete" + param);
                         if (response.IsSuccessStatusCode)
                         {
                             var text = await response.Content.ReadAsStringAsync();
                             if (text == "OK")
                             {
-                                departmentList.Remove(SelectedDepartment);
+                                personsList.Remove(SelectedPerson);
                             }
                         }
                     }
 
                 };
                 menu.Items.Add(deleteMenuItem);
-                DepartmentDataGrid.ContextMenu = menu;
+                ResponseblePersonsDataGrid.ContextMenu = menu;
             }
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            departmentList = await client.GetFromJsonAsync<ObservableCollection<Department>>("/department/list" + param);
-            if (departmentList != null && departmentList.Count != 0)
+            personsList = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsebleperson/list" + param);
+            if (personsList != null && personsList.Count != 0)
             {
-                DepartmentDataGrid.ItemsSource = departmentList;
+                ResponseblePersonsDataGrid.ItemsSource = personsList;
             }
             else
             {
@@ -78,25 +79,29 @@ namespace MenuMb.Pages
 
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var win = new ResponseblePersonWindow();
+            var win = new ResponseblePersoneWindow();
             if (win.ShowDialog() == true)
             {
-                //Department department = new Department();
-                //department.Name = win.Name;
-                var dep = new
+
+                var person = new
                 {
-                    Name = win.DepName,
+                    Code = win.Person.Code,
+                    Name = win.Person.Name,
+                    Surname = win.Person.Surname,
+                    Patronymic = win.Person.Patronymic,
                     ApiToken = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(dep);
+                string jsonString = JsonSerializer.Serialize(person);
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/department/add", content);
+                var response = await client.PostAsync("/responsebleperson/add", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                    Department department = new Department(Id, dep.Name);
-                    departmentList.Add(department);
+                    if (await response.Content.ReadAsStringAsync() == "OK")
+                    {
+
+                        personsList.Add(win.Person);
+                    }
                 }
                 else if (response.StatusCode == (System.Net.HttpStatusCode)500)
                 {

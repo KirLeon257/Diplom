@@ -17,10 +17,10 @@ namespace MenuMb
     /// <summary>
     /// Логика взаимодействия для DepartmentWindow.xaml
     /// </summary>
-    public partial class DepartmentWindow : Window
+    public partial class ResponseblePersonWindow : Window
     {
         public string DepName { get; private set; }
-        public DepartmentWindow()
+        public ResponseblePersonWindow()
         {
             InitializeComponent();
         }

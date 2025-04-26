@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MenuMb.Classes
+namespace MenuMb
 {
     /// <summary>
     /// Логика взаимодействия для SuppliersWindow.xaml

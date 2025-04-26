@@ -45,6 +45,16 @@
                     </Button>
                 </StackPanel>
             </Border>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,10,0">
+                <StackPanel Width="250" Orientation="Vertical">
+                    <Label FontSize="20" FontStyle="Normal" FontWeight="Black" FontFamily="Times New Roman" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40">Справочник</Label>
+                    <Button Height="30" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Click="Button_Click_2">
+                        <TextBlock>
+                 МОЛ(Материально ответственные лица)
+                        </TextBlock>
+                    </Button>
+                </StackPanel>
+            </Border>
         </WrapPanel>
     </Grid>
 </Page>

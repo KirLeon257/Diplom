@@ -32,6 +32,8 @@ public partial class MainWindow : Window
         Closing += MainWindow_Closing;
     }
 
+    
+
     private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (new ExitWindowDialog().ShowDialog() == true) 

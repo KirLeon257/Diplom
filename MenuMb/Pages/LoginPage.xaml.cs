@@ -45,7 +45,7 @@ namespace MenuMb
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
         {
-           MessageBox.Show("Для регистрации обратитесь к администратору");
+           MessageBox.Show("Для регистрации обратитесь к администратору","Внимание",MessageBoxButton.OK,MessageBoxImage.Asterisk);
         }
 
         private async void LoginBtn_Click(object sender, RoutedEventArgs e)
@@ -127,7 +127,6 @@ namespace MenuMb
         {
             LoginUser.User = null;
             newWindow.Close();
-            
         }
     }
 }
