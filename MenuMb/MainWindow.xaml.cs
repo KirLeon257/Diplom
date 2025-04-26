@@ -74,29 +74,46 @@ public partial class MainWindow : Window
         //Grid3.Visibility = Visibility.Collapsed;
         //grid.Visibility = Visibility.Visible;
         MainConteiner.NavigationService.Navigate(page);
-        
         MenuAnim();
     }
 
     void MenuAnim()
     {
-        DoubleAnimation anim = new DoubleAnimation();
+        //DoubleAnimation anim = new DoubleAnimation();
+        //if (isMenuClose)
+        //{
+        //    anim.From = MenuContainer.ActualWidth;
+        //    anim.To = 200;
+        //    anim.Duration = TimeSpan.FromSeconds(0.25);
+        //    isMenuClose = !isMenuClose;
+        //}
+        //else
+        //{
+        //    anim.From = MenuContainer.ActualWidth;
+        //    anim.To = 0;
+        //    anim.Duration = TimeSpan.FromSeconds(0.25);
+        //    isMenuClose = !isMenuClose;
+        //}
+
+        //MenuContainer.BeginAnimation(WidthProperty, anim);
+        TranslateTransform translateTransform = new TranslateTransform();
+        MenuContainer.RenderTransform = translateTransform;
+        DoubleAnimation animation = new DoubleAnimation();
         if (isMenuClose)
         {
-            anim.From = MenuContainer.ActualWidth;
-            anim.To = 200;
-            anim.Duration = TimeSpan.FromSeconds(0.25);
+            animation.From = 0;
+            animation.To = 210;
             isMenuClose = !isMenuClose;
         }
         else
         {
-            anim.From = MenuContainer.ActualWidth;
-            anim.To = 0;
-            anim.Duration = TimeSpan.FromSeconds(0.25);
+            animation.From = 210;
+            animation.To = 0;
             isMenuClose = !isMenuClose;
         }
+        animation.Duration = TimeSpan.FromSeconds(0.25);
+        translateTransform.BeginAnimation(TranslateTransform.XProperty, animation);
 
-        MenuContainer.BeginAnimation(WidthProperty, anim);
     }
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)

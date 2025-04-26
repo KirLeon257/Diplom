@@ -22,7 +22,7 @@
         </StackPanel>
 
         <!--Контейнер меню-->
-        <StackPanel x:Name="MenuContainer" Panel.ZIndex="1" HorizontalAlignment="Left" Width="0" Background="#02448d">
+        <StackPanel x:Name="MenuContainer" Panel.ZIndex="1" HorizontalAlignment="Left" Margin="-210,0,0,0" Width="200" Background="#02448d">
             <StackPanel.Effect>
                 <DropShadowEffect Color="Black" 
                   BlurRadius="15" 
