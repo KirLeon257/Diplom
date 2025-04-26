@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -24,7 +25,7 @@ namespace MenuMb.Pages
     /// </summary>
     public partial class UsersForAdminPage : Page
     {
-
+        ObservableCollection<User> UserList;
         public UsersForAdminPage()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace MenuMb.Pages
             using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) })
             {
                 string param = $"?ApiToken={LoginUser.User.ApiToken}";
-                var UserList = await client.GetFromJsonAsync<List<User>>("/user/list" + param);
+                UserList = await client.GetFromJsonAsync<ObservableCollection<User>>("/user/list" + param);
                 if (UserList != null)
                 {
                     UsersDataGrid.ItemsSource = UserList;
@@ -62,7 +63,7 @@ namespace MenuMb.Pages
                         var text = await responseMessage.Content.ReadAsStringAsync();
                         if (text == "OK") 
                         { 
-                            this.NavigationService.Refresh();
+                            UserList.Remove(SelectedUser);
                         }
                     }
                 }

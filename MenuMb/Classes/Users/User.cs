@@ -45,4 +45,9 @@ namespace MenuMb.Classes.Users
         public string Password { get; set; }
         public string ApiTokenAdmin { get; set; }
     }
+
+    public static class LoginUser
+    {
+        static public User? User { get; set; }
+    }
 }

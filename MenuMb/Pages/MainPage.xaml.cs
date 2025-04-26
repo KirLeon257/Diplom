@@ -30,8 +30,17 @@ namespace MenuMb.Pages
         {
             if (LoginUser.User.Role == "Admin")
             {
+                ContextMenu menu = new ContextMenu();
+                var menuItem = new MenuItem();
+                menuItem.Header = "Удалить";
+                menu.Items.Add(menuItem);
                 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DepartmentPage());
         }
     }
 }

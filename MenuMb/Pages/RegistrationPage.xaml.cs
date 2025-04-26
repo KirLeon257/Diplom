@@ -28,8 +28,6 @@ namespace MenuMb
 
         private async void RegBtn_Click(object sender, RoutedEventArgs e)
         {
-
-
             if (ValidFields())
             {
                 var userData = new NewUserInfo()
@@ -50,7 +48,6 @@ namespace MenuMb
                 {
                     StatusUpdater.UpdateStatusBar("Пользователь зарегистрирован");
                 }
-
             }
 
         }
@@ -120,7 +117,7 @@ namespace MenuMb
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             try
             {
-                var response = await client.PostAsync("user/registration/", content);
+                var response = await client.PostAsync("/user/registration", content);
                 if (response.IsSuccessStatusCode)
                 {
                     var text = await response.Content.ReadAsStringAsync();
@@ -138,9 +135,5 @@ namespace MenuMb
                 return false;
             }
         }
-
-
-       
-
     }
 }
