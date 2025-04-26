@@ -54,16 +54,19 @@ namespace MenuMb.Pages
             var SelectedUser = UsersDataGrid.SelectedItem as User;
             if (SelectedUser != null)
             {
-                using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp)}) 
+                if (MessageBox.Show($"Вы уверены что хотите удалить пользователя {SelectedUser.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var param = $"?UserId={SelectedUser.Id}&ApiToken={LoginUser.User.ApiToken}";
-                    var responseMessage = await client.DeleteAsync("/user/delete"+param);
-                    if (responseMessage.IsSuccessStatusCode) 
-                    { 
-                        var text = await responseMessage.Content.ReadAsStringAsync();
-                        if (text == "OK") 
-                        { 
-                            UserList.Remove(SelectedUser);
+                    using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) })
+                    {
+                        var param = $"?UserId={SelectedUser.Id}&ApiToken={LoginUser.User.ApiToken}";
+                        var responseMessage = await client.DeleteAsync("/user/delete" + param);
+                        if (responseMessage.IsSuccessStatusCode)
+                        {
+                            var text = await responseMessage.Content.ReadAsStringAsync();
+                            if (text == "OK")
+                            {
+                                UserList.Remove(SelectedUser);
+                            }
                         }
                     }
                 }

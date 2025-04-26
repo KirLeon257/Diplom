@@ -1,7 +1,10 @@
-﻿using MenuMb.Classes.Users;
+﻿using MenuMb.Classes.OC;
+using MenuMb.Classes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,29 +15,27 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using MenuMb.Classes;
 using System.Windows.Shapes;
-using MenuMb.Classes.OC;
-using System.Net.Http;
+using MenuMb.Classes.Users;
 using System.Net.Http.Json;
-using System.Collections.ObjectModel;
 using System.Text.Json;
 
 namespace MenuMb.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для DepartmentPage.xaml
+    /// Логика взаимодействия для SuppliersPage.xaml
     /// </summary>
-    public partial class DepartmentPage : Page
+    public partial class SuppliersPage : Page
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
-        ObservableCollection<Department> departmentList;
-        public DepartmentPage()
+        ObservableCollection<Supplier> suppliersList;
+        public SuppliersPage()
         {
             InitializeComponent();
+            Loaded += SuppliersPage_Loaded;
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void SuppliersPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (LoginUser.User.Role == RoleEnum.Admin.ToString())
             {
@@ -43,60 +44,57 @@ namespace MenuMb.Pages
                 deleteMenuItem.Header = "Удалить";
                 deleteMenuItem.Click += async (o, e) =>
                 {
-                    var SelectedDepartment = DepartmentDataGrid.SelectedItem as Department;
-                    if (MessageBox.Show($"Вы уверены что хотите удалить подразделение {SelectedDepartment.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    var SelectedSupplier = SuppliersDataGrid.SelectedItem as Supplier;
+                    if(MessageBox.Show($"Вы уверены что хотите удалить поставщика {SelectedSupplier.Name}?","Предупреждение",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                     {
-                        var param = $"?DepId={SelectedDepartment?.Id}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/department/delete" + param);
+                        var param = $"?SupId={SelectedSupplier?.Id}&ApiToken={LoginUser.User.ApiToken}";
+                        var response = await client.DeleteAsync("/supplier/delete" + param);
                         if (response.IsSuccessStatusCode)
                         {
                             var text = await response.Content.ReadAsStringAsync();
                             if (text == "OK")
                             {
-                                departmentList.Remove(SelectedDepartment);
+                                suppliersList.Remove(SelectedSupplier);
                             }
                         }
                     }
-
+                    
                 };
                 menu.Items.Add(deleteMenuItem);
-                DepartmentDataGrid.ContextMenu = menu;
+                SuppliersDataGrid.ContextMenu = menu;
             }
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            departmentList = await client.GetFromJsonAsync<ObservableCollection<Department>>("/department/list" + param);
-            if (departmentList != null && departmentList.Count != 0)
+            suppliersList = await client.GetFromJsonAsync<ObservableCollection<Supplier>>("/supplier/list" + param);
+            if (suppliersList != null && suppliersList.Count != 0)
             {
-                DepartmentDataGrid.ItemsSource = departmentList;
+                SuppliersDataGrid.ItemsSource = suppliersList;
             }
             else
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
-
         }
 
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var win = new DepartmentWindow();
+            var win = new SuppliersWindow();
             if (win.ShowDialog() == true)
             {
-                //Department department = new Department();
-                //department.Name = win.Name;
-                var dep = new
+                var sup = new
                 {
-                    Name = win.DepName,
+                    Name = win.SupplierName,
                     ApiToken = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(dep);
+                string jsonString = JsonSerializer.Serialize(sup);
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/department/add", content);
+                var response = await client.PostAsync("/supplier/add", content);
                 if (response.IsSuccessStatusCode)
                 {
                     int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                    Department department = new Department(Id, dep.Name);
-                    departmentList.Add(department);
+                    Supplier supplier = new Supplier(Id, sup.Name);
+                    suppliersList.Add(supplier);
                 }
                 else if (response.StatusCode == (System.Net.HttpStatusCode)500)
                 {
