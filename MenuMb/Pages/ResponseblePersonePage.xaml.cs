@@ -45,10 +45,10 @@ namespace MenuMb.Pages
                 deleteMenuItem.Click += async (o, e) =>
                 {
                     var SelectedPerson = ResponseblePersonsDataGrid.SelectedItem as ResponseblePerson;
-                    if (MessageBox.Show($"Вы уверены что хотите удалить подразделение {SelectedPerson.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show($"Вы уверены что хотите удалить МОЛ {SelectedPerson.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         var param = $"?Code={SelectedPerson?.Code}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/responsebleperson/delete" + param);
+                        var response = await client.DeleteAsync("/responsibleperson/delete" + param);
                         if (response.IsSuccessStatusCode)
                         {
                             var text = await response.Content.ReadAsStringAsync();
@@ -65,7 +65,7 @@ namespace MenuMb.Pages
             }
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            personsList = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsebleperson/list" + param);
+            personsList = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list" + param);
             if (personsList != null && personsList.Count != 0)
             {
                 ResponseblePersonsDataGrid.ItemsSource = personsList;
@@ -94,12 +94,11 @@ namespace MenuMb.Pages
 
                 string jsonString = JsonSerializer.Serialize(person);
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/responsebleperson/add", content);
+                var response = await client.PostAsync("/responsibleperson/add", content);
                 if (response.IsSuccessStatusCode)
                 {
                     if (await response.Content.ReadAsStringAsync() == "OK")
                     {
-
                         personsList.Add(win.Person);
                     }
                 }

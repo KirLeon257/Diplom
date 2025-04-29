@@ -18,8 +18,9 @@ namespace MenuMb.Classes.OC
         public int DepartmentId { get; set; }
         public string DepreciationType { get; set; }
         public string EquipmentCode { get; set; }
-        public int UsagePeriod { get; set; }
+        public int EnterDate { get; set; }
         public int RemainingPeriod { get; set; }
         public int YearOfManufacture { get; set; }
+        public int PreciousMetalsId { get; set; }
     }
 }

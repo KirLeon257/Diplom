@@ -63,6 +63,12 @@ namespace MenuMb.Pages
                 DepartmentDataGrid.ContextMenu = menu;
             }
 
+            await LoadDepartments();
+
+        }
+
+        private async Task LoadDepartments()
+        {
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
             departmentList = await client.GetFromJsonAsync<ObservableCollection<Department>>("/department/list" + param);
             if (departmentList != null && departmentList.Count != 0)
@@ -73,7 +79,6 @@ namespace MenuMb.Pages
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
-
         }
 
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -83,25 +88,31 @@ namespace MenuMb.Pages
             {
                 //Department department = new Department();
                 //department.Name = win.Name;
-                var dep = new
-                {
-                    Name = win.DepName,
-                    ApiToken = LoginUser.User.ApiToken
-                };
+                await AddDepartment(win.DepName);
 
-                string jsonString = JsonSerializer.Serialize(dep);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/department/add", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                    Department department = new Department(Id, dep.Name);
-                    departmentList.Add(department);
-                }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)500)
-                {
-                    MessageBox.Show("Произошла ошибка на сервере");
-                }
+
+            }
+        }
+
+        private async Task AddDepartment(string DepName)
+        {
+            var dep = new
+            {
+                Name = DepName,
+                ApiToken = LoginUser.User.ApiToken
+            };
+            string jsonString = JsonSerializer.Serialize(dep);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("/department/add", content);
+            if (response.IsSuccessStatusCode)
+            {
+                int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
+                Department department = new Department(Id, dep.Name);
+                departmentList.Add(department);
+            }
+            else if (response.StatusCode == (System.Net.HttpStatusCode)500)
+            {
+                MessageBox.Show("Произошла ошибка на сервере");
             }
         }
     }
