@@ -362,3 +362,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DiplomShema.mwb
+/DiplomShema.mwb.bak
+/DiplomShema.mwb.beforefix
+/DiplomShemaScript.sql
