@@ -18,11 +18,11 @@
                 Margin="10,10,10,5">
             Операции с ОС
         </Button>
-        <Button x:Name="MenuItemBtn3" 
+        <!--<Button x:Name="MenuItemBtn3" 
                 Width="140" 
                 Height="40" 
                 Margin="10,10,10,5">
             Кнопка3
-        </Button>
+        </Button>-->
     </StackPanel>
 </UserControl>

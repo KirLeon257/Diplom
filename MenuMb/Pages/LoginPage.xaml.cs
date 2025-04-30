@@ -69,7 +69,6 @@ namespace MenuMb
 
         async Task GetUserInfo()
         {
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
             string param = $"?login={LoginTxt.Text}&pwd={PasswordHash.GetPasswordHash(PwdTxt.Password)}";
             var response = await HttpClient.GetAsync("/user/login" + param);
@@ -127,6 +126,32 @@ namespace MenuMb
         {
             LoginUser.User = null;
             newWindow.Close();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+#if DEBUG
+            // Сохранение ссылки на NavigationWindow
+            var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+
+            // Скрываем NavigationWindow
+            if (navigationWindow != null)
+            {
+                navigationWindow.Hide();
+            }
+
+            // Сохраняем данные пользователя
+            LoginUser.User = new User(1,"Kir","Leon","Alexandrovich","Admin","6aad7e3e1aca65764faae80611ec474a");
+
+            // Открываем MainWindow
+            var mainWindow = new MainWindow
+            {
+                Owner = navigationWindow // Устанавливаем владельца окна
+            };
+            ClearFields();
+            mainWindow.Show();
+#endif
+
         }
     }
 }

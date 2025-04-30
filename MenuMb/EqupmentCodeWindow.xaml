@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="EqupmentCodeWindow" Height="240" Width="300">
+        Title="EqupmentCodeWindow" Height="440" Width="300">
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0" Height="339">
             <Label Margin="0,0,10,0">Код</Label>
             <TextBox x:Name="EqCodeCodeTxt"  Width="170" Height="30"></TextBox>
-            <Label Margin="0,0,10,0">Название</Label>
-            <TextBox x:Name="EqCodeNameTxt"  Width="170" Height="30"></TextBox>
+            <Label Margin="0,0,10,0">Наименование</Label>
+            <TextBox x:Name="EqCodeNameTxt"  Width="244" Height="210" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"></TextBox>
         </StackPanel>
         <Button x:Name="AddBtn" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Height="30" Margin="0,0,0,15" Click="AddBtn_Click">Добавить</Button>
 

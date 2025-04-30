@@ -13,6 +13,18 @@ namespace MenuMb.Classes.Users
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         RoleEnum _role;
+
+        public User() { }
+        public User(int id, string name, string surname, string patronymic, string role, string apiToken)
+        {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            Patronymic = patronymic;
+            Role = role;
+            ApiToken = apiToken;
+        }
+
         public string Role
         {
             get

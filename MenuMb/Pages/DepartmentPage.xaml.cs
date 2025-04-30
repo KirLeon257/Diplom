@@ -43,42 +43,64 @@ namespace MenuMb.Pages
                 deleteMenuItem.Header = "Удалить";
                 deleteMenuItem.Click += async (o, e) =>
                 {
-                    var SelectedDepartment = DepartmentDataGrid.SelectedItem as Department;
-                    if (MessageBox.Show($"Вы уверены что хотите удалить подразделение {SelectedDepartment.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    var SelectedDepartment = DepartmentDataGrid.SelectedItems.Cast<Department>().ToList();
+
+                    if (SelectedDepartment != null)
                     {
-                        var param = $"?DepId={SelectedDepartment?.Id}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/department/delete" + param);
-                        if (response.IsSuccessStatusCode)
+                        string msg;
+                        if (SelectedDepartment.Count == 1)
                         {
-                            var text = await response.Content.ReadAsStringAsync();
-                            if (text == "OK")
+                            msg = $"Вы уверены что хотите удалить подразделение \"{SelectedDepartment[0].Name}\"?";
+                        }
+                        else
+                        {
+                            msg = $"Вы уверены что хотите удалить выбранные элементы?";
+                        }
+                        if (MessageBox.Show(msg, "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            string delparam = $"?&ApiToken={LoginUser.User.ApiToken}";
+                            foreach (var item in SelectedDepartment)
                             {
-                                departmentList.Remove(SelectedDepartment);
+                                delparam += $"&DepId={item.Id}";
+                            }
+
+                            var response = await client.DeleteAsync("/department/delete" + delparam);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var text = await response.Content.ReadAsStringAsync();
+                                if (text == "OK")
+                                {
+                                    foreach (var item in SelectedDepartment)
+                                    {
+                                        departmentList.Remove(item);
+                                    }
+
+                                }
                             }
                         }
-                    }
 
+                    };
+                    
                 };
                 menu.Items.Add(deleteMenuItem);
                 DepartmentDataGrid.ContextMenu = menu;
             }
-
             await LoadDepartments();
-
         }
+
+
+
 
         private async Task LoadDepartments()
         {
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
             departmentList = await client.GetFromJsonAsync<ObservableCollection<Department>>("/department/list" + param);
-            if (departmentList != null && departmentList.Count != 0)
-            {
-                DepartmentDataGrid.ItemsSource = departmentList;
-            }
-            else
+            if (departmentList == null || departmentList.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
+
             }
+            DepartmentDataGrid.ItemsSource = departmentList;
         }
 
         private async void MenuItem_Click(object sender, RoutedEventArgs e)

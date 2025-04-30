@@ -44,17 +44,40 @@ namespace MenuMb.Pages
                 deleteMenuItem.Header = "Удалить";
                 deleteMenuItem.Click += async (o, e) =>
                 {
-                    var SelectedSupplier = SuppliersDataGrid.SelectedItem as Supplier;
-                    if(MessageBox.Show($"Вы уверены что хотите удалить поставщика {SelectedSupplier.Name}?","Предупреждение",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                    var SelectedSupplier = SuppliersDataGrid.SelectedItems.Cast<Supplier>().ToList();
+
+                    string msg;
+                    if (SelectedSupplier.Count == 1)
                     {
-                        var param = $"?SupId={SelectedSupplier?.Id}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/supplier/delete" + param);
+                        msg = $"Вы уверены что хотите удалить вид ОС \"{SelectedSupplier[0].Name}\"?";
+                    }
+                    else
+                    {
+                        msg = $"Вы уверены что хотите удалить выбранные элементы?";
+                    }
+
+                    if (MessageBox.Show(msg,"Предупреждение",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                    {
+                        var delparam = $"?ApiToken={LoginUser.User.ApiToken}";
+
+                        foreach (var item in SelectedSupplier) 
+                        {
+                            delparam += $"&SupId={item.Id}";
+                            
+                        }
+
+
+                        var response = await client.DeleteAsync("/supplier/delete" + delparam);
                         if (response.IsSuccessStatusCode)
                         {
                             var text = await response.Content.ReadAsStringAsync();
                             if (text == "OK")
                             {
-                                suppliersList.Remove(SelectedSupplier);
+                                foreach (var item in SelectedSupplier)
+                                {
+                                    suppliersList.Remove(item);
+
+                                }
                             }
                         }
                     }

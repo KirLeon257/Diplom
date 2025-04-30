@@ -18,6 +18,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование"></DataGridTextColumn>
                 <DataGridTextColumn Header="Тип ОС" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инв. №" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="МОЛ" Width="auto"></DataGridTextColumn>
                 <DataGridTextColumn Header="Первоначальная стоимость"></DataGridTextColumn>
             </DataGrid.Columns>

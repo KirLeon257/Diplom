@@ -39,8 +39,6 @@ namespace MenuMb.Pages
             var win = new EqupmentCodeWindow();
             if (win.ShowDialog() == true)
             {
-                //Department department = new Department();
-                //department.Name = win.Name;
                 await AddDepartment(win.EqName,win.EqCode);
             }
 
@@ -59,8 +57,8 @@ namespace MenuMb.Pages
             var response = await client.PostAsync("/equpmentcode/add", content);
             if (response.IsSuccessStatusCode)
             {
-                EqupmentCode department = new EqupmentCode(EqCode.Code, EqCode.Name);
-                codesList.Add(department);
+                EqupmentCode equpmentCode = new EqupmentCode(EqCode.Code, EqCode.Name);
+                codesList.Add(equpmentCode);
             }
             else if (response.StatusCode == (System.Net.HttpStatusCode)500)
             {

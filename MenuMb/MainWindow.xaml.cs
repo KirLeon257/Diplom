@@ -140,7 +140,7 @@ public partial class MainWindow : Window
             AdminMenu menu = new AdminMenu();
             menu.UserMenu.MenuItemBtn1.Click += MenuItemBtn1_Click;
             menu.UserMenu.MenuItemBtn2.Click += MenuItemBtn2_Click;
-            menu.UserMenu.MenuItemBtn3.Click += MenuItemBtn3_Click;
+            //menu.UserMenu.MenuItemBtn3.Click += MenuItemBtn3_Click;
             menu.AdminMenuItemBtn1.Click += AdminMenuItemBtn1_Click;
             MenuButtonsContainer.Children.Add(menu);
         }
@@ -149,7 +149,7 @@ public partial class MainWindow : Window
             UserMenu menu = new UserMenu();
             menu.MenuItemBtn1.Click += MenuItemBtn1_Click;
             menu.MenuItemBtn2.Click += MenuItemBtn2_Click;
-            menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
+            //menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
             MenuButtonsContainer.Children.Add(menu);
         }
        

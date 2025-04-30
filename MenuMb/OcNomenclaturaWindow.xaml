@@ -5,29 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="OcNomenclaturaWindow" Height="450" Width="800">
+        Title="Номенклатура ОС" Height="450" Width="350">
     <Grid>
-        <ScrollViewer>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0,5*"></ColumnDefinition>
+            <ColumnDefinition Width="0,5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                 <Label Width="100" Height="30">Наименование</Label>
                 <TextBox Width="100" Height="30"></TextBox>
                 <Label Width="100" Height="30">Тип ОС</Label>
-                <TextBox Width="100" Height="30"></TextBox>
-                <Label Width="100" Height="30">МОЛ</Label>
                 <ComboBox Width="100" Height="30"></ComboBox>
+                <Label Width="100" Height="30">МОЛ</Label>
+                <ComboBox Height="30"></ComboBox>
                 <Label Height="30">Код оборудования</Label>
-                <TextBox Height="30"></TextBox>
+                <ComboBox Width="100" Height="30"></ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
                 <Label Height="30" >Первоначальная стоимость</Label>
                 <TextBox Width="100" Height="30"></TextBox>
-                <Label Height="30">Дата создания</Label>
+                <Label Width="100" Height="30">Дата создания</Label>
                 <DatePicker Width="100" Height="30"></DatePicker>
-                <Label Height="30" >Дата ввода</Label>
+                <Label Width="100" Height="30" >Дата ввода</Label>
                 <DatePicker Width="100" Height="30"></DatePicker>
-                <Label Height="30">Отсавшийся срок</Label>
+                <Label Margin="25,0,25,0" Height="30">Отсавшийся срок</Label>
                 <TextBox Width="100" Height="30"></TextBox>
-                <Label Height="30">Тип амортизации</Label>
-                <TextBox  Height="30"></TextBox>
+                <Label Width="100" Height="30">Тип амортизации</Label>
+                <ComboBox Width="100" Height="30"></ComboBox>
             </StackPanel>
-        </ScrollViewer>
     </Grid>
 </Window>

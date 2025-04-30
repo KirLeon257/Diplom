@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MenuMb"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="300"
-      Title="LoginPage" Background="White">
+      Title="LoginPage" Background="White" Loaded="Page_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>

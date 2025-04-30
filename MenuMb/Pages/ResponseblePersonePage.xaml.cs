@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MenuMb.Classes;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace MenuMb.Pages
 {
@@ -44,17 +45,36 @@ namespace MenuMb.Pages
                 deleteMenuItem.Header = "Удалить";
                 deleteMenuItem.Click += async (o, e) =>
                 {
-                    var SelectedPerson = ResponseblePersonsDataGrid.SelectedItem as ResponseblePerson;
-                    if (MessageBox.Show($"Вы уверены что хотите удалить МОЛ {SelectedPerson.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    var SelectedPerson = ResponseblePersonsDataGrid.SelectedItems.Cast<ResponseblePerson>().ToList();
+
+                    string msg;
+                    if (SelectedPerson.Count == 1)
                     {
-                        var param = $"?Code={SelectedPerson?.Code}&ApiToken={LoginUser.User.ApiToken}";
-                        var response = await client.DeleteAsync("/responsibleperson/delete" + param);
+                        msg = $"Вы уверены что хотите удалить МОЛ \"{SelectedPerson[0].Name}\"?";
+                    }
+                    else
+                    {
+                        msg = $"Вы уверены что хотите удалить выбранные элементы?";
+                    }
+
+                    if (MessageBox.Show(msg, "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        var delparam = $"?ApiToken={LoginUser.User.ApiToken}";
+                        foreach (var item in SelectedPerson)
+                        {
+                            delparam += $"&Code={item.Code}";
+                        }
+
+                        var response = await client.DeleteAsync("/responsibleperson/delete" + delparam);
                         if (response.IsSuccessStatusCode)
                         {
                             var text = await response.Content.ReadAsStringAsync();
                             if (text == "OK")
                             {
-                                personsList.Remove(SelectedPerson);
+                                foreach(var item in SelectedPerson)
+                        {
+                                    personsList.Remove(item);
+                                }
                             }
                         }
                     }
@@ -66,14 +86,11 @@ namespace MenuMb.Pages
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
             personsList = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list" + param);
-            if (personsList != null && personsList.Count != 0)
-            {
-                ResponseblePersonsDataGrid.ItemsSource = personsList;
-            }
-            else
+            if (personsList == null && personsList.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
+                ResponseblePersonsDataGrid.ItemsSource = personsList;
 
         }
 
