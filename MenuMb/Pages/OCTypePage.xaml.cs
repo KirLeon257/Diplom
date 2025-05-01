@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using MenuMb.Classes.Users;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Security.AccessControl;
 
 namespace MenuMb.Pages
 {
@@ -71,7 +72,6 @@ namespace MenuMb.Pages
                                 {
                                     foreach (var item in SelectedType)
                                     {
-
                                         OCTypeList.Remove(item);
                                     }
                                 }
@@ -79,6 +79,39 @@ namespace MenuMb.Pages
                         }
                     }
                 };
+                var updateMenuItem = new MenuItem();
+                updateMenuItem.Header = "Изменить";
+                updateMenuItem.Click += async (o, e) =>
+                {
+                    var SelectedType = OCTypeDataGrid.SelectedItem as OCType;
+                    if (SelectedType != null)
+                    {
+                        var win = new OCTypeWindow(SelectedType.Code, SelectedType.Name, SelectedType.SPI);
+                        if (win.ShowDialog() == true)
+                        {
+
+                            var Oc_Type = new
+                            {
+                                Code = win.Code,
+                                Name = win.Name,
+                                SPI = win.SPI,
+                                ApiToken = LoginUser.User.ApiToken
+                            };
+
+                            string jsonString = JsonSerializer.Serialize(Oc_Type);
+                            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                            var response = await client.PostAsync("/oc_type/edit", content);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                if (await response.Content.ReadAsStringAsync() == "OK")
+                                {
+                                    NavigationService.Refresh();
+                                }
+                            }
+                        }
+                    }
+                };
+                menu.Items.Add(updateMenuItem);
                 menu.Items.Add(deleteMenuItem);
                 OCTypeDataGrid.ContextMenu = menu;
             }
@@ -95,7 +128,9 @@ namespace MenuMb.Pages
                 OCTypeList = await client.GetFromJsonAsync<ObservableCollection<OCType>>("/oc_type/list" + param);
                 if (OCTypeList != null && OCTypeList.Count != 0)
                 {
+
                     OCTypeDataGrid.ItemsSource = OCTypeList;
+
                 }
                 else
                 {
@@ -130,7 +165,7 @@ namespace MenuMb.Pages
                 {
                     if (await response.Content.ReadAsStringAsync() == "OK")
                     {
-                        OCType type = new OCType(Oc_Type.Code, Oc_Type.Name,Oc_Type.SPI);
+                        OCType type = new OCType(Oc_Type.Code, Oc_Type.Name, Oc_Type.SPI);
                         OCTypeList.Add(type);
                     }
                 }

@@ -46,10 +46,10 @@ namespace MenuMb.Pages
             NavigationService.Navigate(new ResponseblePersonePage());
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new EqupmentCodePage());
-        }
+        //private void Button_Click_3(object sender, RoutedEventArgs e)
+        //{
+        //    NavigationService.Navigate(new EqupmentCodePage());
+        //}
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
@@ -59,6 +59,11 @@ namespace MenuMb.Pages
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new OCTypePage());
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new CoefficientsPage());
         }
     }
 }

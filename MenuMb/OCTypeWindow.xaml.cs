@@ -29,6 +29,14 @@ namespace MenuMb
             InitializeComponent();
         }
 
+        public OCTypeWindow(int code, string name, int SPI)
+        {
+            InitializeComponent();
+            CodeTxt.Text = code.ToString();
+            NameTxt.Text = name;
+            SPITxt.Text = SPI.ToString();
+        }
+
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
             int _Code = -1,_SPI = -1;
