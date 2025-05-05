@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /DiplomShema.mwb.beforefix
 /DiplomShemaScript.sql
 /Diplomv2.mwb
+*.bak
