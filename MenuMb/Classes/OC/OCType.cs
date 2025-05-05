@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes.OC
 {
-    internal class OCType
+    public class OCType
     {
         public int Code { get; set; }
         public string Name

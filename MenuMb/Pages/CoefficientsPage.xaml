@@ -7,18 +7,19 @@
       mc:Ignorable="d" 
       Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CoefficientsPage" >
+      Title="Коэффициенты" Loaded="Page_Loaded">
     <Grid>
         <Menu Height="35" VerticalAlignment="Top">
             <MenuItem Header="Коэф" Height="35">
                 <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid x:Name="CoefDataGrid" Margin="0,35,0,0" AutoGenerateColumns="True" IsReadOnly="False" VerticalScrollBarVisibility="Auto" CanUserAddRows="True">
+        <DataGrid x:Name="CoefDataGrid" Margin="0,35,0,0" AutoGenerateColumns="False" CanUserAddRows="True">
             <DataGrid.Columns>
-                <DataGridComboBoxColumn Header="Код" ItemsSource="{Binding coefficients}" IsReadOnly="True"></DataGridComboBoxColumn>
-                <DataGridTextColumn Header="Наименование" Width="auto" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="СПИ" Width="auto" Binding="{Binding SPI}"></DataGridTextColumn>
+                <DataGridComboBoxColumn x:Name="CodesComboBox" Header="Код" ></DataGridComboBoxColumn>
+                <DataGridTextColumn Header="Наименование" Width="auto" Binding="{Binding NameOC}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата" Width="auto" Binding="{Binding OnDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Значение" Width="auto" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

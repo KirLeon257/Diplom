@@ -109,7 +109,7 @@ namespace MenuMb.Pages
             if (win.ShowDialog() == true)
             {
                 //Department department = new Department();
-                //department.Name = win.Name;
+                //department.NameOC = win.NameOC;
                 await AddDepartment(win.DepName);
 
 
