@@ -38,7 +38,8 @@ namespace MenuMb.Pages
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            CoefWindow window = new CoefWindow();
+            window.Show();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -132,20 +133,11 @@ namespace MenuMb.Pages
         {
             var param = "?ApiToken=" + LoginUser.User?.ApiToken;
             coefficients = await client.GetFromJsonAsync<ObservableCollection<Coefficient>>("/coefficient/list" + param);
-            OCTypesCodes = await client.GetFromJsonAsync<ObservableCollection<OCType>>("/oc_type/codes/list" + param);
             if (coefficients == null || coefficients.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
             CoefDataGrid.ItemsSource = coefficients;
-            var comboBoxColumn = CoefDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault();
-            if (comboBoxColumn != null)
-            {
-                comboBoxColumn.ItemsSource = OCTypesCodes;
-                comboBoxColumn.SelectedValuePath = "OC_Type_Code";
-                comboBoxColumn.DisplayMemberPath = "Code";
-                comboBoxColumn.SelectedValueBinding = new Binding("OC_Type_Code");
-            }
         }
 
         private async void LoadOcCodes()
