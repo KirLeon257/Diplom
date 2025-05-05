@@ -39,7 +39,10 @@ namespace MenuMb.Pages
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             CoefWindow window = new CoefWindow();
-            window.Show();
+            if (window.ShowDialog() == true)
+            {
+                this.NavigationService.Refresh();
+            }
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -68,7 +71,7 @@ namespace MenuMb.Pages
                             string delparam = $"?ApiToken={LoginUser.User.ApiToken}";
                             foreach (var item in SelectedCoef)
                             {
-                                delparam += $"&Code={item.Id}";
+                                delparam += $"&CoefId={item.Id}";
                             }
 
                             var response = await client.DeleteAsync("/coefficient/delete" + delparam);
@@ -123,13 +126,11 @@ namespace MenuMb.Pages
                 CoefDataGrid.ContextMenu = menu;
             }
 
-            Parallel.Invoke(LoadCoef/*,LoadOcCodes*/);
-
-            
-            
+            //Parallel.Invoke(LoadCoef/*,LoadOcCodes*/);
+            await LoadCoef();
         }
 
-        private async void LoadCoef()
+        private async Task LoadCoef()
         {
             var param = "?ApiToken=" + LoginUser.User?.ApiToken;
             coefficients = await client.GetFromJsonAsync<ObservableCollection<Coefficient>>("/coefficient/list" + param);
@@ -138,16 +139,6 @@ namespace MenuMb.Pages
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
             CoefDataGrid.ItemsSource = coefficients;
-        }
-
-        private async void LoadOcCodes()
-        {
-            var param = "?ApiToken=" + LoginUser.User?.ApiToken;
-            
-            if (OCTypesCodes == null || OCTypesCodes.Count == 0)
-            {
-                StatusUpdater.UpdateStatusBar("Кодов нет, заполните \"Виды ОС\"");
-            }
         }
     }
 }

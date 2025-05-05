@@ -8,6 +8,6 @@ namespace MenuMb.Classes.OC
 {
     internal class NewCoef : OCType
     {
-        public double NewValue { get; set; }
+        public double? NewValue { get; set; }
     }
 }

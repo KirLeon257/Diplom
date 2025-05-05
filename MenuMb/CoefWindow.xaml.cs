@@ -14,7 +14,7 @@ namespace MenuMb
 {
     enum Month
     {
-        
+
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace MenuMb
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         ObservableCollection<OCType> ocTypes;
-        ObservableCollection<NewCoef> coefficients = new ObservableCollection<NewCoef>();
+        internal ObservableCollection<NewCoef> coefficients = new ObservableCollection<NewCoef>();
         public CoefWindow()
         {
             InitializeComponent();
@@ -41,7 +41,6 @@ namespace MenuMb
 
             await LoadOCType();
             NewCoefDataGrid.ItemsSource = coefficients;
-
             var comboBoxColumn = NewCoefDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault();
         }
 
@@ -51,12 +50,10 @@ namespace MenuMb
             {
                 var param = "?ApiToken=" + LoginUser.User.ApiToken;
                 coefficients = await client.GetFromJsonAsync<ObservableCollection<NewCoef>>("/oc_type/list" + param);
-                if (ocTypes == null)
+                if (coefficients == null)
                 {
-                    StatusUpdater.UpdateStatusBar("Заполните \"Виды ОС\" перед указанием коэф. переоценки");
-                    return;
+                    StatusUpdater.UpdateStatusBar("Нет данных");
                 }
-
             }
             catch (Exception)
             {
@@ -66,31 +63,43 @@ namespace MenuMb
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             //List<(int code, double value)> values = new List<(int code, double value)>();
-            Dictionary<int,double> values = new Dictionary<int,double>();
+            Dictionary<int, double> values = new Dictionary<int, double>();
             foreach (var item in NewCoefDataGrid.Items)
             {
                 var row = item as NewCoef;
-                if (row != null)
+                if (row == null || row.NewValue==null)
                 {
-                    values.Add(row.Code, row.NewValue);
+                    MessageBox.Show("В таблице есть незаполненые ячейки!");
+                    return;
                 }
+                values.Add(row.Code, (double)row.NewValue);
             }
 
             var data = new
             {
                 period = DateTime.Parse($"{YearComboBox.Text}-{MonthComboBox.SelectedIndex + 1}-{DateTime.Today.Day}"),
                 coefs = values,
-                ApiToken = LoginUser.User.ApiToken
+                LoginUser.User.ApiToken
             };
 
             var json = JsonSerializer.Serialize(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = client.PostAsync("/coefficient/add",content);
-
+            var response = await client.PostAsync("/coefficient/add", content);
+            if (response.IsSuccessStatusCode)
+            {
+                if (await response.Content.ReadAsStringAsync() == "OK")
+                {
+                    DialogResult = true;
+                }
+            }
+            else
+            {
+                DialogResult = null;
+            }
         }
     }
 }
