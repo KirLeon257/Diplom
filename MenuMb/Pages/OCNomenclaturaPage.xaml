@@ -7,20 +7,21 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="White"
-      Title="Номенклатура ОС">
+      Title="Номенклатура ОС" Loaded="Page_Loaded">
     <Grid>
         <Menu Height="35" VerticalAlignment="Top">
-            <MenuItem Header="Номенклатура">
+            <MenuItem Header="Номенклатура" Click="MenuItem_Click">
                 <MenuItem Header="Создать"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid Margin="0,35,0,0">
+        <DataGrid Margin="0,35,0,0" x:Name="OcNomenDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наименование"></DataGridTextColumn>
-                <DataGridTextColumn Header="Тип ОС" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Инв. №" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="МОЛ" Width="auto"></DataGridTextColumn>
-                <DataGridTextColumn Header="Первоначальная стоимость"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип ОС" Width="auto" Binding="{Binding OCType}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата ввода" Width="auto" Binding="{Binding EnterDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инв. №" Width="auto" Binding="{Binding Inventory_Number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="МОЛ" Width="auto" Binding="{Binding MOL}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Первоначальная стоимость" Binding="{Binding InitialCost}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -5,33 +5,116 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="Номенклатура ОС" Height="450" Width="350">
+        Title="Номенклатура ОС" Height="700" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="TextBoxInfoStyle">
+            <Setter Property="Control.Margin" Value="0,0,0,5" />
+            <Setter Property="Control.Height" Value="30"/>
+        </Style>
+        <Style x:Key="MetalsStyle">
+            <Setter Property="Control.Margin" Value="0,0,0,5"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0,5*"></ColumnDefinition>
-            <ColumnDefinition Width="0,5*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
-                <Label Width="100" Height="30">Наименование</Label>
-                <TextBox Width="100" Height="30"></TextBox>
-                <Label Width="100" Height="30">Тип ОС</Label>
-                <ComboBox Width="100" Height="30"></ComboBox>
-                <Label Width="100" Height="30">МОЛ</Label>
-                <ComboBox Height="30"></ComboBox>
-                <Label Height="30">Код оборудования</Label>
-                <ComboBox Width="100" Height="30"></ComboBox>
-            </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                <Label Height="30" >Первоначальная стоимость</Label>
-                <TextBox Width="100" Height="30"></TextBox>
-                <Label Width="100" Height="30">Дата создания</Label>
-                <DatePicker Width="100" Height="30"></DatePicker>
-                <Label Width="100" Height="30" >Дата ввода</Label>
-                <DatePicker Width="100" Height="30"></DatePicker>
-                <Label Margin="25,0,25,0" Height="30">Отсавшийся срок</Label>
-                <TextBox Width="100" Height="30"></TextBox>
-                <Label Width="100" Height="30">Тип амортизации</Label>
-                <ComboBox Width="100" Height="30"></ComboBox>
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок окна -->
+        <TextBlock Text="Сведения об Основном средстве" 
+                   FontSize="20" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="10"/>
+
+
+        <Grid Grid.Row="1" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Добавлен новый ряд для МОЛ -->
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="28*"/>
+                <ColumnDefinition Width="117*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Наименование:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <TextBox x:Name="NameBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="Инв. номер:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <TextBox x:Name="InventoryBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="Тип ОС:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <TextBox x:Name="OCTypeCode" PreviewKeyDown="OCTypeCode_PreviewKeyDown" PreviewTextInput="OCTypeCode_PreviewTextInput" LostFocus="OCTypeCode_LostFocus" Grid.Row="3" Grid.Column="1" Margin="0,0,10,5"></TextBox>
+            <ComboBox x:Name="OCTypeBox" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="2" SelectionChanged="OCTypeBox_SelectionChanged" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="Срок службы:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <TextBox x:Name="UsfuleLifeBox" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="МОЛ:" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <ComboBox x:Name="MOLBox" Grid.Row="5" Grid.Column="1" DisplayMemberPath="FIO" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="Начальная стоимость:" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+            <TextBox x:Name="InitialCostBox" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+            <TextBlock Text="Дата ввода:" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+            <DatePicker x:Name="EnterDateBox" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+
+            <TextBlock Text="Дата создания ОС:" Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+            <DatePicker x:Name="CreateDateBox" Grid.Row="8" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+
+            <TextBlock Text="Амортизация:" Grid.Row="9" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+            <ComboBox x:Name="AmortisationBox" Grid.Row="9" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2">
+                <ComboBoxItem Content="Линейная"/>
+            </ComboBox>
+
+            <TextBlock Text="Код оборудования:" Grid.Row="10" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+            <TextBox x:Name="EqupmentCodeBox" Grid.Row="10" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+        </Grid>
+        
+        <!-- Блок информации о драгоценных металлах -->
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Драгоценные металлы" FontSize="16" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"/>
+
+            <UniformGrid Grid.Row="1" Columns="4" VerticalAlignment="Top">
+                <TextBlock Text="Золото:"/>
+                <TextBox x:Name="GoldText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                <TextBlock Text="Серебро:"/>
+                <TextBox x:Name="SilverText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                <TextBlock Text="Палладий:"/>
+                <TextBox x:Name="PaladiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                <TextBlock Text="Платина:"/>
+                <TextBox x:Name="PlatinumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                <TextBlock Text="Индий:"/>
+                <TextBox x:Name="IndiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                <TextBlock Text="Алмазы (шт):"/>
+                <TextBox x:Name="DiamondCountText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                <TextBlock Text="Карат алмазов:"/>
+                <TextBox x:Name="DiamondCaratText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                <TextBlock Text="Прочие металлы:"/>
+                <TextBox x:Name="OtherText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+            </UniformGrid>
+        </Grid>
+        <Button Grid.Row="2" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40" Click="CreateBtn_Click">Создать</Button>
     </Grid>
 </Window>

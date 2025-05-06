@@ -21,5 +21,9 @@ namespace MenuMb.Classes.OC
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
+        public string FIO 
+        {
+            get { return Name + " " + Surname + " " + Patronymic; }
+        }
     }
 }
