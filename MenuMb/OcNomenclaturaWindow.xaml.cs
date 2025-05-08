@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,7 @@ using System.Windows.Shapes;
 namespace MenuMb
 {
 
-    enum AmrtisationType
+    enum AmortisationType
     {
         Liner = 0
     }
@@ -35,6 +36,7 @@ namespace MenuMb
         HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         ObservableCollection<OCType> osTypes;
         ObservableCollection<ResponseblePerson> persons;
+        internal NomenclaturaOCBase NewNomen;
         bool isAProgramm = false;
         public OcNomenclaturaWindow()
         {
@@ -161,11 +163,13 @@ namespace MenuMb
                     InitialCost = InitialCostBox.Text,
                     EnterDate = EnterDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
                     CreateDate = CreateDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                    Amortisation = AmortisationBox.Text,
+                    Amortisation = ((AmortisationType)AmortisationBox.SelectedIndex).ToString(),
                     EqupmentCode = EqupmentCodeBox.Text,
                     Inventory = InventoryBox.Text,
                     MolCode = ((ResponseblePerson)MOLBox.SelectedItem).Code,
-                    OCTypeCode = ((OCType)OCTypeBox.SelectedItem).Code
+                    MolName = ((ResponseblePerson)MOLBox.SelectedItem).Name,
+                    OCTypeCode = ((OCType)OCTypeBox.SelectedItem).Code,
+                    OCTypeName = ((OCType)OCTypeBox.SelectedItem).Name
                 },
 
                 metals = new
@@ -188,6 +192,14 @@ namespace MenuMb
             try
             {
                 var response = await client.PostAsync("/oc_nomenclatura/add", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    if (await response.Content.ReadAsStringAsync() == "OK")
+                    {
+                        NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost),DateTime.Parse(data.oc_info.EnterDate));
+                        DialogResult = true;
+                    }
+                }
             }
             catch (Exception ex)
             {

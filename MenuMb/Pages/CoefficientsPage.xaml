@@ -17,7 +17,7 @@
         <DataGrid x:Name="CoefDataGrid" Margin="0,35,0,0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="CodesComboBox" Header="Код" Binding="{Binding OC_Type_Code}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Наименование" Width="auto" Binding="{Binding NameOC}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Width="auto" Binding="{Binding NameOC}" MaxWidth="250"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата" Width="auto" Binding="{Binding OnDate}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Значение" Width="auto" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes.OC
 {
-    class NomenclaturaOCBase
+    public class NomenclaturaOCBase
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace MenuMb.Classes.OC
         }
     }
 
-    class NomenclaturaOCFull : NomenclaturaOCBase
+    public class NomenclaturaOCFull : NomenclaturaOCBase
     {
         public string Amortisation_type { get; set; }
         public string Equpment_code { get; set; }

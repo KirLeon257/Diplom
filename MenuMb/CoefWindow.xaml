@@ -21,7 +21,7 @@
         <DataGrid x:Name="NewCoefDataGrid" Margin="0,80,0,45" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding Code}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" IsReadOnly="True" MaxWidth="250"></DataGridTextColumn>
                 <DataGridTextColumn Header="Значение" Binding="{Binding NewValue}">
                 </DataGridTextColumn>
             </DataGrid.Columns>

@@ -14,10 +14,10 @@
                 <MenuItem Header="Создать"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid Margin="0,35,0,0" x:Name="OcNomenDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid Margin="0,35,0,0" x:Name="OcNomenDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" MouseDoubleClick="OcNomenDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Тип ОС" Width="auto" Binding="{Binding OCType}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип ОС" Width="auto" Binding="{Binding OCType}" MaxWidth="250"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата ввода" Width="auto" Binding="{Binding EnterDate}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Инв. №" Width="auto" Binding="{Binding Inventory_Number}"></DataGridTextColumn>
                 <DataGridTextColumn Header="МОЛ" Width="auto" Binding="{Binding MOL}"></DataGridTextColumn>

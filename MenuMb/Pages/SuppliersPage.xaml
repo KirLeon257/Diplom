@@ -14,7 +14,7 @@
             </MenuItem>
         </Menu>
         <ScrollViewer>
-            <DataGrid Grid.Row="1" x:Name="SuppliersDataGrid" AutoGenerateColumns="False" Width="450" Height="283" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,45,0,0" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid Grid.Row="1" x:Name="SuppliersDataGrid" AutoGenerateColumns="False"  Margin="0,35,0,0" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
                 </DataGrid.Columns>

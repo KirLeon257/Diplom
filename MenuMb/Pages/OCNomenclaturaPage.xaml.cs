@@ -36,7 +36,10 @@ namespace MenuMb.Pages
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             OcNomenclaturaWindow window = new OcNomenclaturaWindow();
-            window.Show();
+            if (window.ShowDialog() == true)
+            {
+                nomenclaturaOCs.Add(window.NewNomen);
+            }
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -62,6 +65,19 @@ namespace MenuMb.Pages
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void OcNomenDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (OcNomenDataGrid.SelectedItem != null)
+            {
+                var selectedItem = (NomenclaturaOCFull)OcNomenDataGrid.SelectedItem;
+                Console.WriteLine($"Двойной клик по: {selectedItem.Name}, Код: {selectedItem.Id}");
+
+                // Открываем новое окно с деталями
+                var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem);
+                detailsWindow.Show();
             }
         }
     }

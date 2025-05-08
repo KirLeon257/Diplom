@@ -14,7 +14,7 @@
             </MenuItem>
         </Menu>
         <ScrollViewer>
-            <DataGrid Grid.Row="1" x:Name="ResponseblePersonsDataGrid" AutoGenerateColumns="False" Width="450" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid Grid.Row="1" x:Name="ResponseblePersonsDataGrid" AutoGenerateColumns="False"  Margin="0,35,0,0" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Код" Binding="{Binding Code}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"></DataGridTextColumn>

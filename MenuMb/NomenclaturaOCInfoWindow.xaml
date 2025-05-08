@@ -1,0 +1,125 @@
+﻿<Window x:Class="MenuMb.NomenclaturaOCInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuMb"
+        mc:Ignorable="d"
+        Title="NomenclaturaOCInfoWindow" Height="700" Width="800">
+    <Window.Resources>
+        <Style x:Key="TextBoxInfoStyle">
+            <Setter Property="Control.Margin" Value="0,0,0,5" />
+            <Setter Property="Control.Height" Value="30"/>
+        </Style>
+        <Style x:Key="MetalsStyle">
+            <Setter Property="Control.Margin" Value="0,0,0,5"/>
+        </Style>
+    </Window.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок окна -->
+            <TextBlock Text="Сведения об Основном средстве" 
+           FontSize="20" FontWeight="Bold" 
+           HorizontalAlignment="Center" Margin="10"/>
+
+
+            <Grid Grid.Row="1" Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Добавлен новый ряд для МОЛ -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="28*"/>
+                    <ColumnDefinition Width="117*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Наименование:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <TextBox x:Name="NameBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="Инв. номер:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <TextBox x:Name="InventoryBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="Тип ОС:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <TextBox x:Name="OCTypeCode" PreviewKeyDown="OCTypeCode_PreviewKeyDown" PreviewTextInput="OCTypeCode_PreviewTextInput" LostFocus="OCTypeCode_LostFocus" Grid.Row="3" Grid.Column="1" Margin="0,0,10,5"></TextBox>
+                <ComboBox x:Name="OCTypeBox" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="2" SelectionChanged="OCTypeBox_SelectionChanged" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="Срок службы:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <TextBox x:Name="UsfuleLifeBox" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="МОЛ:" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <ComboBox x:Name="MOLBox" Grid.Row="5" Grid.Column="1" DisplayMemberPath="FIO" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="Начальная стоимость:" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
+                <TextBox x:Name="InitialCostBox" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+
+                <TextBlock Text="Дата ввода:" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+                <DatePicker x:Name="EnterDateBox" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+
+                <TextBlock Text="Дата создания ОС:" Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+                <DatePicker x:Name="CreateDateBox" Grid.Row="8" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+
+                <TextBlock Text="Амортизация:" Grid.Row="9" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+                <ComboBox x:Name="AmortisationBox" Grid.Row="9" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2">
+                    <ComboBoxItem Content="Линейная"/>
+                </ComboBox>
+
+                <TextBlock Text="Код оборудования:" Grid.Row="10" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
+                <TextBox x:Name="EqupmentCodeBox" Grid.Row="10" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+            </Grid>
+
+            <!-- Блок информации о драгоценных металлах -->
+            <Grid Grid.Row="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="0.3*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Драгоценные металлы" FontSize="16" FontWeight="Bold" Grid.Row="0" HorizontalAlignment="Center"/>
+
+                <UniformGrid Grid.Row="1" Columns="4" VerticalAlignment="Top">
+                    <TextBlock Text="Золото:"/>
+                    <TextBox x:Name="GoldText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBlock Text="Серебро:"/>
+                    <TextBox x:Name="SilverText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                    <TextBlock Text="Палладий:"/>
+                    <TextBox x:Name="PaladiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBlock Text="Платина:"/>
+                    <TextBox x:Name="PlatinumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                    <TextBlock Text="Индий:"/>
+                    <TextBox x:Name="IndiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBlock Text="Алмазы (шт):"/>
+                    <TextBox x:Name="DiamondCountText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+
+                    <TextBlock Text="Карат алмазов:"/>
+                    <TextBox x:Name="DiamondCaratText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBlock Text="Прочие металлы:"/>
+                    <TextBox x:Name="OtherText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                </UniformGrid>
+            </Grid>
+            <Grid>
+
+            </Grid>
+            <Button Grid.Row="2" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40" Click="CreateBtn_Click">Создать</Button>
+        </Grid>
+    </ScrollViewer>
+</Window>
