@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="NomenclaturaOCInfoWindow" Height="700" Width="800">
+        Title="NomenclaturaOCInfoWindow" Height="800" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="TextBoxInfoStyle">
             <Setter Property="Control.Margin" Value="0,0,0,5" />
@@ -19,8 +19,15 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="3*"/>
+                <!-- Заголовок -->
                 <RowDefinition Height="2*"/>
+                <!-- Основной блок данных ОС -->
+                <RowDefinition Height="1*"/>
+                <!-- Блок драгоценных металлов -->
+                <RowDefinition Height="1*"/>
+                <!-- Две таблицы -->
+                <RowDefinition Height="Auto"/>
+                <!-- Кнопка -->
             </Grid.RowDefinitions>
 
             <!-- Заголовок окна -->
@@ -58,8 +65,8 @@
                 <TextBox x:Name="InventoryBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Тип ОС:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <TextBox x:Name="OCTypeCode" PreviewKeyDown="OCTypeCode_PreviewKeyDown" PreviewTextInput="OCTypeCode_PreviewTextInput" LostFocus="OCTypeCode_LostFocus" Grid.Row="3" Grid.Column="1" Margin="0,0,10,5"></TextBox>
-                <ComboBox x:Name="OCTypeBox" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="2" SelectionChanged="OCTypeBox_SelectionChanged" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="OCTypeCode" Grid.Row="3" Grid.Column="1" Margin="0,0,10,5"></TextBox>
+                <ComboBox x:Name="OCTypeBox" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="2" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Срок службы:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
                 <TextBox x:Name="UsfuleLifeBox" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
@@ -116,10 +123,24 @@
                     <TextBox x:Name="OtherText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                 </UniformGrid>
             </Grid>
-            <Grid>
-
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <DataGrid Grid.Column="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header=""/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                
+                <DataGrid Grid.Column="1">
+                    
+                </DataGrid>
+                
             </Grid>
-            <Button Grid.Row="2" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40" Click="CreateBtn_Click">Создать</Button>
+            <Button Grid.Row="4" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40">Создать</Button>
         </Grid>
     </ScrollViewer>
 </Window>

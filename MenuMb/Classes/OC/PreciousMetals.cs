@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes.OC
 {
-    internal class PreciousMetals
+    public class PreciousMetals
     {
         public double Gold {  get; set; }
         public double Silver { get; set; }
