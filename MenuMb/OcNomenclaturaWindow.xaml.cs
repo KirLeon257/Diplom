@@ -186,25 +186,41 @@ namespace MenuMb
                 ApiToken = LoginUser.User.ApiToken
             };
 
-            var json = JsonSerializer.Serialize(data);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = JsonSerializer.Serialize(data);
+            //var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+            //try
+            //{
+            //    var response = await client.PostAsync("/oc_nomenclatura/add", content);
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        if (await response.Content.ReadAsStringAsync() == "OK")
+            //        {
+            //            NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost),DateTime.Parse(data.oc_info.EnterDate));
+            //            DialogResult = true;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //   MessageBox.Show(ex.Message);
+            //}
             try
             {
-                var response = await client.PostAsync("/oc_nomenclatura/add", content);
-                if (response.IsSuccessStatusCode)
+                var responseText = await HttpRequestHelper.PostAsync("/oc_nomenclatura/add", data);
+                if (!string.IsNullOrEmpty(responseText))
                 {
-                    if (await response.Content.ReadAsStringAsync() == "OK")
-                    {
-                        NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost),DateTime.Parse(data.oc_info.EnterDate));
-                        DialogResult = true;
-                    }
+                    NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost), DateTime.Parse(data.oc_info.EnterDate));
+                    NewNomen.Id = int.Parse(responseText);
+                    DialogResult = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-               MessageBox.Show(ex.Message);
+
+                throw;
             }
+            
         }
     }
 }

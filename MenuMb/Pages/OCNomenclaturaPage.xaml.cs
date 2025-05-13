@@ -73,8 +73,6 @@ namespace MenuMb.Pages
             if (OcNomenDataGrid.SelectedItem != null)
             {
                 var selectedItem = (NomenclaturaOCBase)OcNomenDataGrid.SelectedItem;
-                MessageBox.Show($"Двойной клик по: {selectedItem.Name}, Код: {selectedItem.Id}");
-
                 // Открываем новое окно с деталями
                 var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem);
                 detailsWindow.Show();

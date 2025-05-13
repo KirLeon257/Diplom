@@ -46,7 +46,7 @@ namespace MenuMb.Classes
             }
             catch (Exception)
             {
-                throw;
+                return null;
             }
 
         }

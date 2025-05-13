@@ -29,22 +29,29 @@ namespace MenuMb
         ObservableCollection<OCType> osTypes;
         ObservableCollection<ResponseblePerson> persons;
         NomenclaturaOCInfoClass NomenclaturaOCInfo;
+        NomenclaturaOCBase baseNomen;
         public NomenclaturaOCInfoWindow(NomenclaturaOCBase nomenclaturaOC)
         {
             InitializeComponent();
+            baseNomen = nomenclaturaOC;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            await LoadInfo();
+            await LoadInfo(baseNomen.Id);
             await LoadOsType();
             await LoadMOL();
         }
 
-        private async Task LoadInfo()
+        private async Task LoadInfo(int OcId)
         {
-            var param = $"?ApiToken=" + LoginUser.User.ApiToken;
+            var param = $"?ApiToken={LoginUser.User.ApiToken}&Id={OcId}";
             NomenclaturaOCInfo = await HttpRequestHelper.GetAsync<NomenclaturaOCInfoClass>("/oc_nomenclatura/item_info", param);
+            if (NomenclaturaOCInfo.metals == null) 
+            {
+                NomenclaturaOCInfo.metals = new PreciousMetals();
+            }
+            DataContext = NomenclaturaOCInfo;
 
         }
 
@@ -54,7 +61,6 @@ namespace MenuMb
             var param = $"?ApiToken=" + LoginUser.User.ApiToken;
             try
             {
-                //osTypes = await client.GetFromJsonAsync<ObservableCollection<OCType>>("/oc_type/list" + param);
                 osTypes = await HttpRequestHelper.GetAsync<ObservableCollection<OCType>>("/oc_type/list", param);
                 OCTypeBox.ItemsSource = osTypes;
             }
@@ -70,7 +76,6 @@ namespace MenuMb
             var param = $"?ApiToken=" + LoginUser.User.ApiToken;
             try
             {
-                //persons = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list" + param);
                 persons = await HttpRequestHelper.GetAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list", param);
                 MOLBox.ItemsSource = persons;
             }

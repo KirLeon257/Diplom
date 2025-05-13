@@ -59,29 +59,29 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Наименование:" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <TextBox x:Name="NameBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="NameBox" Grid.Row="1" Grid.Column="1" Text="{Binding oc_info.Name}"  Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Инв. номер:" Grid.Row="2" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <TextBox x:Name="InventoryBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="InventoryBox" Grid.Row="2" Grid.Column="1" Text="{Binding oc_info.Inventory_Number}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Тип ОС:" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
                 <TextBox x:Name="OCTypeCode" Grid.Row="3" Grid.Column="1" Margin="0,0,10,5"></TextBox>
                 <ComboBox x:Name="OCTypeBox" DisplayMemberPath="Name" Grid.Row="3" Grid.Column="2" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Срок службы:" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <TextBox x:Name="UsfuleLifeBox" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="UsfuleLifeBox" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Text="{Binding oc_info.SPI}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="МОЛ:" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <ComboBox x:Name="MOLBox" Grid.Row="5" Grid.Column="1" DisplayMemberPath="FIO" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <ComboBox x:Name="MOLBox" Grid.Row="5" Grid.Column="1" DisplayMemberPath="FIO" SelectedItem="{Binding oc_info.MOL}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Начальная стоимость:" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
-                <TextBox x:Name="InitialCostBox" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="InitialCostBox" Grid.Row="6" Grid.Column="1" Text="{Binding oc_info.InitialCost}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
                 <TextBlock Text="Дата ввода:" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
-                <DatePicker x:Name="EnterDateBox" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+                <DatePicker x:Name="EnterDateBox" Grid.Row="7" Grid.Column="1" Text="{Binding oc_info.EnterDate}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
 
                 <TextBlock Text="Дата создания ОС:" Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
-                <DatePicker x:Name="CreateDateBox" Grid.Row="8" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+                <DatePicker x:Name="CreateDateBox" Grid.Row="8" Grid.Column="1" Text="{Binding oc_info.CreateDate}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
 
                 <TextBlock Text="Амортизация:" Grid.Row="9" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
                 <ComboBox x:Name="AmortisationBox" Grid.Row="9" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2">
@@ -89,7 +89,7 @@
                 </ComboBox>
 
                 <TextBlock Text="Код оборудования:" Grid.Row="10" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
-                <TextBox x:Name="EqupmentCodeBox" Grid.Row="10" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
+                <TextBox x:Name="EqupmentCodeBox" Grid.Row="10" Grid.Column="1" Text="{Binding oc_info.Equpment_code}" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
             </Grid>
 
             <!-- Блок информации о драгоценных металлах -->
@@ -103,24 +103,24 @@
 
                 <UniformGrid Grid.Row="1" Columns="4" VerticalAlignment="Top">
                     <TextBlock Text="Золото:"/>
-                    <TextBox x:Name="GoldText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="GoldText" FontWeight="Bold" Text="{Binding metals.Gold}" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                     <TextBlock Text="Серебро:"/>
-                    <TextBox x:Name="SilverText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="SilverText" Text="{Binding metals.Silver}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
 
                     <TextBlock Text="Палладий:"/>
-                    <TextBox x:Name="PaladiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="PaladiumText" Text="{Binding metals.Paladium}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                     <TextBlock Text="Платина:"/>
-                    <TextBox x:Name="PlatinumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="PlatinumText" Text="{Binding metals.Platinum}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
 
                     <TextBlock Text="Индий:"/>
-                    <TextBox x:Name="IndiumText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="IndiumText" Text="{Binding metals.Indium}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                     <TextBlock Text="Алмазы (шт):"/>
-                    <TextBox x:Name="DiamondCountText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="DiamondCountText" Text="{Binding metals.DiamondCount}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
 
                     <TextBlock Text="Карат алмазов:"/>
-                    <TextBox x:Name="DiamondCaratText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="DiamondCaratText" Text="{Binding metals.DiamondCarat}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                     <TextBlock Text="Прочие металлы:"/>
-                    <TextBox x:Name="OtherText" Text="0" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
+                    <TextBox x:Name="OtherText" Text="{Binding metals.Other}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                 </UniformGrid>
             </Grid>
             <Grid Grid.Row="3">
@@ -136,11 +136,13 @@
                 </DataGrid>
                 
                 <DataGrid Grid.Column="1">
-                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header=""/>
+                    </DataGrid.Columns>
                 </DataGrid>
                 
             </Grid>
-            <Button Grid.Row="4" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40">Создать</Button>
+            <Button Grid.Row="4" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40">Изменить</Button>
         </Grid>
     </ScrollViewer>
 </Window>
