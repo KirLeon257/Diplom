@@ -10,11 +10,11 @@ namespace MenuMb.Classes
 {
     public static class StatusUpdater
     {
-        public static TextBlock StatusTextBlock;
-
+        private static TextBlock _statusTextBlock;
+        public static TextBlock TextBlock { set { _statusTextBlock = value; } }
         public static void UpdateStatusBar(string status)
         {
-            StatusTextBlock.Text = status;
+            _statusTextBlock.Text = status;
         }
     }
 }

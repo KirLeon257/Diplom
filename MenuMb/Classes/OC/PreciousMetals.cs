@@ -15,6 +15,6 @@ namespace MenuMb.Classes.OC
         public double Indium { get; set; } = 0;
         public int DiamondCount { get; set; } = 0;
         public double DiamondCarat { get; set; } = 0;
-        public double Other { get; set; } = 0;
+        public double Others { get; set; } = 0;
     }
 }

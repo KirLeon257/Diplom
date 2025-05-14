@@ -44,6 +44,53 @@ namespace MenuMb.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (LoginUser.User.Role == RoleEnum.Admin.ToString())
+            {
+                ContextMenu menu = new ContextMenu();
+                var deleteMenuItem = new MenuItem();
+                deleteMenuItem.Header = "Удалить";
+                deleteMenuItem.Click += async (o, e) =>
+                {
+                    var SelectedNomen = OcNomenDataGrid.SelectedItems.Cast<NomenclaturaOCBase>().ToList();
+
+                    if (SelectedNomen != null)
+                    {
+                        string msg;
+                        if (SelectedNomen.Count == 1)
+                        {
+                            msg = $"Вы уверены что хотите удалить ОС \"{SelectedNomen[0].Name}\"?";
+                        }
+                        else
+                        {
+                            msg = $"Вы уверены что хотите удалить выбранные элементы?";
+                        }
+                        if (MessageBox.Show(msg, "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            string delparam = $"?&ApiToken={LoginUser.User.ApiToken}";
+                            foreach (var item in SelectedNomen)
+                            {
+                                delparam += $"&OcId={item.Id}";
+                            }
+
+                            var response = await client.DeleteAsync("/oc_nomenclatura/delete" + delparam);
+                            if (response.IsSuccessStatusCode)
+                            {
+                                var text = await response.Content.ReadAsStringAsync();
+                                if (text == "OK")
+                                {
+                                    foreach (var item in SelectedNomen)
+                                    {
+                                        nomenclaturaOCs.Remove(item);
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                };
+                menu.Items.Add(deleteMenuItem);
+                OcNomenDataGrid.ContextMenu = menu;
+            }
             await LoadOcNomen();
         }
 
@@ -74,7 +121,7 @@ namespace MenuMb.Pages
             {
                 var selectedItem = (NomenclaturaOCBase)OcNomenDataGrid.SelectedItem;
                 // Открываем новое окно с деталями
-                var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem);
+                var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem,this.NavigationService);
                 detailsWindow.Show();
             }
         }

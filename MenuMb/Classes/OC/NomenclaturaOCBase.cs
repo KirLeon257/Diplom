@@ -33,6 +33,8 @@ namespace MenuMb.Classes.OC
         public int Equpment_code { get; set; }
         public DateTime CreateDate { get; set; }
         public int SPI { get; set; }
+        public int MolCode { get; set; }
+        public int OCTypeCode { get; set; }
         public NomenclaturaOCFull() { }
         public NomenclaturaOCFull(string name, string inventory_Number, string oCType, string mOL, decimal initialCost, DateTime enterDate, DateTime CreateDate, string amortisation_type, int equpment_code, int sPI) : base(name, inventory_Number, oCType, mOL, initialCost, enterDate)
         {

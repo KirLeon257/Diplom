@@ -9,5 +9,6 @@ namespace MenuMb.Classes
     public static class ConnectionServerSetings
     {
         public static string ServerIp;
+        public static string WebSocketIp;
     }
 }

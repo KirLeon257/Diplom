@@ -24,20 +24,21 @@ public partial class MainWindow : Window
 {
     bool isMenuClose = true;
     private object _nextPage;
-
+    SocketService _socketService;
     public MainWindow()
     {
         InitializeComponent();
-        StatusUpdater.StatusTextBlock = this.LoadStatusText;
+        StatusUpdater.TextBlock = this.LoadStatusText;
         Closing += MainWindow_Closing;
     }
 
     
 
-    private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+    private async void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (new ExitWindowDialog().ShowDialog() == true) 
         { 
+            await _socketService.CloseAsync();
             Application.Current.Shutdown();
         }
         else
@@ -71,33 +72,12 @@ public partial class MainWindow : Window
 
     private void ShowBlock(Page page)
     {
-        //Grid1.Visibility = Visibility.Collapsed;
-        //Grid2.Visibility = Visibility.Collapsed;
-        //Grid3.Visibility = Visibility.Collapsed;
-        //grid.Visibility = Visibility.Visible;
         MainConteiner.NavigationService.Navigate(page);
         MenuAnim();
     }
 
     void MenuAnim()
     {
-        //DoubleAnimation anim = new DoubleAnimation();
-        //if (isMenuClose)
-        //{
-        //    anim.From = MenuContainer.ActualWidth;
-        //    anim.To = 200;
-        //    anim.Duration = TimeSpan.FromSeconds(0.25);
-        //    isMenuClose = !isMenuClose;
-        //}
-        //else
-        //{
-        //    anim.From = MenuContainer.ActualWidth;
-        //    anim.To = 0;
-        //    anim.Duration = TimeSpan.FromSeconds(0.25);
-        //    isMenuClose = !isMenuClose;
-        //}
-
-        //MenuContainer.BeginAnimation(WidthProperty, anim);
         TranslateTransform translateTransform = new TranslateTransform();
         MenuContainer.RenderTransform = translateTransform;
         DoubleAnimation animation = new DoubleAnimation();
@@ -120,17 +100,30 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)
     {
-        //ShowBlock(new Page2());
     }
 
     private void MenuItemBtn3_Click(object sender, RoutedEventArgs e)
     {
-        //ShowBlock(Grid3);
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        GetMenu(LoginUser.User.Role); 
+        GetMenu(LoginUser.User.Role);
+        await ConnectToSocket();
+    }
+
+    private async Task ConnectToSocket()
+    {
+        // Запуск фонового WebSocket-клиента
+        try
+        {
+            _socketService = new();
+            await _socketService.StartListeningAsync();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void GetMenu(string Role)

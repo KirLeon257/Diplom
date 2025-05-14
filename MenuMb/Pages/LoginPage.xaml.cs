@@ -38,8 +38,8 @@ namespace MenuMb
 
         private void LoginPage_Loaded(object sender, RoutedEventArgs e)
         {
-
             ConnectionServerSetings.ServerIp = Env.GetString("SERVER_IP");
+            ConnectionServerSetings.WebSocketIp = Env.GetString("WEBSOCKET_IP");
             HttpClient = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         }
 
@@ -130,27 +130,27 @@ namespace MenuMb
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            // Сохранение ссылки на NavigationWindow
-            var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+////#if DEBUG
+//            // Сохранение ссылки на NavigationWindow
+//            var navigationWindow = Application.Current.MainWindow as NavigationWindow;
 
-            // Скрываем NavigationWindow
-            if (navigationWindow != null)
-            {
-                navigationWindow.Hide();
-            }
+//            // Скрываем NavigationWindow
+//            if (navigationWindow != null)
+//            {
+//                navigationWindow.Hide();
+//            }
 
-            // Сохраняем данные пользователя
-            LoginUser.User = new User(1,"Kir","Leon","Alexandrovich","Admin","6aad7e3e1aca65764faae80611ec474a");
+//            // Сохраняем данные пользователя
+//            LoginUser.User = new User(1,"Kir","Leon","Alexandrovich","Admin","6aad7e3e1aca65764faae80611ec474a");
 
-            // Открываем MainWindow
-            var mainWindow = new MainWindow
-            {
-                Owner = navigationWindow // Устанавливаем владельца окна
-            };
-            ClearFields();
-            mainWindow.Show();
-#endif
+//            // Открываем MainWindow
+//            var mainWindow = new MainWindow
+//            {
+//                Owner = navigationWindow // Устанавливаем владельца окна
+//            };
+//            ClearFields();
+//            mainWindow.Show();
+////#endif
 
         }
     }
