@@ -100,6 +100,7 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)
     {
+       ShowBlock(new OCOperationPage());
     }
 
     private void MenuItemBtn3_Click(object sender, RoutedEventArgs e)
@@ -117,7 +118,8 @@ public partial class MainWindow : Window
         // Запуск фонового WebSocket-клиента
         try
         {
-            _socketService = new();
+            
+            _socketService = new(this.MainConteiner.NavigationService);
             await _socketService.StartListeningAsync();
         }
         catch (Exception ex)

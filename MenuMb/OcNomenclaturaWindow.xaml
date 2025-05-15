@@ -69,9 +69,6 @@
             <TextBlock Text="Начальная стоимость:" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5"/>
             <TextBox x:Name="InitialCostBox" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2"/>
 
-            <TextBlock Text="Дата ввода:" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
-            <DatePicker x:Name="EnterDateBox" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
-
             <TextBlock Text="Дата создания ОС:" Grid.Row="8" Grid.Column="0" Style="{StaticResource TextBoxInfoStyle}" Margin="0,0,0,5" />
             <DatePicker x:Name="CreateDateBox" Grid.Row="8" Grid.Column="1" Style="{StaticResource TextBoxInfoStyle}" Grid.ColumnSpan="2" />
 

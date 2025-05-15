@@ -116,7 +116,6 @@ namespace MenuMb
                     baseNomen.Id,
                     Name = NameBox.Text,
                     InitialCost = InitialCostBox.Text,
-                    EnterDate = EnterDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
                     CreateDate = CreateDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
                     Amortisation = ((AmortisationType)AmortisationBox.SelectedIndex).ToString(),
                     EqupmentCode = EqupmentCodeBox.Text,

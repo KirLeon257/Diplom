@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace MenuMb.Classes
 {
     internal class SocketService
     {
         private readonly ClientWebSocket _client = new();
+        private NavigationService Service;
+
+        public SocketService(NavigationService service) 
+        { 
+            this.Service = service;
+        }
 
         public async Task StartListeningAsync()
         {
@@ -22,6 +29,7 @@ namespace MenuMb.Classes
             {
                 var result = await _client.ReceiveAsync(buffer, CancellationToken.None);
                 string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                Service.Refresh();
                 StatusUpdater.UpdateStatusBar(message);
             }
         }

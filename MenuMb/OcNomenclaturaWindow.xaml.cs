@@ -161,7 +161,6 @@ namespace MenuMb
                 {
                     Name = NameBox.Text,
                     InitialCost = InitialCostBox.Text,
-                    EnterDate = EnterDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
                     CreateDate = CreateDateBox.SelectedDate.Value.ToString("yyyy-MM-dd"),
                     Amortisation = ((AmortisationType)AmortisationBox.SelectedIndex).ToString(),
                     EqupmentCode = EqupmentCodeBox.Text,
@@ -191,7 +190,7 @@ namespace MenuMb
                 var responseText = await HttpRequestHelper.PostAsync("/oc_nomenclatura/add", data);
                 if (!string.IsNullOrEmpty(responseText))
                 {
-                    NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost), DateTime.Parse(data.oc_info.EnterDate));
+                    NewNomen = new NomenclaturaOCBase(data.oc_info.Name, data.oc_info.Inventory, data.oc_info.OCTypeName, data.oc_info.MolName, decimal.Parse(data.oc_info.InitialCost));
                     NewNomen.Id = int.Parse(responseText);
                     DialogResult = true;
                 }
