@@ -10,25 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MenuMb.Pages
+namespace MenuMb
 {
     /// <summary>
-    /// Логика взаимодействия для OCOperationPage.xaml
+    /// Логика взаимодействия для OcAddmintionWindow.xaml
     /// </summary>
-    public partial class OCOperationPage : Page
+    public partial class OcAddmintionWindow : Window
     {
-        public OCOperationPage()
+        public OcAddmintionWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new OcAddmitionPage());
-            //
         }
     }
 }

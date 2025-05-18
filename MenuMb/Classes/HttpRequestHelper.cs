@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes
 {
-    //public enum HttpMethodEnum
-    //{
-    //    GET = 0, POST = 1, PUT = 2, DELETE = 3
-    //}
-
     internal static class HttpRequestHelper
     {
         private static HttpClient httpClient = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
@@ -48,7 +43,21 @@ namespace MenuMb.Classes
             {
                 return null;
             }
+        }
 
+        public async static Task<string?> DeleteAsync(string link,string? param)
+        {
+            var fulllink = param != null ? link + param : link;
+            try
+            {
+                var response = await httpClient.DeleteAsync(fulllink);
+                var text = await response.Content.ReadAsStringAsync();
+                return text;
+            }
+            catch (Exception)
+            {
+                return null ;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="NomenclaturaOCInfoWindow" Height="800" Width="800" Loaded="Window_Loaded">
+        Title="NomenclaturaOCInfoWindow" Height="626" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="TextBoxInfoStyle">
             <Setter Property="Control.Margin" Value="0,0,0,5" />
@@ -22,11 +22,9 @@
                 <!-- Заголовок -->
                 <RowDefinition Height="2*"/>
                 <!-- Основной блок данных ОС -->
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
                 <!-- Блок драгоценных металлов -->
                 <RowDefinition Height="1*"/>
-                <!-- Две таблицы -->
-                <RowDefinition Height="Auto"/>
                 <!-- Кнопка -->
             </Grid.RowDefinitions>
 
@@ -120,26 +118,7 @@
                     <TextBox x:Name="OtherText" Text="{Binding metals.Others}" FontWeight="Bold" Style="{StaticResource ResourceKey=MetalsStyle}"/>
                 </UniformGrid>
             </Grid>
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                
-                <DataGrid Grid.Column="0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header=""/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                
-                <DataGrid Grid.Column="1">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header=""/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                
-            </Grid>
-            <Button Grid.Row="4" Height="30" x:Name="CreateBtn" VerticalAlignment="Bottom" Margin="40" Click="CreateBtn_Click">Изменить</Button>
+            <Button Grid.Row="3" Height="30" x:Name="CreateBtn" VerticalAlignment="Top" Margin="0,40,0,10" Click="CreateBtn_Click">Изменить</Button>
         </Grid>
     </ScrollViewer>
 </Window>

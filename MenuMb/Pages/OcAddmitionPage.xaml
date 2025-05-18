@@ -11,7 +11,7 @@
     <Grid>
         <Menu Height="35" VerticalAlignment="Top">
             <MenuItem Header="Номенклатура">
-                <MenuItem Header="Создать"></MenuItem>
+                <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <DataGrid Margin="0,35,0,0" x:Name="OcNomenDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
