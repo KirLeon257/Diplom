@@ -21,15 +21,16 @@ namespace MenuMb
     /// </summary>
     public partial class OcAddmintionWindow : Window
     {
-        ObservableCollection<FormCode> FormCodes = new ObservableCollection<FormCode>()
+        List<FormCode> FormCodes = new List<FormCode>()
         {
             new FormCode() {Code = 0501030,Name="Форма по ОКУД"},
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
-        ObservableCollection<FormCode> RecipientCodes = new ObservableCollection<FormCode>()
+        List<FormCode> RecipientCodes = new List<FormCode>()
         {
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
+        List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() {Basis_date = DateTime.Now } };
         public OcAddmintionWindow()
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace MenuMb
         {
             FormCodesDataGrid.ItemsSource = FormCodes;
             RecipientCodeDataGrid.ItemsSource = RecipientCodes;
+            BasisInfoDataGrid.ItemsSource = BasisInfos;
         }
     }
 }
