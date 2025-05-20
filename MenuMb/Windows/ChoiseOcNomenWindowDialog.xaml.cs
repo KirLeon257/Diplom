@@ -24,7 +24,7 @@ namespace MenuMb.Windows
     public partial class ChoiseOcNomenWindowDialog : Window
     {
         ObservableCollection<NomenclaturaOCBase> nomenclaturas;
-        NomenclaturaOCBase SelectedItem; 
+        public NomenclaturaOCBase SelectedItem; 
 
         public ChoiseOcNomenWindowDialog()
         {
@@ -59,6 +59,19 @@ namespace MenuMb.Windows
             {
                 SelectedItem = (NomenclaturaOCBase)OcDataGrid.SelectedItem;
                 DialogResult = true;
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SearchTextBox.Text))
+            {
+                var nomens = nomenclaturas.Where(x => x.Inventory_Number.StartsWith(SearchTextBox.Text)).ToList();
+                OcDataGrid.ItemsSource = nomens;
+            }
+            else
+            {
+                OcDataGrid.ItemsSource = nomenclaturas;
             }
         }
     }

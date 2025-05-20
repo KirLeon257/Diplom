@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="SuppliersWindow" Height="150" Width="300">
+        Title="SuppliersWindow" Height="200" Width="300">
     <Grid>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
             <Label Margin="0,0,10,0">Название</Label>
             <TextBox x:Name="SupplierNameTxt" Width="170"></TextBox>
+            <Label Margin="0,0,10,0">УНП</Label>
+            <TextBox x:Name="YNPTxt" Width="170"></TextBox>
         </StackPanel>
         <Button x:Name="AddBtn" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Height="30" Margin="0,0,0,10" Click="AddBtn_Click">Добавить</Button>
     </Grid>

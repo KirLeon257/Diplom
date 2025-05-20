@@ -107,6 +107,7 @@ namespace MenuMb.Pages
                 var sup = new
                 {
                     Name = win.SupplierName,
+                    YNP = win.YNP,
                     ApiToken = LoginUser.User.ApiToken
                 };
 
@@ -116,7 +117,7 @@ namespace MenuMb.Pages
                 if (response.IsSuccessStatusCode)
                 {
                     int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                    Supplier supplier = new Supplier(Id, sup.Name);
+                    Supplier supplier = new Supplier(Id, sup.Name,sup.YNP);
                     suppliersList.Add(supplier);
                 }
                 else if (response.StatusCode == (System.Net.HttpStatusCode)500)

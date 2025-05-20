@@ -27,7 +27,13 @@ namespace MenuMb.Pages
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            OcAddmintionWindow addmintionWindow = new OcAddmintionWindow();
+            if (addmintionWindow.ShowDialog() == true)
+            {
 
+            }
         }
+
+        
     }
 }

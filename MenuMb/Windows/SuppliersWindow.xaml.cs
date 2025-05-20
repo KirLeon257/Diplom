@@ -20,6 +20,7 @@ namespace MenuMb
     public partial class SuppliersWindow : Window
     {
         public string SupplierName;
+        public string YNP;
         public SuppliersWindow()
         {
             InitializeComponent();
@@ -27,9 +28,10 @@ namespace MenuMb
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(SupplierNameTxt.Text))
+            if (!string.IsNullOrEmpty(SupplierNameTxt.Text) && !string.IsNullOrEmpty(YNPTxt.Text))
             {
                 SupplierName = SupplierNameTxt.Text;
+                YNP = YNPTxt.Text;
                 DialogResult = true;
             }
             else

@@ -32,6 +32,7 @@ namespace MenuMb
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
         List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() {Basis_date = DateTime.Now } };
+        NomenclaturaOCBase OCBase;
         public OcAddmintionWindow()
         {
             InitializeComponent();
@@ -49,7 +50,8 @@ namespace MenuMb
             var dialog = new ChoiseOcNomenWindowDialog();
             if (dialog.ShowDialog() == true)
             {
-
+                OCBase = dialog.SelectedItem;
+               
             }
         }
     }

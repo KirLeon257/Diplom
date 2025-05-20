@@ -17,6 +17,7 @@
             <DataGrid Grid.Row="1" x:Name="SuppliersDataGrid" AutoGenerateColumns="False"  Margin="0,35,0,0" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="УНП" Binding="{Binding YNP}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
