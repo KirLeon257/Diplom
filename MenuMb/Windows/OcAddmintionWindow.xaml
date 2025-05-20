@@ -13,20 +13,20 @@
                 <ColumnDefinition Width="230*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="140"/>
-                <RowDefinition Height="46*"/>
-                <RowDefinition Height="59*"/>
-                <RowDefinition Height="69*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="auto" MinHeight="82.491"/>
-                <RowDefinition Height="114*"/>
-                <RowDefinition Height="101*"/>
+                <RowDefinition Height="0"/>
+                <RowDefinition Height="67*"/>
+                <RowDefinition Height="56*"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="16*"/>
+                <RowDefinition Height="auto" MinHeight="54"/>
+                <RowDefinition Height="97*"/>
+                <RowDefinition Height="111*"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="140*"/>
-                <RowDefinition Height="280*"/>
+                <RowDefinition Height="89*"/>
+                <RowDefinition Height="178*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="15,15,15,15" Grid.ColumnSpan="2">
+            <!--<Grid Grid.Row="0" Margin="15,15,15,15" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -47,7 +47,7 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBox Width="100" Grid.Row="0" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="" Width="100" Grid.Row="0" HorizontalAlignment="Left"/>
                         <TextBlock Text="должность" Grid.Row="1" FontSize="10" Foreground="Gray" Margin="20,0,0,0" />
                         <TextBox Width="100" Grid.Row="0" HorizontalAlignment="Left" Margin="120,0,0,0"/>
                         <TextBlock Text="фамилия, инициалы" Grid.Row="1" FontSize="10" Foreground="Gray" Margin="125,0,0,0"/>
@@ -78,9 +78,9 @@
                     <DatePicker Grid.Row="2" HorizontalAlignment="Right" Width="300"></DatePicker>
                 </Grid>
 
-            </Grid>
+            </Grid>-->
             <Grid Grid.Row="1" Margin="8,0,0,10" Grid.Column="1">
-                <DataGrid x:Name="FormCodesDataGrid" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" ItemsSource="{Binding FormCodes}">
+                <DataGrid x:Name="FormCodesDataGrid" Grid.Row="0" IsReadOnly="True" Grid.Column="1" Grid.RowSpan="3" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" ItemsSource="{Binding FormCodes}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="" Width="100" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Коды документа" Width="*" Binding="{Binding Code,StringFormat={}{0:D7}}"></DataGridTextColumn>
@@ -89,63 +89,68 @@
             </Grid>
             <Grid Grid.Row="2" Margin="0,4,0,7">
                 <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Label Content="Организация-сдатчик"></Label>
-                    <ComboBox x:Name="SupplierBox" Width="200" Margin="10,0"></ComboBox>
-                    <Label>УНП</Label>
-                    <TextBox x:Name="YNPTextBox" Width="130"></TextBox>
+                    <Label FontFamily="Times New Roman" FontSize="11" Content="Организация-сдатчик"></Label>
+                    <ComboBox x:Name="SupplierBox" Width="200" Margin="10,0" DisplayMemberPath="Name" SelectionChanged="SupplierBox_SelectionChanged"></ComboBox>
+                    <Label FontFamily="Times New Roman" FontSize="11">УНП</Label>
+                    <TextBox x:Name="SupplierYNPTextBox" Width="130"></TextBox>
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="3" Margin="0,2,0,16">
                 <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-                    <Label Content="Организация-получатель"></Label>
-                    <ComboBox  Width="200" Margin="5,0"></ComboBox>
-                    <Label>УНП</Label>
-                    <TextBox Width="130"></TextBox>
+                    <Label Content="Организация-получатель" FontFamily="Times New Roman" FontSize="11"></Label>
+                    <ComboBox x:Name="ExcepteBox" Width="200" Margin="5,0" DisplayMemberPath="Name" SelectionChanged="ExcepteBox_SelectionChanged"></ComboBox>
+                    <Label FontFamily="Times New Roman" FontSize="11">УНП</Label>
+                    <TextBox x:Name="ExcepteYNPTextBox" Width="130"></TextBox>
                 </StackPanel>
             </Grid>
-            <DataGrid x:Name="RecipientCodeDataGrid" Grid.Row="3" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" ItemsSource="{Binding FormCodes}" Grid.ColumnSpan="2" Margin="553,12,0,16">
+            <DataGrid x:Name="RecipientCodeDataGrid" Grid.Row="3" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" ItemsSource="{Binding FormCodes}" Margin="10,12,0,16" Grid.Column="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="" Width="100" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="" Width="100" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Коды получателя" Width="*" Binding="{Binding Code,StringFormat={}{0:D7}}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="5" Margin="0,2,0,2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Label>Основание для составления акта</Label>
-                    <ComboBox Width="200">
+                    <ComboBox x:Name="BasisBox" Width="200">
                         <ComboBoxItem Content="Приказ"/>
                         <ComboBoxItem Content="Договор"/>
                         <ComboBoxItem Content="Распоряжение"/>
                     </ComboBox>
                 </StackPanel>
             </Grid>
-            <DataGrid x:Name="BasisInfoDataGrid" Grid.Row="5"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Grid.ColumnSpan="2" Margin="553,2,0,2">
+            <DataGrid x:Name="BasisInfoDataGrid" Grid.Row="5" Grid.Column="1"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Номер" Binding="{Binding Basis_number}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата" Binding="{Binding Basis_date}"></DataGridTextColumn>
+                    <!--<DataGridTextColumn Header="Дата" Binding="{Binding Basis_date}"></DataGridTextColumn>-->
+                    <DataGridTemplateColumn Header="Дата">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding Basis_date}"></DatePicker>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="6" Grid.ColumnSpan="2">
-                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Horizontal">
-                        <!--<Label VerticalAlignment="Center">Номер</Label>
+                <StackPanel Orientation="Horizontal">
+                    <!--<Label VerticalAlignment="Center">Номер</Label>
                         <TextBox VerticalAlignment="Center" Height="35" Width="120"></TextBox>-->
-                        <Label VerticalAlignment="Center">Дата составления</Label>
-                        <DatePicker VerticalAlignment="Center" Height="35" Width="120" SelectedDateFormat="Short"></DatePicker>
-                        <Label VerticalAlignment="Center">Дата принятия к учету</Label>
-                        <DatePicker VerticalAlignment="Center" Height="35" Width="120" SelectedDateFormat="Short"></DatePicker>
-                    </StackPanel>
-                </ScrollViewer>
+                    <Label VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="11">Дата составления</Label>
+                    <DatePicker x:Name="DateCreateAddmition" VerticalAlignment="Center" Height="35" Width="120" SelectedDateFormat="Short"></DatePicker>
+                    <Label VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="11">Дата принятия к учету</Label>
+                    <DatePicker x:Name="Date" VerticalAlignment="Center" Height="35" Width="120" SelectedDateFormat="Short"></DatePicker>
+                </StackPanel>
             </Grid>
-            <Grid Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center" Width="500" Margin="15">
+            <Grid Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="70">
                 <StackPanel>
-                    <Label>Обьект основных средств</Label>
-                    <TextBox x:Name="OcNomenNameTextBox"></TextBox>
+                    <Label FontFamily="Times New Roman" FontSize="11">Обьект основных средств</Label>
+                    <TextBox x:Name="OcNomenNameTextBox" Margin="0,0,0,10"></TextBox>
                     <Button Click="Button_Click">Выбрать</Button>
                 </StackPanel>
             </Grid>
-            <Label Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center" FontFamily="Times New Roman" FontSize="11" FontWeight="Bold" HorizontalAlignment="Center">Краткая индивидуальная характеристика объекта основных средств</Label>
-            <DataGrid x:Name="OcXaracteristicDataGrid" Grid.Row="9">
+            <Label Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Times New Roman" FontSize="11" FontWeight="Bold" Height="22" Width="355">Краткая индивидуальная характеристика объекта основных средств</Label>
+            <DataGrid x:Name="OcXaracteristicDataGrid" Grid.Row="9" Grid.ColumnSpan="2" Width="400">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Наименование ОС"></DataGridTextColumn>
                     <DataGridTextColumn Header="Кол-во"></DataGridTextColumn>
@@ -158,7 +163,7 @@
                     <DataGridTextColumn Header="Пристроенных"/>
                 </DataGrid.Columns>
             </DataGrid>-->
-            <Grid Grid.Row="10">
+            <Grid Grid.Row="10" Margin="0,2,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -169,20 +174,21 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0">Комиссия по приему</Label>
-                <Label Grid.Column="0" Grid.Row="1">Результат испытания на:</Label>
-                <DatePicker Grid.Column="1" Grid.Row="1" Width="250" HorizontalAlignment="Left"></DatePicker>
-                <Label Grid.Column="0" Grid.Row="2">Объект основных средств техническим условиям</Label>
-                <ComboBox Grid.Column="1" Grid.Row="2">
+                <Label Grid.Column="0" Grid.Row="0" FontFamily="Times New Roman" FontSize="11">Комиссия по приему</Label>
+                <Label Grid.Column="0" Grid.Row="1" FontFamily="Times New Roman" FontSize="11">Результат испытания на:</Label>
+                <DatePicker x:Name="DateTestResult" Grid.Column="1" Grid.Row="1" Width="250" HorizontalAlignment="Left"></DatePicker>
+                <Label Grid.Column="0" Grid.Row="2" FontFamily="Times New Roman" FontSize="11">Объект основных средств техническим условиям</Label>
+                <ComboBox x:Name="IsTechnicalCorrectBox" Grid.Column="1" Grid.Row="2">
                     <ComboBoxItem>соответствует</ComboBoxItem>
                     <ComboBoxItem>не соответствует</ComboBoxItem>
                 </ComboBox>
-                <Label Grid.Column="0" Grid.Row="3">Доработка</Label>
-                <ComboBox Grid.Column="1" Grid.Row="3">
+                <Label Grid.Column="0" Grid.Row="3" FontFamily="Times New Roman" FontSize="11">Доработка</Label>
+                <ComboBox x:Name="DorobotkaBox" Grid.Column="1" Grid.Row="3">
                     <ComboBoxItem>требуется</ComboBoxItem>
                     <ComboBoxItem>не требуется</ComboBoxItem>
                 </ComboBox>
             </Grid>
+            <Button Grid.Row="10" Width="130" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,15" Grid.Column="1">Принять</Button>
         </Grid>
     </ScrollViewer>
 </Window>

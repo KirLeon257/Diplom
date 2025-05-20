@@ -1,4 +1,6 @@
-﻿using MenuMb.Classes.OC;
+﻿using MenuMb.Classes;
+using MenuMb.Classes.OC;
+using MenuMb.Classes.Users;
 using MenuMb.Windows;
 using System;
 using System.Collections.Generic;
@@ -32,17 +34,37 @@ namespace MenuMb
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
         List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() {Basis_date = DateTime.Now } };
+        List<Supplier> Suppliers;
         NomenclaturaOCBase OCBase;
         public OcAddmintionWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FormCodesDataGrid.ItemsSource = FormCodes;
             RecipientCodeDataGrid.ItemsSource = RecipientCodes;
             BasisInfoDataGrid.ItemsSource = BasisInfos;
+            await LoadSuppliers();
+        }
+
+        private async Task LoadSuppliers()
+        {
+            var param = "?ApiToken=" + LoginUser.User.ApiToken;
+            try
+            {
+                var response = await HttpRequestHelper.GetAsync<List<Supplier>>("/supplier/list", param);
+                if (response != null)
+                {
+                    SupplierBox.ItemsSource = response;
+                    ExcepteBox.ItemsSource= response;
+                }
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +74,22 @@ namespace MenuMb
             {
                 OCBase = dialog.SelectedItem;
                
+            }
+        }
+
+        private void SupplierBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SupplierBox.SelectedItem != null)
+            {
+                SupplierYNPTextBox.Text = ((Supplier)SupplierBox.SelectedItem).YNP;
+            }
+        }
+
+        private void ExcepteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ExcepteBox.SelectedItem != null)
+            {
+                ExcepteYNPTextBox.Text = ((Supplier)ExcepteBox.SelectedItem).YNP;
             }
         }
     }
