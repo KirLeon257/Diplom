@@ -1,0 +1,23 @@
+﻿<Window x:Class="MenuMb.Windows.ChoiseOcNomenWindowDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuMb.Windows"
+        mc:Ignorable="d"
+        Title="Выбор ОС" Height="450" Width="500" Loaded="Window_Loaded">
+    <Grid>
+        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="0,15,0,0">Поиск по инвентарному номеру</Label>
+        <TextBox Height="35" Width="250" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,10,0,0"></TextBox>
+        <DataGrid x:Name="OcDataGrid" Margin="0,60,0,45" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип ОС" Width="auto" Binding="{Binding OCType}" MaxWidth="250"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инв. №" Width="auto" Binding="{Binding Inventory_Number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="МОЛ" Width="auto" Binding="{Binding MOL}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Первоначальная стоимость" Binding="{Binding InitialCost}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Width="100" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,5" Click="Button_Click">Подтвердить</Button>
+    </Grid>
+</Window>

@@ -142,7 +142,7 @@
                 <StackPanel>
                     <Label>Обьект основных средств</Label>
                     <TextBox></TextBox>
-                    <Button>Выбрать</Button>
+                    <Button Click="Button_Click">Выбрать</Button>
                 </StackPanel>
             </Grid>
             <Label Grid.Row="8" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Times New Roman" FontWeight="Bold" FontSize="11pt" Height="30" VerticalAlignment="Top">Сведения об объекте основных средств на дату принятия к бухгалтерскому учету</Label>

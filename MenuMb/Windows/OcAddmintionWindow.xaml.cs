@@ -1,4 +1,5 @@
 ﻿using MenuMb.Classes.OC;
+using MenuMb.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,6 +42,15 @@ namespace MenuMb
             FormCodesDataGrid.ItemsSource = FormCodes;
             RecipientCodeDataGrid.ItemsSource = RecipientCodes;
             BasisInfoDataGrid.ItemsSource = BasisInfos;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ChoiseOcNomenWindowDialog();
+            if (dialog.ShowDialog() == true)
+            {
+
+            }
         }
     }
 }
