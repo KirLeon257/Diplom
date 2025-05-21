@@ -9,7 +9,7 @@
     <Grid>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="0,15,0,0">Поиск по инвентарному номеру</Label>
         <TextBox x:Name="SearchTextBox" Height="35" Width="250" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,10,0,0" TextChanged="TextBox_TextChanged"></TextBox>
-        <DataGrid x:Name="OcDataGrid" Margin="0,60,0,45" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+        <DataGrid x:Name="OcDataGrid" Margin="0,60,0,45" CanUserAddRows="False" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Тип ОС" MaxWidth="125" Binding="{Binding OCType}">

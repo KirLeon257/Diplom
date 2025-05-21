@@ -15,8 +15,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="0"/>
                 <RowDefinition Height="67*"/>
-                <RowDefinition Height="56*"/>
-                <RowDefinition Height="75*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="16*"/>
                 <RowDefinition Height="auto" MinHeight="54"/>
                 <RowDefinition Height="97*"/>
@@ -95,13 +95,25 @@
                     <TextBox x:Name="SupplierYNPTextBox" Width="130"></TextBox>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="3" Margin="0,2,0,16">
-                <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Grid Grid.Row="3" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Height="40">
                     <Label Content="Организация-получатель" FontFamily="Times New Roman" FontSize="11"></Label>
                     <ComboBox x:Name="ExcepteBox" Width="200" Margin="5,0" DisplayMemberPath="Name" SelectionChanged="ExcepteBox_SelectionChanged"></ComboBox>
                     <Label FontFamily="Times New Roman" FontSize="11">УНП</Label>
                     <TextBox x:Name="ExcepteYNPTextBox" Width="130"></TextBox>
                 </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Height="40" HorizontalAlignment="Left" Width="260">
+                    <Label FontFamily="Times New Roman" FontSize="11">Подразделение</Label>
+                    <ComboBox x:Name="ExcepteDepartmentBox" Width="180" DisplayMemberPath="Name"></ComboBox>
+                </StackPanel>
+                    
+
             </Grid>
             <DataGrid x:Name="RecipientCodeDataGrid" Grid.Row="3" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" ItemsSource="{Binding FormCodes}" Margin="10,12,0,16" Grid.Column="1">
                 <DataGrid.Columns>
@@ -122,7 +134,6 @@
             <DataGrid x:Name="BasisInfoDataGrid" Grid.Row="5" Grid.Column="1"  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Номер" Binding="{Binding Basis_number}"></DataGridTextColumn>
-                    <!--<DataGridTextColumn Header="Дата" Binding="{Binding Basis_date}"></DataGridTextColumn>-->
                     <DataGridTemplateColumn Header="Дата">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -145,15 +156,15 @@
             <Grid Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="500" Height="70">
                 <StackPanel>
                     <Label FontFamily="Times New Roman" FontSize="11">Обьект основных средств</Label>
-                    <TextBox x:Name="OcNomenNameTextBox" Margin="0,0,0,10"></TextBox>
+                    <TextBox x:Name="OcNomenNameTextBox" Margin="0,0,0,10" IsReadOnly="True"></TextBox>
                     <Button Click="Button_Click">Выбрать</Button>
                 </StackPanel>
             </Grid>
-            <Label Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Times New Roman" FontSize="11" FontWeight="Bold" Height="22" Width="355">Краткая индивидуальная характеристика объекта основных средств</Label>
-            <DataGrid x:Name="OcXaracteristicDataGrid" Grid.Row="9" Grid.ColumnSpan="2" Width="400">
+            <Label Grid.Row="8" Grid.ColumnSpan="2" VerticalAlignment="Center"  HorizontalAlignment="Center" FontFamily="Times New Roman" FontSize="11" FontWeight="Bold" Height="22" Width="355">Краткая индивидуальная характеристика объекта основных средств</Label>
+            <DataGrid x:Name="OcXaracteristicDataGrid" Grid.Row="9" AutoGenerateColumns="False" Grid.ColumnSpan="2" Width="400">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Наименование ОС"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Кол-во"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding NameCharacteristic}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Count}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <!--<DataGrid Grid.Row="10" Margin="0,15,0,0">
@@ -163,7 +174,7 @@
                     <DataGridTextColumn Header="Пристроенных"/>
                 </DataGrid.Columns>
             </DataGrid>-->
-            <Grid Grid.Row="10" Margin="0,2,0,0">
+            <Grid Grid.Row="10" Margin="0,20,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -184,11 +195,11 @@
                 </ComboBox>
                 <Label Grid.Column="0" Grid.Row="3" FontFamily="Times New Roman" FontSize="11">Доработка</Label>
                 <ComboBox x:Name="DorobotkaBox" Grid.Column="1" Grid.Row="3">
-                    <ComboBoxItem>требуется</ComboBoxItem>
                     <ComboBoxItem>не требуется</ComboBoxItem>
+                    <ComboBoxItem>требуется</ComboBoxItem>
                 </ComboBox>
             </Grid>
-            <Button Grid.Row="10" Width="130" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,15" Grid.Column="1">Принять</Button>
+            <Button Grid.Row="10" Width="130" Height="40" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,15" Grid.Column="1" Click="Button_Click_1">Принять</Button>
         </Grid>
     </ScrollViewer>
 </Window>

@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="SuppliersWindow" Height="200" Width="300">
     <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,35,0,0">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,5,0,0">
             <Label Margin="0,0,10,0">Название</Label>
-            <TextBox x:Name="SupplierNameTxt" Width="170"></TextBox>
+            <TextBox x:Name="SupplierNameTxt" Width="170" Height="30"></TextBox>
             <Label Margin="0,0,10,0">УНП</Label>
-            <TextBox x:Name="YNPTxt" Width="170"></TextBox>
+            <TextBox x:Name="YNPTxt" Width="170" Height="30"></TextBox>
         </StackPanel>
         <Button x:Name="AddBtn" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="100" Height="30" Margin="0,0,0,10" Click="AddBtn_Click">Добавить</Button>
     </Grid>

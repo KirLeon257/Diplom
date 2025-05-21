@@ -12,6 +12,7 @@ namespace MenuMb.Classes.OC
         NomenclaturaOCFull NomenclaturaOCFull { get; set; }
         DateTime EnterDate { get; set; }
 
+
         public OCAddmition()
         {
         }

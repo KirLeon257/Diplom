@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,8 +34,10 @@ namespace MenuMb
         {
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
-        List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() {Basis_date = DateTime.Now } };
+        List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() { Basis_date = DateTime.Now } };
+        ObservableCollection<OcCharacteristic> ocCharacteristics = new ObservableCollection<OcCharacteristic>(); 
         List<Supplier> Suppliers;
+        List<Department> Departments;
         NomenclaturaOCBase OCBase;
         public OcAddmintionWindow()
         {
@@ -46,7 +49,27 @@ namespace MenuMb
             FormCodesDataGrid.ItemsSource = FormCodes;
             RecipientCodeDataGrid.ItemsSource = RecipientCodes;
             BasisInfoDataGrid.ItemsSource = BasisInfos;
-            await LoadSuppliers();
+            OcXaracteristicDataGrid.ItemsSource = ocCharacteristics;
+            LoadSuppliers();
+            LoadDepartment();
+
+        }
+
+        private async void LoadDepartment()
+        {
+            var param = "?ApiToken=" + LoginUser.User.ApiToken;
+            try
+            {
+                Departments = await HttpRequestHelper.GetAsync<List<Department>>("/department/list", param);
+                if (Departments != null)
+                {
+                    ExcepteDepartmentBox.ItemsSource = Departments;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private async Task LoadSuppliers()
@@ -54,16 +77,16 @@ namespace MenuMb
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
             try
             {
-                var response = await HttpRequestHelper.GetAsync<List<Supplier>>("/supplier/list", param);
-                if (response != null)
+                Suppliers = await HttpRequestHelper.GetAsync<List<Supplier>>("/supplier/list", param);
+                if (Suppliers != null)
                 {
-                    SupplierBox.ItemsSource = response;
-                    ExcepteBox.ItemsSource= response;
+                    SupplierBox.ItemsSource = Suppliers;
+                    ExcepteBox.ItemsSource = Suppliers;
                 }
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -72,8 +95,14 @@ namespace MenuMb
             var dialog = new ChoiseOcNomenWindowDialog();
             if (dialog.ShowDialog() == true)
             {
-                OCBase = dialog.SelectedItem;
-               
+                if (!dialog.SelectedItem.Equals(OCBase))
+                {
+                    OCBase = dialog.SelectedItem;
+                    ocCharacteristics.Clear();
+                    ocCharacteristics.Add(new OcCharacteristic() { NameCharacteristic = OCBase.Name, Count = 1 });
+                    OcNomenNameTextBox.Text = OCBase.Name;
+                }
+                
             }
         }
 
@@ -91,6 +120,61 @@ namespace MenuMb
             {
                 ExcepteYNPTextBox.Text = ((Supplier)ExcepteBox.SelectedItem).YNP;
             }
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var basisCodes = GetBasisCodes();
+            basisCodes.Basis = BasisBox.Text;
+
+
+            var data = new
+            {
+                Supplier = (Supplier)SupplierBox.SelectedItem,
+                Excepter = (Supplier)ExcepteBox.SelectedItem,
+                Department = (Department)ExcepteDepartmentBox.SelectedItem,
+                Basis = basisCodes,
+                DateCreateAddmition = this.DateCreateAddmition.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                YchetDate = this.Date.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                OCBase,
+                DateTest = this.DateTestResult.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                IsTechnicalCorrect = IsTechnicalCorrectBox.Text,
+                Dorobotka = DorobotkaBox.Text,
+                //AddmitionCodes = new
+                //{
+
+                //}
+                Xaracteristics = GetXaracteristic(),
+                ApiToken = LoginUser.User.ApiToken
+            };
+
+            try
+            {
+                var response = await HttpRequestHelper.PostAsync("/oc_addmition/add",data);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private List<OcCharacteristic>? GetXaracteristic()
+        {
+            List<OcCharacteristic> characteristics = new List<OcCharacteristic>();
+            foreach(var item in OcXaracteristicDataGrid.Items)
+            {
+                var row = item as OcCharacteristic;
+                characteristics.Add(row);
+            }
+
+            return characteristics.Count!=0 ? characteristics : null;
+        }
+
+        private BasisInfo? GetBasisCodes()
+        {
+            var row = (BasisInfo)BasisInfoDataGrid.Items[0];
+            return row;
         }
     }
 }
