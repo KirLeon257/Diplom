@@ -35,7 +35,7 @@ namespace MenuMb
             new FormCode() {Code = 0,Name = "по ОКЮЛП"},
         };
         List<BasisInfo> BasisInfos = new List<BasisInfo>() { new BasisInfo() { Basis_date = DateTime.Now } };
-        ObservableCollection<OcCharacteristic> ocCharacteristics = new ObservableCollection<OcCharacteristic>(); 
+        ObservableCollection<OcCharacteristic> ocCharacteristics = new ObservableCollection<OcCharacteristic>();
         List<Supplier> Suppliers;
         List<Department> Departments;
         NomenclaturaOCBase OCBase;
@@ -102,7 +102,7 @@ namespace MenuMb
                     ocCharacteristics.Add(new OcCharacteristic() { NameCharacteristic = OCBase.Name, Count = 1 });
                     OcNomenNameTextBox.Text = OCBase.Name;
                 }
-                
+
             }
         }
 
@@ -130,45 +130,44 @@ namespace MenuMb
 
             var data = new
             {
-                Supplier = (Supplier)SupplierBox.SelectedItem,
-                Excepter = (Supplier)ExcepteBox.SelectedItem,
-                Department = (Department)ExcepteDepartmentBox.SelectedItem,
+                SupplierId = ((Supplier)SupplierBox.SelectedItem).Id,
+                ExcepterId = ((Supplier)ExcepteBox.SelectedItem).Id,
+                DepartmentId = ((Department)ExcepteDepartmentBox.SelectedItem).Id,
                 Basis = basisCodes,
                 DateCreateAddmition = this.DateCreateAddmition.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                YchetDate = this.Date.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                OCBase,
+                EnterDate = this.Date.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                OCId = OCBase.Id,
                 DateTest = this.DateTestResult.SelectedDate.Value.ToString("yyyy-MM-dd"),
                 IsTechnicalCorrect = IsTechnicalCorrectBox.Text,
                 Dorobotka = DorobotkaBox.Text,
-                //AddmitionCodes = new
-                //{
-
-                //}
                 Xaracteristics = GetXaracteristic(),
+                UserId = LoginUser.User.Id,
                 ApiToken = LoginUser.User.ApiToken
             };
 
             try
             {
-                var response = await HttpRequestHelper.PostAsync("/oc_addmition/add",data);
+                var response = await HttpRequestHelper.PostAsync("/oc_addmition/add", data);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
         private List<OcCharacteristic>? GetXaracteristic()
         {
             List<OcCharacteristic> characteristics = new List<OcCharacteristic>();
-            foreach(var item in OcXaracteristicDataGrid.Items)
+            foreach (var item in OcXaracteristicDataGrid.Items)
             {
                 var row = item as OcCharacteristic;
+                if (row == null)
+                    continue;
+                row.OcNomenId = OCBase.Id;
                 characteristics.Add(row);
             }
 
-            return characteristics.Count!=0 ? characteristics : null;
+            return characteristics.Count != 0 ? characteristics : null;
         }
 
         private BasisInfo? GetBasisCodes()

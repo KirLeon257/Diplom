@@ -12,12 +12,14 @@ namespace MenuMb.Classes.OC
         {
         }
 
-        public OcCharacteristic(string nameCharacteristic, int count)
+        public OcCharacteristic(string nameCharacteristic, int count, int ocNomenId)
         {
             NameCharacteristic = nameCharacteristic;
             Count = count;
+            OcNomenId = ocNomenId;
         }
 
+        public int OcNomenId { get; set; }
         public string NameCharacteristic { get; set; }
         public int Count {  get; set; }
     }
