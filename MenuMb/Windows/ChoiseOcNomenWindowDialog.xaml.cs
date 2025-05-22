@@ -41,7 +41,7 @@ namespace MenuMb.Windows
             var param = "?ApiToken=" + LoginUser.User?.ApiToken;
             try
             {
-                nomenclaturas = await HttpRequestHelper.GetAsync<ObservableCollection<NomenclaturaOCBase>>("/oc_nomenclatura/list", param);
+                nomenclaturas = await HttpRequestHelper.GetAsync<ObservableCollection<NomenclaturaOCBase>>("/oc_addmition/list/nomen_to_add", param);
                 if (nomenclaturas != null)
                 {
                     OcDataGrid.ItemsSource = nomenclaturas;

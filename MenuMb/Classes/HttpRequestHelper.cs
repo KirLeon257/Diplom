@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MenuMb.Classes
 {
@@ -23,7 +24,8 @@ namespace MenuMb.Classes
             }
             catch (Exception)
             {
-                throw;
+                MessageBox.Show("Не удалось выполнить запрос!");
+                return default(T);
             }
 
         }
@@ -41,6 +43,7 @@ namespace MenuMb.Classes
             }
             catch (Exception)
             {
+                MessageBox.Show("Не удалось выполнить запрос!");
                 return null;
             }
         }
@@ -56,6 +59,7 @@ namespace MenuMb.Classes
             }
             catch (Exception)
             {
+                MessageBox.Show("Не удалось выполнить запрос!");
                 return null ;
             }
         }

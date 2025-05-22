@@ -39,6 +39,7 @@ namespace MenuMb
         List<Supplier> Suppliers;
         List<Department> Departments;
         NomenclaturaOCBase OCBase;
+        public OCAddmitionBase newAddmission;
         public OcAddmintionWindow()
         {
             InitializeComponent();
@@ -148,6 +149,12 @@ namespace MenuMb
             try
             {
                 var response = await HttpRequestHelper.PostAsync("/oc_addmition/add", data);
+                if (response != null)
+                { 
+                    int newId = Convert.ToInt32(response);
+                    newAddmission = new OCAddmitionBase(newId,OcNomenNameTextBox.Text,OCBase.Inventory_Number,Date.SelectedDate.Value,data.Basis.Basis,data.Basis.Basis_number,data.Basis.Basis_date);
+                    DialogResult = true; 
+                }
             }
             catch (Exception ex)
             {
