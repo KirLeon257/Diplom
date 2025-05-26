@@ -1,0 +1,25 @@
+﻿<Page x:Class="MenuMb.Pages.OcAmortisationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MenuMb.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OcAmortisationPage" Background="White" Loaded="Page_Loaded">
+    <Grid>
+        <Menu Height="35" VerticalAlignment="Top">
+            <MenuItem Header="Расчет амортизации" Height="35" Click="MenuItem_Click"></MenuItem>
+        </Menu>
+        <DataGrid x:Name="OcAmortisationDataGrid" Margin="0,35,0,0" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование ОС" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инвентарный номер" Binding="{Binding InventoryNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип амортизации" Binding="{Binding AmortisationType}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Годовая норма,%" Binding="{Binding AmortisationYearNorm}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Сумма амортизации" Binding="{Binding AmortisationSum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата ввода ОС" Binding="{Binding EnterDate}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

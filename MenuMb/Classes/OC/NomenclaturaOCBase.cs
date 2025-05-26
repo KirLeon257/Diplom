@@ -28,6 +28,7 @@ namespace MenuMb.Classes.OC
     public class NomenclaturaOCFull : NomenclaturaOCBase
     {
         public string Amortisation_type { get; set; }
+        public decimal AmortisationYearNorm { get; set; }
         public int Equpment_code { get; set; }
         public DateTime CreateDate { get; set; }
         public int SPI { get; set; }

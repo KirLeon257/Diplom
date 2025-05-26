@@ -47,6 +47,7 @@ namespace MenuMb
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             FormCodesDataGrid.ItemsSource = FormCodes;
             RecipientCodeDataGrid.ItemsSource = RecipientCodes;
             BasisInfoDataGrid.ItemsSource = BasisInfos;
@@ -125,35 +126,34 @@ namespace MenuMb
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var basisCodes = GetBasisCodes();
-            basisCodes.Basis = BasisBox.Text;
-
-
-            var data = new
-            {
-                SupplierId = ((Supplier)SupplierBox.SelectedItem).Id,
-                ExcepterId = ((Supplier)ExcepteBox.SelectedItem).Id,
-                DepartmentId = ((Department)ExcepteDepartmentBox.SelectedItem).Id,
-                Basis = basisCodes,
-                DateCreateAddmition = this.DateCreateAddmition.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                EnterDate = this.Date.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                OCId = OCBase.Id,
-                DateTest = this.DateTestResult.SelectedDate.Value.ToString("yyyy-MM-dd"),
-                IsTechnicalCorrect = IsTechnicalCorrectBox.Text,
-                Dorobotka = DorobotkaBox.Text,
-                Xaracteristics = GetXaracteristic(),
-                UserId = LoginUser.User.Id,
-                ApiToken = LoginUser.User.ApiToken
-            };
-
             try
             {
+                var basisCodes = GetBasisCodes();
+                basisCodes.Basis = BasisBox.Text;
+                var data = new
+                {
+                    SupplierId = ((Supplier)SupplierBox.SelectedItem).Id,
+                    ExcepterId = ((Supplier)ExcepteBox.SelectedItem).Id,
+                    DepartmentId = ((Department)ExcepteDepartmentBox.SelectedItem).Id,
+                    Basis = basisCodes,
+                    DateCreateAddmition = this.DateCreateAddmition.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                    EnterDate = this.Date.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                    OCId = OCBase.Id,
+                    DateTest = this.DateTestResult.SelectedDate.Value.ToString("yyyy-MM-dd"),
+                    IsTechnicalCorrect = IsTechnicalCorrectBox.Text,
+                    Dorobotka = DorobotkaBox.Text,
+                    Xaracteristics = GetXaracteristic(),
+                    UserId = LoginUser.User.Id,
+                    ApiToken = LoginUser.User.ApiToken
+                };
+
+
                 var response = await HttpRequestHelper.PostAsync("/oc_addmition/add", data);
                 if (response != null)
-                { 
+                {
                     int newId = Convert.ToInt32(response);
-                    newAddmission = new OCAddmitionBase(newId,OcNomenNameTextBox.Text,OCBase.Inventory_Number,Date.SelectedDate.Value,data.Basis.Basis,data.Basis.Basis_number,data.Basis.Basis_date);
-                    DialogResult = true; 
+                    newAddmission = new OCAddmitionBase(newId, OcNomenNameTextBox.Text, OCBase.Inventory_Number, Date.SelectedDate.Value, data.Basis.Basis, data.Basis.Basis_number, data.Basis.Basis_date);
+                    DialogResult = true;
                 }
             }
             catch (Exception ex)

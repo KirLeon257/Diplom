@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MenuMb.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,11 @@ namespace MenuMb.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new OcAddmitionPage());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new OcAmortisationPage());
         }
     }
 }

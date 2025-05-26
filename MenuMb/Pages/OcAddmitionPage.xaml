@@ -10,13 +10,13 @@
       Title="OcAddmitionPage" Loaded="Page_Loaded">
     <Grid>
         <Menu Height="35" VerticalAlignment="Top">
-            <MenuItem Header="Приход ОС">
+            <MenuItem Header="Приход ОС" Height="35">
                 <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <DataGrid Margin="0,35,0,0" x:Name="OcAddDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid Margin="0,35,0,0" x:Name="OcAddDataGrid" MouseDoubleClick="OcAddDataGrid_MouseDoubleClick" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding NomenName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Инв. №" Width="auto" Binding="{Binding Inventory_number}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата ввода ОС" Binding="{Binding EnterDate}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Основание" Binding="{Binding Basis}"></DataGridTextColumn>

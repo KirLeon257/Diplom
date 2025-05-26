@@ -12,10 +12,7 @@ using System.Windows.Controls;
 
 namespace MenuMb
 {
-    enum Month
-    {
-
-    }
+    
 
     /// <summary>
     /// Логика взаимодействия для CoefWindow.xaml

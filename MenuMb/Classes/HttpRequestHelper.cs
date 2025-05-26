@@ -25,7 +25,7 @@ namespace MenuMb.Classes
             catch (Exception)
             {
                 MessageBox.Show("Не удалось выполнить запрос!");
-                return default(T);
+                return default;
             }
 
         }
@@ -61,6 +61,24 @@ namespace MenuMb.Classes
             {
                 MessageBox.Show("Не удалось выполнить запрос!");
                 return null ;
+            }
+        }
+
+        internal static async Task<string?> PutAsync(string link, object? data)
+        {
+            var json = JsonSerializer.Serialize(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await httpClient.PutAsync(link, content);
+                var text = await response.Content.ReadAsStringAsync();
+                return text;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось выполнить запрос!");
+                return null;
             }
         }
     }
