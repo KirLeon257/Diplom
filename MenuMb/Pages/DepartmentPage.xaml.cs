@@ -79,7 +79,7 @@ namespace MenuMb.Pages
                             }
                         }
 
-                    };
+                    }
                     
                 };
                 menu.Items.Add(deleteMenuItem);

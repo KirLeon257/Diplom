@@ -11,7 +11,7 @@
         <Menu Height="35" VerticalAlignment="Top">
             <MenuItem Header="Расчет амортизации" Height="35" Click="MenuItem_Click"></MenuItem>
         </Menu>
-        <DataGrid x:Name="OcAmortisationDataGrid" Margin="0,35,0,0" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="OcAmortisationDataGrid" Margin="0,35,0,0" MouseDoubleClick="OcAmortisationDataGrid_MouseDoubleClick" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование ОС" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Инвентарный номер" Binding="{Binding InventoryNumber}"></DataGridTextColumn>

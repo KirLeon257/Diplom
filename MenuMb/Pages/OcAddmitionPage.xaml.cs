@@ -146,6 +146,8 @@ namespace MenuMb.Pages
                     }
                     string filename = DirectoryName + "\\Акт_Приема_" + $"{infoAct.AddInfo.NomenName}_" + DateTime.Now.ToString("yyyy-MM-dd") + ".xlsx";
                     workbook.SaveAs(filename);
+                    Process.Start("explorer.exe", DirectoryName);
+
                 }
                 catch (Exception ex)
                 {

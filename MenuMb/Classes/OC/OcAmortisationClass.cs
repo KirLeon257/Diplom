@@ -30,4 +30,14 @@ namespace MenuMb.Classes.OC
             AmortisationSum = amortisationSum;
         }
     }
+    internal class OcAmortisationItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } 
+        public string Inventory_number { get; set; } 
+        public DateTime Date { get; set; }
+        public Decimal Old_coast { get; set; }
+        public Decimal AmortSum { get; set; }
+        public Decimal New_coast { get; set; }
+    }
 }

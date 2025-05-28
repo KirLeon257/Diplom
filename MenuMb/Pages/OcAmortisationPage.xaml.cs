@@ -55,5 +55,15 @@ namespace MenuMb.Pages
                 this.NavigationService.Refresh();
             }
         }
+
+        private void OcAmortisationDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedItem = OcAmortisationDataGrid.SelectedItem as OcAmortisation;
+            if (selectedItem != null)
+            {
+                OcAmortisationItemWindow window = new OcAmortisationItemWindow(selectedItem.NomenclatureId);
+                window.Show();
+            }
+        }
     }
 }
