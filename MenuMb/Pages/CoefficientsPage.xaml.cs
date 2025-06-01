@@ -27,13 +27,13 @@ namespace MenuMb.Pages
     /// </summary>
     public partial class CoefficientsPage : Page
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp)};
+        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         public ObservableCollection<Coefficient> coefficients { get; set; }
         public ObservableCollection<OCType> OCTypesCodes { get; set; }
         public CoefficientsPage()
         {
             InitializeComponent();
-            
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -74,18 +74,16 @@ namespace MenuMb.Pages
                                 delparam += $"&CoefId={item.Id}";
                             }
 
-                            var response = await client.DeleteAsync("/coefficient/delete" + delparam);
-                            if (response.IsSuccessStatusCode)
+                            var response = await HttpRequestHelper.DeleteAsync("/coefficient/delete", delparam);
+
+                            if (response == "OK")
                             {
-                                var text = await response.Content.ReadAsStringAsync();
-                                if (text == "OK")
+                                foreach (var item in SelectedCoef)
                                 {
-                                    foreach (var item in SelectedCoef)
-                                    {
-                                        coefficients.Remove(item);
-                                    }
+                                    coefficients.Remove(item);
                                 }
                             }
+
                         }
                     }
                 };
@@ -108,32 +106,26 @@ namespace MenuMb.Pages
                                 ApiToken = LoginUser.User.ApiToken
                             };
 
-                            string jsonString = JsonSerializer.Serialize(Oc_Type);
-                            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                            var response = await client.PostAsync("/oc_type/edit", content);
-                            if (response.IsSuccessStatusCode)
+                            var response = await HttpRequestHelper.PostAsync("/oc_type/edit", Oc_Type);
+
+                            if (response == "OK")
                             {
-                                if (await response.Content.ReadAsStringAsync() == "OK")
-                                {
-                                    NavigationService.Refresh();
-                                }
+                                NavigationService.Refresh();
                             }
+
                         }
                     }
                 };
-                //menu.Items.Add(updateMenuItem);
                 menu.Items.Add(deleteMenuItem);
                 CoefDataGrid.ContextMenu = menu;
             }
-
-            //Parallel.Invoke(LoadCoef/*,LoadOcCodes*/);
             await LoadCoef();
         }
 
         private async Task LoadCoef()
         {
             var param = "?ApiToken=" + LoginUser.User?.ApiToken;
-            coefficients = await client.GetFromJsonAsync<ObservableCollection<Coefficient>>("/coefficient/list" + param);
+            coefficients = await HttpRequestHelper.GetAsync<ObservableCollection<Coefficient>>("/coefficient/list", param);
             if (coefficients == null || coefficients.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");

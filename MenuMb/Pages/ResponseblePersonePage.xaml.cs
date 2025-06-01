@@ -65,18 +65,15 @@ namespace MenuMb.Pages
                             delparam += $"&Code={item.Code}";
                         }
 
-                        var response = await client.DeleteAsync("/responsibleperson/delete" + delparam);
-                        if (response.IsSuccessStatusCode)
+                        var response = await HttpRequestHelper.DeleteAsync("/responsibleperson/delete", delparam);
+                        if (response == "OK")
                         {
-                            var text = await response.Content.ReadAsStringAsync();
-                            if (text == "OK")
+                            foreach (var item in SelectedPerson)
                             {
-                                foreach(var item in SelectedPerson)
-                        {
-                                    personsList.Remove(item);
-                                }
+                                personsList.Remove(item);
                             }
                         }
+
                     }
 
                 };
@@ -85,12 +82,12 @@ namespace MenuMb.Pages
             }
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            personsList = await client.GetFromJsonAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list" + param);
+            personsList = await HttpRequestHelper.GetAsync<ObservableCollection<ResponseblePerson>>("/responsibleperson/list", param);
             if (personsList == null && personsList.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
-                ResponseblePersonsDataGrid.ItemsSource = personsList;
+            ResponseblePersonsDataGrid.ItemsSource = personsList;
 
         }
 
@@ -109,19 +106,16 @@ namespace MenuMb.Pages
                     ApiToken = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(person);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/responsibleperson/add", content);
-                if (response.IsSuccessStatusCode)
+                //string jsonString = JsonSerializer.Serialize(person);
+                //var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                var response = await HttpRequestHelper.PostAsync("/responsibleperson/add", person);
+                if (response == "OK")
                 {
-                    if (await response.Content.ReadAsStringAsync() == "OK")
-                    {
-                        personsList.Add(win.Person);
-                    }
+                    personsList.Add(win.Person);
                 }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)500)
+                else
                 {
-                    MessageBox.Show("Произошла ошибка на сервере");
+                    StatusUpdater.UpdateStatusBar("Не удалось добавить МОЛ");
                 }
             }
         }

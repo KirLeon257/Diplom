@@ -1,21 +1,10 @@
 ﻿using MenuMb.Classes.OC;
 using MenuMb.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MenuMb.Classes.Users;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -56,39 +45,36 @@ namespace MenuMb.Pages
                         msg = $"Вы уверены что хотите удалить выбранные элементы?";
                     }
 
-                    if (MessageBox.Show(msg,"Предупреждение",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                    if (MessageBox.Show(msg, "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         var delparam = $"?ApiToken={LoginUser.User.ApiToken}";
 
-                        foreach (var item in SelectedSupplier) 
+                        foreach (var item in SelectedSupplier)
                         {
                             delparam += $"&SupId={item.Id}";
-                            
+
                         }
 
 
-                        var response = await client.DeleteAsync("/supplier/delete" + delparam);
-                        if (response.IsSuccessStatusCode)
+                        var response = await HttpRequestHelper.DeleteAsync("/supplier/delete", delparam);
+                        if (response == "OK")
                         {
-                            var text = await response.Content.ReadAsStringAsync();
-                            if (text == "OK")
+                            foreach (var item in SelectedSupplier)
                             {
-                                foreach (var item in SelectedSupplier)
-                                {
-                                    suppliersList.Remove(item);
+                                suppliersList.Remove(item);
 
-                                }
                             }
                         }
+
                     }
-                    
+
                 };
                 menu.Items.Add(deleteMenuItem);
                 SuppliersDataGrid.ContextMenu = menu;
             }
 
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            suppliersList = await client.GetFromJsonAsync<ObservableCollection<Supplier>>("/supplier/list" + param);
+            suppliersList = await HttpRequestHelper.GetAsync<ObservableCollection<Supplier>>("/supplier/list", param);
             if (suppliersList != null && suppliersList.Count != 0)
             {
                 SuppliersDataGrid.ItemsSource = suppliersList;
@@ -111,19 +97,14 @@ namespace MenuMb.Pages
                     ApiToken = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(sup);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/supplier/add", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                    Supplier supplier = new Supplier(Id, sup.Name,sup.YNP);
+                //string jsonString = JsonSerializer.Serialize(sup);
+                //var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                var response = await HttpRequestHelper.PostAsync("/supplier/add", sup);
+               
+                    int Id = Convert.ToInt32(response);
+                    Supplier supplier = new Supplier(Id, sup.Name, sup.YNP);
                     suppliersList.Add(supplier);
-                }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)500)
-                {
-                    MessageBox.Show("Произошла ошибка на сервере");
-                }
+                
             }
         }
     }

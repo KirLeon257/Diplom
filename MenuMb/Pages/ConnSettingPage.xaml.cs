@@ -36,7 +36,7 @@ namespace MenuMb
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 
-            ServerIpTxt.Text = ConnectionServerSetings.ServerIp;
+            ServerIpTxt.Text = HttpRequestHelper.GetBaseAddress();
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,8 @@ namespace MenuMb
             //{
             //    ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
             //}
-            ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
+            //ConnectionServerSetings.ServerIp = ServerIpTxt.Text;
+            HttpRequestHelper.ChangeBaseAddress(ServerIpTxt.Text);
             this.NavigationService.GoBack();
         }
     }

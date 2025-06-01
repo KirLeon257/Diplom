@@ -1,25 +1,14 @@
 ﻿using MenuMb.Classes.OC;
 using MenuMb.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MenuMb.Classes.Users;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Security.AccessControl;
 
 namespace MenuMb.Pages
 {
@@ -64,18 +53,16 @@ namespace MenuMb.Pages
                                 delparam += $"&Code={item.Code}";
                             }
 
-                            var response = await client.DeleteAsync("/oc_type/delete" + delparam);
-                            if (response.IsSuccessStatusCode)
+                            var response = await HttpRequestHelper.DeleteAsync("/oc_type/delete", delparam);
+
+                            if (response == "OK")
                             {
-                                var text = await response.Content.ReadAsStringAsync();
-                                if (text == "OK")
+                                foreach (var item in SelectedType)
                                 {
-                                    foreach (var item in SelectedType)
-                                    {
-                                        OCTypeList.Remove(item);
-                                    }
+                                    OCTypeList.Remove(item);
                                 }
                             }
+
                         }
                     }
                 };
@@ -98,15 +85,14 @@ namespace MenuMb.Pages
                                 ApiToken = LoginUser.User.ApiToken
                             };
 
-                            string jsonString = JsonSerializer.Serialize(Oc_Type);
-                            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                            var response = await client.PostAsync("/oc_type/edit", content);
-                            if (response.IsSuccessStatusCode)
+                            //string jsonString = JsonSerializer.Serialize(Oc_Type);
+                            //var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                            var response = await HttpRequestHelper.PostAsync("/oc_type/edit", Oc_Type);
+                            if (response == "OK")
                             {
-                                if (await response.Content.ReadAsStringAsync() == "OK")
-                                {
-                                    NavigationService.Refresh();
-                                }
+
+                                NavigationService.Refresh();
+
                             }
                         }
                     }
@@ -125,7 +111,7 @@ namespace MenuMb.Pages
             try
             {
                 var param = "?ApiToken=" + LoginUser.User.ApiToken;
-                OCTypeList = await client.GetFromJsonAsync<ObservableCollection<OCType>>("/oc_type/list" + param);
+                OCTypeList = await HttpRequestHelper.GetAsync<ObservableCollection<OCType>>("/oc_type/list", param);
                 if (OCTypeList != null && OCTypeList.Count != 0)
                 {
 
@@ -158,21 +144,14 @@ namespace MenuMb.Pages
                     ApiToken = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(Oc_Type);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("/oc_type/add", content);
-                if (response.IsSuccessStatusCode)
+
+                var response = await HttpRequestHelper.PostAsync("/oc_type/add", Oc_Type);
+                if (response == "OK")
                 {
-                    if (await response.Content.ReadAsStringAsync() == "OK")
-                    {
-                        OCType type = new OCType(Oc_Type.Code, Oc_Type.Name, Oc_Type.SPI);
-                        OCTypeList.Add(type);
-                    }
+                    OCType type = new OCType(Oc_Type.Code, Oc_Type.Name, Oc_Type.SPI);
+                    OCTypeList.Add(type);
                 }
-                else if (response.StatusCode == (System.Net.HttpStatusCode)500)
-                {
-                    MessageBox.Show("Произошла ошибка на сервере");
-                }
+
             }
         }
     }

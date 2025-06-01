@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace MenuMb
 {
-    
+
 
     /// <summary>
     /// Логика взаимодействия для CoefWindow.xaml
@@ -46,7 +46,7 @@ namespace MenuMb
             try
             {
                 var param = "?ApiToken=" + LoginUser.User.ApiToken;
-                coefficients = await client.GetFromJsonAsync<ObservableCollection<NewCoef>>("/oc_type/list" + param);
+                coefficients = await HttpRequestHelper.GetAsync<ObservableCollection<NewCoef>>("/oc_type/list", param);
                 if (coefficients == null)
                 {
                     StatusUpdater.UpdateStatusBar("Нет данных");
@@ -67,7 +67,7 @@ namespace MenuMb
             foreach (var item in NewCoefDataGrid.Items)
             {
                 var row = item as NewCoef;
-                if (row == null || row.NewValue==null)
+                if (row == null || row.NewValue == null)
                 {
                     MessageBox.Show("В таблице есть незаполненые ячейки!");
                     return;
@@ -82,16 +82,13 @@ namespace MenuMb
                 LoginUser.User.ApiToken
             };
 
-            var json = JsonSerializer.Serialize(data);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            //var json = JsonSerializer.Serialize(data);
+            //var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("/coefficient/add", content);
-            if (response.IsSuccessStatusCode)
+            var response = await HttpRequestHelper.PostAsync("/coefficient/add", data);
+            if (response == "OK")
             {
-                if (await response.Content.ReadAsStringAsync() == "OK")
-                {
-                    DialogResult = true;
-                }
+                DialogResult = true;
             }
             else
             {

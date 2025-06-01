@@ -41,11 +41,12 @@ namespace MenuMb
                     ApiTokenAdmin = LoginUser.User.ApiToken
                 };
 
-                string jsonString = JsonSerializer.Serialize(userData);
                 StatusUpdater.UpdateStatusBar("Регистрация нового пользователя");
-                if (await RegisterNewUserAsync(jsonString) == true)
+                var response = await HttpRequestHelper.PostAsync("/user/registration", userData);
+                if (response == "OK")
                 {
                     StatusUpdater.UpdateStatusBar("Пользователь зарегистрирован");
+                    this.NavigationService.GoBack();
                 }
             }
 

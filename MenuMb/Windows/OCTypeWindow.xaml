@@ -12,7 +12,7 @@
                 <Label Height="30" HorizontalAlignment="Left">Код</Label>
                 <TextBox x:Name="CodeTxt" Width="150" Height="35" MaxLength="5" PreviewKeyDown="CodeTxt_PreviewKeyDown" HorizontalAlignment="Right" Margin="10,0,10,0"/>
                 <Label Height="30" HorizontalAlignment="Left">Наименование</Label>
-                <TextBox x:Name="NameTxt" Width="150" Height="35" HorizontalAlignment="Right" Margin="10,0,10,0"></TextBox>
+                <TextBox x:Name="NameTxt" Width="150" Height="150" HorizontalAlignment="Right"  AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="10,0,10,0"></TextBox>
                 <Label Height="30" HorizontalAlignment="Left">СПИ</Label>
                 <TextBox x:Name="SPITxt" Width="150" Height="35" HorizontalAlignment="Right" PreviewKeyDown="CodeTxt_PreviewKeyDown" Margin="10,0,10,0"></TextBox>
                 <Button x:Name="AddBtn" Height="35" Margin="10,10,10,10" Content="Добавить" Click="AddBtn_Click"/>

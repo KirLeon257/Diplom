@@ -27,7 +27,7 @@ namespace MenuMb
     public partial class LoginPage : Page
     {
 
-        HttpClient HttpClient;
+        
         MainWindow newWindow;
         public LoginPage()
         {
@@ -40,7 +40,7 @@ namespace MenuMb
         {
             ConnectionServerSetings.ServerIp = Env.GetString("SERVER_IP");
             ConnectionServerSetings.WebSocketIp = Env.GetString("WEBSOCKET_IP");
-            HttpClient = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
+           
         }
 
         private void RegBtn_Click(object sender, RoutedEventArgs e)
@@ -71,48 +71,75 @@ namespace MenuMb
         {
 
             string param = $"?login={LoginTxt.Text}&pwd={PasswordHash.GetPasswordHash(PwdTxt.Password)}";
-            var response = await HttpClient.GetAsync("/user/login" + param);
-            if (response.IsSuccessStatusCode)
+            //var response = await HttpClient.GetAsync("/user/login" + param);
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    var user = await response.Content.ReadFromJsonAsync<User>();
+            //    if (user != null)
+            //    {
+            //        // Сохранение ссылки на NavigationWindow
+            //        var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+
+            //        // Скрываем NavigationWindow
+            //        if (navigationWindow != null)
+            //        {
+            //            navigationWindow.Hide();
+            //        }
+
+            //        // Сохраняем данные пользователя
+            //        LoginUser.User = user;
+
+            //        // Открываем MainWindow
+            //        var mainWindow = new MainWindow
+            //        {
+            //            Owner = navigationWindow // Устанавливаем владельца окна
+            //        };
+            //        ClearFields();
+            //        mainWindow.Show();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Не удалось войти :(");
+            //    }
+            //}
+            //else if (response.StatusCode == (System.Net.HttpStatusCode)422)
+            //{
+            //    MessageBox.Show("Вы ввели некоректные данные");
+            //}
+            //else if (response.StatusCode == (System.Net.HttpStatusCode)404)
+            //{
+            //    MessageBox.Show("Неправильный логин и/или пароль");
+            //}
+            //else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
+            //{
+            //    MessageBox.Show("Произошла ошибка на сервере");
+            //}
+            var user = await HttpRequestHelper.GetAsync<User>("/user/login", param);
+            if (user != null)
             {
-                var user = await response.Content.ReadFromJsonAsync<User>();
-                if (user != null)
+                // Сохранение ссылки на NavigationWindow
+                var navigationWindow = Application.Current.MainWindow as NavigationWindow;
+
+                // Скрываем NavigationWindow
+                if (navigationWindow != null)
                 {
-                    // Сохранение ссылки на NavigationWindow
-                    var navigationWindow = Application.Current.MainWindow as NavigationWindow;
-
-                    // Скрываем NavigationWindow
-                    if (navigationWindow != null)
-                    {
-                        navigationWindow.Hide();
-                    }
-
-                    // Сохраняем данные пользователя
-                    LoginUser.User = user;
-
-                    // Открываем MainWindow
-                    var mainWindow = new MainWindow
-                    {
-                        Owner = navigationWindow // Устанавливаем владельца окна
-                    };
-                    ClearFields();
-                    mainWindow.Show();
+                    navigationWindow.Hide();
                 }
-                else
+
+                // Сохраняем данные пользователя
+                LoginUser.User = user;
+
+                // Открываем MainWindow
+                var mainWindow = new MainWindow
                 {
-                    MessageBox.Show("Не удалось войти :(");
-                }
+                    Owner = navigationWindow // Устанавливаем владельца окна
+                };
+                ClearFields();
+                mainWindow.Show();
             }
-            else if (response.StatusCode == (System.Net.HttpStatusCode)422)
+            else
             {
-                MessageBox.Show("Вы ввели некоректные данные");
-            }
-            else if (response.StatusCode == (System.Net.HttpStatusCode)404)
-            {
-                MessageBox.Show("Неправильный логин и/или пароль");
-            }
-            else if (response.StatusCode == ((System.Net.HttpStatusCode)500))
-            {
-                MessageBox.Show("Произошла ошибка на сервере");
+                MessageBox.Show("Не удалось войти :(");
             }
         }
 
@@ -130,27 +157,6 @@ namespace MenuMb
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-////#if DEBUG
-//            // Сохранение ссылки на NavigationWindow
-//            var navigationWindow = Application.Current.MainWindow as NavigationWindow;
-
-//            // Скрываем NavigationWindow
-//            if (navigationWindow != null)
-//            {
-//                navigationWindow.Hide();
-//            }
-
-//            // Сохраняем данные пользователя
-//            LoginUser.User = new User(1,"Kir","Leon","Alexandrovich","Admin","6aad7e3e1aca65764faae80611ec474a");
-
-//            // Открываем MainWindow
-//            var mainWindow = new MainWindow
-//            {
-//                Owner = navigationWindow // Устанавливаем владельца окна
-//            };
-//            ClearFields();
-//            mainWindow.Show();
-////#endif
 
         }
     }

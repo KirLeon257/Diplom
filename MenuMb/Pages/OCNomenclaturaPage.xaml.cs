@@ -72,20 +72,18 @@ namespace MenuMb.Pages
                                 delparam += $"&OcId={item.Id}";
                             }
 
-                            var response = await client.DeleteAsync("/oc_nomenclatura/delete" + delparam);
-                            if (response.IsSuccessStatusCode)
+                            var response = await HttpRequestHelper.DeleteAsync("/oc_nomenclatura/delete", delparam);
+                            if (response == "OK")
                             {
-                                var text = await response.Content.ReadAsStringAsync();
-                                if (text == "OK")
+                                foreach (var item in SelectedNomen)
                                 {
-                                    foreach (var item in SelectedNomen)
-                                    {
-                                        nomenclaturaOCs.Remove(item);
-                                    }
+                                    nomenclaturaOCs.Remove(item);
                                 }
                             }
+
                         }
-                    };
+                    }
+                    ;
 
                 };
                 menu.Items.Add(deleteMenuItem);
@@ -99,7 +97,7 @@ namespace MenuMb.Pages
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
             try
             {
-                nomenclaturaOCs = await client.GetFromJsonAsync<ObservableCollection<NomenclaturaOCBase>>("/oc_nomenclatura/list" + param);
+                nomenclaturaOCs = await HttpRequestHelper.GetAsync<ObservableCollection<NomenclaturaOCBase>>("/oc_nomenclatura/list" , param);
                 if (nomenclaturaOCs == null)
                 {
                     StatusUpdater.UpdateStatusBar("Данных нет");
@@ -121,7 +119,7 @@ namespace MenuMb.Pages
             {
                 var selectedItem = (NomenclaturaOCBase)OcNomenDataGrid.SelectedItem;
                 // Открываем новое окно с деталями
-                var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem,this.NavigationService);
+                var detailsWindow = new NomenclaturaOCInfoWindow(selectedItem, this.NavigationService);
                 detailsWindow.Show();
             }
         }

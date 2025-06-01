@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb.Windows"
         mc:Ignorable="d"
-        Title="OcAdmissionItemWindow" Height="400" Width="600" Loaded="Window_Loaded">
+        Title="Амортизация ОС" Height="400" Width="600" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid Margin="35" Name="AmortDataGrid">
+        <DataGrid Margin="35" Name="AmortDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Заводской код" Binding="{Binding Inventory_number}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Дата амортизации" Binding="{Binding Date}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата амортизации" Binding="{Binding Date,StringFormat={}{0:MM.yyyy}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Старое значение" Binding="{Binding Old_coast}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Сумма амортизации" Binding="{Binding AmortSum}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Остаточная стоимость" Binding="{Binding New_coast}"></DataGridTextColumn>

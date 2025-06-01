@@ -38,15 +38,14 @@ namespace MenuMb.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) })
+
+            string param = $"?ApiToken={LoginUser.User.ApiToken}";
+            UserList = await HttpRequestHelper.GetAsync<ObservableCollection<User>>("/user/list", param);
+            if (UserList != null)
             {
-                string param = $"?ApiToken={LoginUser.User.ApiToken}";
-                UserList = await client.GetFromJsonAsync<ObservableCollection<User>>("/user/list" + param);
-                if (UserList != null)
-                {
-                    UsersDataGrid.ItemsSource = UserList;
-                }
+                UsersDataGrid.ItemsSource = UserList;
             }
+
         }
 
         private async void UserDeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -56,18 +55,12 @@ namespace MenuMb.Pages
             {
                 if (MessageBox.Show($"Вы уверены что хотите удалить пользователя {SelectedUser.Name}?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    using (HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) })
+
+                    var param = $"?UserId={SelectedUser.Id}&ApiToken={LoginUser.User.ApiToken}";
+                    var responseMessage = await HttpRequestHelper.DeleteAsync("/user/delete", param);
+                    if (responseMessage == "OK")
                     {
-                        var param = $"?UserId={SelectedUser.Id}&ApiToken={LoginUser.User.ApiToken}";
-                        var responseMessage = await client.DeleteAsync("/user/delete" + param);
-                        if (responseMessage.IsSuccessStatusCode)
-                        {
-                            var text = await responseMessage.Content.ReadAsStringAsync();
-                            if (text == "OK")
-                            {
-                                UserList.Remove(SelectedUser);
-                            }
-                        }
+                        UserList.Remove(SelectedUser);
                     }
                 }
             }

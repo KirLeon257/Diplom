@@ -64,23 +64,21 @@ namespace MenuMb.Pages
                                 delparam += $"&DepId={item.Id}";
                             }
 
-                            var response = await client.DeleteAsync("/department/delete" + delparam);
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var text = await response.Content.ReadAsStringAsync();
-                                if (text == "OK")
-                                {
-                                    foreach (var item in SelectedDepartment)
-                                    {
-                                        departmentList.Remove(item);
-                                    }
+                            var response = await HttpRequestHelper.DeleteAsync("/department/delete", delparam);
 
+                            if (response == "OK")
+                            {
+                                foreach (var item in SelectedDepartment)
+                                {
+                                    departmentList.Remove(item);
                                 }
+
                             }
+
                         }
 
                     }
-                    
+
                 };
                 menu.Items.Add(deleteMenuItem);
                 DepartmentDataGrid.ContextMenu = menu;
@@ -94,7 +92,7 @@ namespace MenuMb.Pages
         private async Task LoadDepartments()
         {
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            departmentList = await client.GetFromJsonAsync<ObservableCollection<Department>>("/department/list" + param);
+            departmentList = await HttpRequestHelper.GetAsync<ObservableCollection<Department>>("/department/list", param);
             if (departmentList == null || departmentList.Count == 0)
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
@@ -123,19 +121,15 @@ namespace MenuMb.Pages
                 Name = DepName,
                 ApiToken = LoginUser.User.ApiToken
             };
-            string jsonString = JsonSerializer.Serialize(dep);
-            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/department/add", content);
-            if (response.IsSuccessStatusCode)
-            {
-                int Id = Convert.ToInt32(await response.Content.ReadAsStringAsync());
-                Department department = new Department(Id, dep.Name);
-                departmentList.Add(department);
-            }
-            else if (response.StatusCode == (System.Net.HttpStatusCode)500)
-            {
-                MessageBox.Show("Произошла ошибка на сервере");
-            }
+            //string jsonString = JsonSerializer.Serialize(dep);
+            //var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            //var response = await client.PostAsync("/department/add", content);
+            var response = await HttpRequestHelper.PostAsync("/department/add", dep);
+
+            int Id = Convert.ToInt32(response);
+            Department department = new Department(Id, dep.Name);
+            departmentList.Add(department);
+
         }
     }
 }

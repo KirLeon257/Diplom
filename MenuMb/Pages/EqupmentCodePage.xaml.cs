@@ -27,7 +27,7 @@ namespace MenuMb.Pages
     /// </summary>
     public partial class EqupmentCodePage : Page
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp)};
+        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         ObservableCollection<EqupmentCode> codesList;
         public EqupmentCodePage()
         {
@@ -39,12 +39,12 @@ namespace MenuMb.Pages
             var win = new EqupmentCodeWindow();
             if (win.ShowDialog() == true)
             {
-                await AddDepartment(win.EqName,win.EqCode);
+                await AddDepartment(win.EqName, win.EqCode);
             }
 
         }
 
-        private async Task AddDepartment(string Name,int Code)
+        private async Task AddDepartment(string Name, int Code)
         {
             var EqCode = new
             {
@@ -52,18 +52,13 @@ namespace MenuMb.Pages
                 Name = Name,
                 ApiToken = LoginUser.User.ApiToken
             };
-            string jsonString = JsonSerializer.Serialize(EqCode);
-            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/equpmentcode/add", content);
-            if (response.IsSuccessStatusCode)
-            {
-                EqupmentCode equpmentCode = new EqupmentCode(EqCode.Code, EqCode.Name);
-                codesList.Add(equpmentCode);
-            }
-            else if (response.StatusCode == (System.Net.HttpStatusCode)500)
-            {
-                MessageBox.Show("Произошла ошибка на сервере");
-            }
+            //string jsonString = JsonSerializer.Serialize(EqCode);
+            //var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var response = await HttpRequestHelper.PostAsync("/equpmentcode/add", EqCode);
+
+            EqupmentCode equpmentCode = new EqupmentCode(EqCode.Code, EqCode.Name);
+            codesList.Add(equpmentCode);
+
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -74,7 +69,7 @@ namespace MenuMb.Pages
         async Task LoadEqupmentCodes()
         {
             var param = "?ApiToken=" + LoginUser.User.ApiToken;
-            codesList = await client.GetFromJsonAsync<ObservableCollection<EqupmentCode>>("/equpmentcode/list" + param);
+            codesList = await HttpRequestHelper.GetAsync<ObservableCollection<EqupmentCode>>("/equpmentcode/list" , param);
             if (codesList != null && codesList.Count != 0)
             {
                 EqupmentCodeDataGrid.ItemsSource = codesList;
