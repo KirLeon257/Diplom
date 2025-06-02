@@ -3,11 +3,30 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MenuMb.Pages"
+      xmlns:local="clr-namespace:MenuMb"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Внутреннее перемещение ОС">
+      Title="Внутреннее перемещение ОС" Background="White" Loaded="Page_Loaded">
     <Grid>
-        
+        <Menu Height="35" VerticalAlignment="Top">
+            <Label>Поиск по инвентарному номеру</Label>
+            <TextBox x:Name="SearchTextBox" Width="180" TextChanged="TextBox_TextChanged"></TextBox>
+        </Menu>
+        <DataGrid Name="OcMovingDataGrid" MouseDoubleClick="OcMovingDataGrid_MouseDoubleClick" Margin="0,35,0,0" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Переместить ОС" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="Печать">
+                        <MenuItem Header="Акт перемещения ОС" Click="MenuItem_Click_1"></MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование ОС" Binding="{Binding NomenName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инв. №" Binding="{Binding Inventory_number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Текущее подразделение" Binding="{Binding Current_Department}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата перемещения" Binding="{Binding LastMoveDate,StringFormat={}{0:dd.MM.yyyy}}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

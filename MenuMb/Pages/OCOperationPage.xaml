@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MenuMb.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="OCOperationPage" Background="White">
+      Title="Операции с ОС" Background="White">
     <Grid>
         <WrapPanel Orientation="Horizontal">
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0">
@@ -19,7 +19,7 @@
                             Принятие ОС
                         </TextBlock>
                     </Button>
-                    <Button Height="30" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left">
+                    <Button Height="30" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" Click="Button_Click_2">
                         <TextBlock>
                             Перемещение ОС
                         </TextBlock>

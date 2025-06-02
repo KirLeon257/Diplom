@@ -123,5 +123,14 @@ namespace MenuMb.Pages
                 detailsWindow.Show();
             }
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var SearchList = nomenclaturaOCs.Where(x => x.Inventory_Number.StartsWith(SearchTextBox.Text)).ToList();
+            if (SearchList.Count > 0)
+            {
+                OcNomenDataGrid.ItemsSource = SearchList;
+            }
+        }
     }
 }

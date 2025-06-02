@@ -29,13 +29,13 @@ namespace MenuMb.Classes.OC
     {
         public string Amortisation_type { get; set; }
         public decimal AmortisationYearNorm { get; set; }
-        public int Equpment_code { get; set; }
+        public string Equpment_code { get; set; }
         public DateTime CreateDate { get; set; }
         public int SPI { get; set; }
         public int MolCode { get; set; }
         public int OCTypeCode { get; set; }
         public NomenclaturaOCFull() { }
-        public NomenclaturaOCFull(string name, string inventory_Number, string oCType, string mOL, decimal initialCost, DateTime CreateDate, string amortisation_type, int equpment_code, int sPI) : base(name, inventory_Number, oCType, mOL, initialCost)
+        public NomenclaturaOCFull(string name, string inventory_Number, string oCType, string mOL, decimal initialCost, DateTime CreateDate, string amortisation_type, string equpment_code, int sPI) : base(name, inventory_Number, oCType, mOL, initialCost)
         {
             Amortisation_type = amortisation_type;
             Equpment_code = equpment_code;
