@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MenuMb.Classes.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -12,8 +13,13 @@ namespace MenuMb.Classes
 {
     internal static class HttpRequestHelper
     {
-        private static HttpClient httpClient = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
+        private static HttpClient httpClient = new HttpClient()
+        { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
 
+        //static HttpRequestHelper()
+        //{
+        //    httpClient.DefaultRequestHeaders.Add("ApiToken", LoginUser.User.ApiToken);
+        //}
      
         public async static Task<T?> GetAsync<T>(string link, string? param)
         {

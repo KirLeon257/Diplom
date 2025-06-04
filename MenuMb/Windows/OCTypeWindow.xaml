@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="Вид ОС" Height="300" Width="300">
+        Title="Вид ОС" Height="300" Width="300" Loaded="Window_Loaded">
     <Grid>
         <ScrollViewer>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label Height="30" HorizontalAlignment="Left">Код</Label>
                 <TextBox x:Name="CodeTxt" Width="150" Height="35" MaxLength="5" PreviewKeyDown="CodeTxt_PreviewKeyDown" HorizontalAlignment="Right" Margin="10,0,10,0"/>
+                <Label Height="30" HorizontalAlignment="Left">Группа ОС</Label>
+                <ComboBox x:Name="OCGroupComboBox" DisplayMemberPath="Name" Width="150" Height="35" HorizontalAlignment="Right" PreviewKeyDown="CodeTxt_PreviewKeyDown" Margin="10,0,10,0"></ComboBox>
                 <Label Height="30" HorizontalAlignment="Left">Наименование</Label>
                 <TextBox x:Name="NameTxt" Width="150" Height="150" HorizontalAlignment="Right"  AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="10,0,10,0"></TextBox>
                 <Label Height="30" HorizontalAlignment="Left">СПИ</Label>

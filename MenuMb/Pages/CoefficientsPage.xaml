@@ -21,6 +21,15 @@
                 <DataGridTextColumn Header="Дата" Width="auto" Binding="{Binding OnDate}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Значение" Width="auto" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Key}" FontWeight="Bold" FontSize="14"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
         </DataGrid>
     </Grid>
 </Page>

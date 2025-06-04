@@ -67,10 +67,9 @@ namespace MenuMb
             foreach (var item in NewCoefDataGrid.Items)
             {
                 var row = item as NewCoef;
-                if (row == null || row.NewValue == null)
+                if (row.NewValue == null)
                 {
-                    MessageBox.Show("В таблице есть незаполненые ячейки!");
-                    return;
+                    continue;
                 }
                 values.Add(row.Code, (double)row.NewValue);
             }

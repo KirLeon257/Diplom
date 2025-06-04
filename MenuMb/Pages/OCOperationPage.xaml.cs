@@ -40,5 +40,10 @@ namespace MenuMb.Pages
         {
             this.NavigationService.Navigate(new OcMovingPage());
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new OcRevaluationPage());
+        }
     }
 }

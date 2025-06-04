@@ -141,6 +141,7 @@ namespace MenuMb.Pages
                     Code = win.Code,
                     Name = win.Name,
                     SPI = win.SPI,
+                    Group = win.groupId,
                     ApiToken = LoginUser.User.ApiToken
                 };
 

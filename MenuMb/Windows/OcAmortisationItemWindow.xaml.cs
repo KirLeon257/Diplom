@@ -34,6 +34,49 @@ namespace MenuMb.Windows
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             await LoadAmortsationItem();
+            ContextMenu menu = new ContextMenu();
+            if (LoginUser.User.Role == RoleEnum.Admin.ToString())
+            {
+                MenuItem DeletItem = new MenuItem();
+                DeletItem.Click += async (o, e) =>
+                {
+                    var SelectedAmort = AmortDataGrid.SelectedItems.Cast<OcAmortisationItem>().ToList();
+
+                    if (SelectedAmort != null)
+                    {
+                        string msg;
+                        if (SelectedAmort.Count == 1)
+                        {
+                            msg = $"Вы уверены что хотите удалить запись амортизации \"{SelectedAmort[0].Name}\"?";
+                        }
+                        else
+                        {
+                            msg = $"Вы уверены что хотите удалить выбранные элементы?";
+                        }
+                        if (MessageBox.Show(msg, "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            string delparam = $"?&ApiToken={LoginUser.User.ApiToken}";
+                            foreach (var item in SelectedAmort)
+                            {
+                                delparam += $"&AmorId={item.Id}";
+                            }
+
+                            var response = await HttpRequestHelper.DeleteAsync("/oc_amortisation/delete", delparam);
+
+                            if (response == "OK")
+                            {
+                                foreach (var item in SelectedAmort)
+                                {
+                                    ocAmortisationItems.Remove(item);
+                                }
+
+                            }
+
+                        }
+
+                    }
+                };
+            }
         }
 
         private async Task LoadAmortsationItem()

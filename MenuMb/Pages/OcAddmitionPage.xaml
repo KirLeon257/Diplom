@@ -13,6 +13,8 @@
             <MenuItem Header="Приход ОС" Height="35">
                 <MenuItem Header="Создать" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
+            <Label>Поиск по инвентарному номеру</Label>
+            <TextBox x:Name="SearchTextBox" Width="180" TextChanged="SearchTextBox_TextChanged"></TextBox>
         </Menu>
         <DataGrid Margin="0,35,0,0" x:Name="OcAddDataGrid" MouseDoubleClick="OcAddDataGrid_MouseDoubleClick" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>

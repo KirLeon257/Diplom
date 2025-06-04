@@ -142,5 +142,14 @@ namespace MenuMb.Pages
         {
 
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var SearchList = ocAdditions.Where(x => x.Inventory_number.StartsWith(SearchTextBox.Text)).ToList();
+            if (SearchList.Count > 0)
+            {
+                OcAddDataGrid.ItemsSource = SearchList;
+            }
+        }
     }
 }

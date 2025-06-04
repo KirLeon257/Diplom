@@ -20,7 +20,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MenuMb.Classes;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace MenuMb.Pages
 {

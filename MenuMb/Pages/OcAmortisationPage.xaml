@@ -10,6 +10,8 @@
     <Grid>
         <Menu Height="35" VerticalAlignment="Top">
             <MenuItem Header="Расчет амортизации" Height="35" Click="MenuItem_Click"></MenuItem>
+            <Label>Поиск по инвентарному номеру</Label>
+            <TextBox x:Name="SearchTextBox" Width="180" TextChanged="SearchTextBox_TextChanged"></TextBox>
         </Menu>
         <DataGrid x:Name="OcAmortisationDataGrid" Margin="0,35,0,0" MouseDoubleClick="OcAmortisationDataGrid_MouseDoubleClick" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>

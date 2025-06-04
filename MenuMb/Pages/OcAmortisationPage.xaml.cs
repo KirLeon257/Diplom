@@ -65,5 +65,14 @@ namespace MenuMb.Pages
                 window.Show();
             }
         }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var SearchList = ocAmortisations.Where(x => x.InventoryNumber.StartsWith(SearchTextBox.Text)).ToList();
+            if (SearchList.Count > 0)
+            {
+                OcAmortisationDataGrid.ItemsSource = SearchList;
+            }
+        }
     }
 }

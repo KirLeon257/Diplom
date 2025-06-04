@@ -1,4 +1,6 @@
-﻿using MenuMb.Classes.OC;
+﻿using MenuMb.Classes;
+using MenuMb.Classes.OC;
+using MenuMb.Classes.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,8 @@ namespace MenuMb
         public int Code {  get; private set; }
         public string Name {  get; private set; }
         public int SPI { get; private set; }
+        public int groupId { get; private set; }
+        List<OcGroup> ocGroups;
 
         public OCTypeWindow()
         {
@@ -48,12 +52,30 @@ namespace MenuMb
             Code = _Code;
             Name = NameTxt.Text;
             SPI = _SPI;
+            groupId = (OCGroupComboBox.SelectedItem as OcGroup).GroupCode;
             DialogResult = true;
         }
 
         private void CodeTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if ((e.Key < Key.D0 || e.Key > Key.D9 || CodeTxt.Text.Length>5) && e.Key != Key.Back ) { e.Handled = true; }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var param = $"?ApiToken={LoginUser.User.ApiToken}";
+            try
+            {
+                ocGroups = await HttpRequestHelper.GetAsync<List<OcGroup>>("/oc_group/list", param);
+                if (ocGroups != null)
+                {
+                    OCGroupComboBox.ItemsSource = ocGroups;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

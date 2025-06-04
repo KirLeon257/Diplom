@@ -27,7 +27,6 @@ namespace MenuMb.Pages
     /// </summary>
     public partial class CoefficientsPage : Page
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
         public ObservableCollection<Coefficient> coefficients { get; set; }
         public ObservableCollection<OCType> OCTypesCodes { get; set; }
         public CoefficientsPage()
@@ -130,7 +129,9 @@ namespace MenuMb.Pages
             {
                 StatusUpdater.UpdateStatusBar("Данных нет");
             }
-            CoefDataGrid.ItemsSource = coefficients;
+            CollectionView collectionViewGroup = (CollectionView)CollectionViewSource.GetDefaultView(coefficients);
+            collectionViewGroup.GroupDescriptions.Add(new PropertyGroupDescription("OnDate"));
+            CoefDataGrid.ItemsSource = collectionViewGroup;
         }
     }
 }
