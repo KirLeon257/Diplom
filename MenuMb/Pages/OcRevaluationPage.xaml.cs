@@ -1,6 +1,7 @@
 ﻿using MenuMb.Classes;
 using MenuMb.Classes.OC;
 using MenuMb.Classes.Users;
+using MenuMb.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -50,6 +51,25 @@ namespace MenuMb.Pages
             {
 
                 throw;
+            }
+        }
+
+        private void OcRevDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selected = OcRevDataGrid.SelectedItem as OcRevaluation;
+            if (selected != null)
+            {
+                OcRevItemWindow itemWindow = new OcRevItemWindow(selected.oc_nomenclature_Id);
+                itemWindow.Show();
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OcRevDateSelectWindow dateSelectWindow = new OcRevDateSelectWindow();
+            if (dateSelectWindow.ShowDialog() == true)
+            {
+                this.NavigationService.Refresh();
             }
         }
     }

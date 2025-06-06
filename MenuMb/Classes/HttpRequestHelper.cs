@@ -37,6 +37,23 @@ namespace MenuMb.Classes
 
         }
 
+        public async static Task<string?> GetAsync(string link, string? param)
+        {
+            string full_link = param != null ? link + param : link;
+            try
+            {
+                var response = await httpClient.GetStringAsync(full_link);
+                return response;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не удалось выполнить запрос!");
+                return default;
+            }
+
+        }
+
+
         public async static Task<string?> PostAsync(string link, object? data)
         {
             var content = GetStringContent(data);

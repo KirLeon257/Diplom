@@ -1,4 +1,5 @@
-﻿using MenuMb.Classes.OC;
+﻿using MenuMb.Classes;
+using MenuMb.Classes.OC;
 using MenuMb.Classes.Users;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -25,7 +26,19 @@ namespace MenuMb.Windows
 
         private async Task LoadRevItem()
         {
-            var param = $"ApiToken={LoginUser.User.ApiToken}";
+            var param = $"?ApiToken={LoginUser.User.ApiToken}&NomenId={nomenId}";
+            try
+            {
+                ocRevaluationItems = await HttpRequestHelper.GetAsync<ObservableCollection<OcRevaluationItem>>("/oc_revaluation/item_info", param);
+                if (ocRevaluationItems != null)
+                {
+                    OCRevItemDataGrid.ItemsSource = ocRevaluationItems;
+                }
+            }
+            catch (Exception ex)
+            {
+               MessageBox.Show(ex.Message);
+            }
         }
     }
 }

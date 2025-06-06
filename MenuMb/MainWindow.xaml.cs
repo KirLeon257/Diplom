@@ -32,14 +32,18 @@ public partial class MainWindow : Window
         Closing += MainWindow_Closing;
     }
 
-    
+
 
     private async void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
-        if (new ExitWindowDialog().ShowDialog() == true) 
-        { 
+        if (new ExitWindowDialog().ShowDialog() == true)
+        {
             await _socketService.CloseAsync();
-            Application.Current.Shutdown();
+            var response = await HttpRequestHelper.GetAsync("/user/logout", $"?ApiToken={LoginUser.User.ApiToken}");
+            if (response == "OK")
+            {
+                Application.Current.Shutdown();
+            }
         }
         else
         {
@@ -100,7 +104,7 @@ public partial class MainWindow : Window
 
     private void MenuItemBtn2_Click(object sender, RoutedEventArgs e)
     {
-       ShowBlock(new OCOperationPage());
+        ShowBlock(new OCOperationPage());
     }
 
     private void MenuItemBtn3_Click(object sender, RoutedEventArgs e)
@@ -118,7 +122,7 @@ public partial class MainWindow : Window
         // Запуск фонового WebSocket-клиента
         try
         {
-            
+
             _socketService = new(this.MainConteiner.NavigationService);
             await _socketService.StartListeningAsync();
         }
@@ -130,7 +134,7 @@ public partial class MainWindow : Window
 
     private void GetMenu(string Role)
     {
-        if(Role == "Admin")
+        if (Role == "Admin")
         {
             AdminMenu menu = new AdminMenu();
             menu.UserMenu.MenuItemBtn1.Click += MenuItemBtn1_Click;
@@ -139,7 +143,7 @@ public partial class MainWindow : Window
             menu.AdminMenuItemBtn1.Click += AdminMenuItemBtn1_Click;
             MenuButtonsContainer.Children.Add(menu);
         }
-        else if(Role == "User")
+        else if (Role == "User")
         {
             UserMenu menu = new UserMenu();
             menu.MenuItemBtn1.Click += MenuItemBtn1_Click;
@@ -147,7 +151,7 @@ public partial class MainWindow : Window
             //menu.MenuItemBtn3.Click += MenuItemBtn3_Click;
             MenuButtonsContainer.Children.Add(menu);
         }
-       
+
     }
 
     private void AdminMenuItemBtn1_Click(object sender, RoutedEventArgs e)

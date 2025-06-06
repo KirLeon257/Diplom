@@ -9,9 +9,9 @@
       Title="Переоценка ОС" Background="White" Loaded="Page_Loaded"> 
     <Grid>
         <Menu VerticalAlignment="Top" Height="35">
-            <MenuItem Header="Выполнить переоценку" Height="35"></MenuItem>
+            <MenuItem Header="Выполнить переоценку" Height="35" Click="MenuItem_Click"></MenuItem>
         </Menu>
-        <DataGrid x:Name="OcRevDataGrid" Margin="0,35,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid x:Name="OcRevDataGrid" MouseDoubleClick="OcRevDataGrid_MouseDoubleClick" Margin="0,35,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование ОС" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Инв.№" Binding="{Binding Inventory_number}"></DataGridTextColumn>
