@@ -16,9 +16,6 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Переместить ОС" Click="MenuItem_Click"></MenuItem>
-                    <MenuItem Header="Печать">
-                        <MenuItem Header="Акт перемещения ОС" Click="MenuItem_Click_1"></MenuItem>
-                    </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>

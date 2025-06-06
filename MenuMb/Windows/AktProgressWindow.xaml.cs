@@ -26,33 +26,31 @@ namespace MenuMb.Windows
     /// </summary>
     public partial class AktProgressWindow : Window
     {
-        int AddId;
-        public AktProgressWindow(int addId)
+        public AktProgressWindow()
         {
             InitializeComponent();
-            Loaded += AktProgressWindow_Loaded;
-            AddId = addId;
+            
         }
 
-        private async void AktProgressWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            PrintAktPriem();
-        }
-
-        private async Task PrintAktPriem()
+        public async Task PrintAktPriem(int addId)
         {
             try
             {
-                var param = $"?AddId={AddId}&ApiToken={LoginUser.User.ApiToken}";
+                var param = $"?AddId={addId}&ApiToken={LoginUser.User.ApiToken}";
                 var Info = await HttpRequestHelper.GetAsync<ActPriem>("/oc_addmition/act_priem", param);
                 if (Info != null)
                 {
+                    this.Show();
                     await GenerateAktPrixod(Info);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Close();
             }
         }
 
@@ -64,7 +62,7 @@ namespace MenuMb.Windows
                 {
                     var worksheet = workbook.Worksheet(1);
                     var cells = worksheet.CellsUsed();
-                    await SetDates(cells, infoAct);
+                    await SetAktPriemDates(cells, infoAct);
                     UpgradeStatusBar(28);
                     await FillOcXarakt(worksheet, infoAct);
                     string DirectoryName = "\\Акты\\Прием";
@@ -119,7 +117,7 @@ namespace MenuMb.Windows
 
         }
 
-        async Task SetDates(IXLCells cells, ActPriem info)
+        async Task SetAktPriemDates(IXLCells cells, ActPriem info)
         {
             Dictionary<string, string> keyValuePairs = new Dictionary<string, string>
             {
@@ -186,6 +184,118 @@ namespace MenuMb.Windows
         async Task UpgradeStatusBar(int value)
         {
             progressBar.Value += value;
+        }
+
+        public async Task PrintAktPerem(int PeremId)
+        {
+            try
+            {
+                var param = $"?PeremId={PeremId}&ApiToken={LoginUser.User.ApiToken}";
+                var Info = await HttpRequestHelper.GetAsync<AktPerem>("/oc_moving/akt_perem", param);
+                if (Info != null)
+                {
+                    this.Show();
+                    await GenerateAktPerem(Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        private async Task GenerateAktPerem(AktPerem info)
+        {
+            using (var workbook = new XLWorkbook(".\\ActsObrasec\\Akt_obrazec_perem.xlsx"))
+            {
+                try
+                {
+                    var worksheet = workbook.Worksheet(1);
+                    var cells = worksheet.CellsUsed();
+                    await SetAktPeremDates(cells, info);
+                    UpgradeStatusBar(28);
+                    await FillOcXarakt(worksheet, info);
+                    string DirectoryName = "\\Акты\\Перемещение";
+                    if (!Directory.Exists(DirectoryName))
+                    {
+                        Directory.CreateDirectory(DirectoryName);
+                    }
+                    string filename = DirectoryName + "\\Акт_Перемещения_" + $"{info.NomenName}_" + DateTime.Now.ToString("yyyy-MM-dd") + ".xlsx";
+                    workbook.SaveAs(filename);
+                    UpgradeStatusBar(50);
+                    Process.Start("explorer.exe", DirectoryName);
+                    this.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
+
+        async Task SetAktPeremDates(IXLCells cells, AktPerem info)
+        {
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>
+            {
+                {"Date",info.Date.ToString("dd MMMM yyyy") },
+                {"MoveId",info.MoveId.ToString($"D6") },
+                {"MOL",info.MOL },
+                {"Old_dep",info.Old_dep },
+                {"New_dep",info.New_dep }
+            };
+
+            foreach (KeyValuePair<string, string> pair in keyValuePairs)
+            {
+                if (FillCell(cells, pair.Key, pair.Value) == false)
+                {
+                    throw new Exception("Не удалось заполнить данные с датами");
+                }
+                await UpgradeStatusBar(1);
+            }
+
+        }
+
+        private async Task FillOcXarakt(IXLWorksheet worksheet, AktPerem infoAct)
+        {
+            var cellName = worksheet.CellsUsed().Where(x => x.GetString() == "<NomenName>").FirstOrDefault();
+            var cellCount = worksheet.CellsUsed().Where(x => x.GetString() == "<CountType>").FirstOrDefault();
+            var cellsCost = worksheet.CellsUsed().Where(x => x.GetString() == "<Cost>").ToList();
+            if (cellName == null || cellCount == null || cellsCost==null)
+            {
+                throw new Exception("Не удалось заполнить характеристику ОС");
+            }
+            cellName.Value = infoAct.NomenName;
+            cellCount.Value = "шт.";
+            foreach(var cell in cellsCost)
+            {
+                cell.Value = infoAct.InitialCost;
+            }
+            //var NamerowStart = cellName.Address.RowNumber;
+            //var NamecolumnStart = cellName.Address.ColumnNumber;
+            //var CountColumnStart = cellCount.Address.ColumnNumber;
+
+            //var row = NamerowStart;
+            //var columnName = NamecolumnStart;
+            //var columnCount = CountColumnStart;
+
+
+            //foreach (var xar in infoAct.xaract)
+            //{
+            //    if ((row - NamerowStart) > 4 && infoAct.xaract.Count() > 4)
+            //    {
+            //        worksheet.Row(row).InsertRowsBelow(1);
+            //    }
+            //    FillCell(worksheet.Cell(row, columnName), xar.NameCharacteristic);
+            //    FillCell(worksheet.Cell(row, columnCount), xar.Count.ToString());
+            //    row++;
+            //}
+
         }
     }
 }

@@ -53,5 +53,15 @@ namespace MenuMb.Windows
                 throw;
             }
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = OcMovingHistoryDataGrid.SelectedItem as OcMovingItem;
+            if (selected != null)
+            {
+                AktProgressWindow peremAkt = new AktProgressWindow();
+                peremAkt.PrintAktPerem(selected.MoveId);
+            }
+        }
     }
 }

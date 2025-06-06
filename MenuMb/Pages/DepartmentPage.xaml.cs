@@ -72,13 +72,9 @@ namespace MenuMb.Pages
                                 {
                                     departmentList.Remove(item);
                                 }
-
                             }
-
                         }
-
                     }
-
                 };
                 menu.Items.Add(deleteMenuItem);
                 DepartmentDataGrid.ContextMenu = menu;

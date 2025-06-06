@@ -8,6 +8,13 @@
         Title="История перемещения" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <DataGrid x:Name="OcMovingHistoryDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" CanUserDeleteRows="False">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Печать">
+                        <MenuItem Header="Акт перемещения ОС" Click="MenuItem_Click"></MenuItem>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование ОС" Binding="{Binding NomenName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Инв. №" Binding="{Binding Inventory_number}"></DataGridTextColumn>

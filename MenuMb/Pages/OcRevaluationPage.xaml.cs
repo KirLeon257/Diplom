@@ -42,15 +42,14 @@ namespace MenuMb.Pages
             try
             {
                 ocRevaluations = await HttpRequestHelper.GetAsync<ObservableCollection<OcRevaluation>>("/oc_revaluation/list", param);
-                if (ocRevaluations!=null)
+                if (ocRevaluations != null)
                 {
                     OcRevDataGrid.ItemsSource = ocRevaluations;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Переоценка" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid Name="OCRevItemDataGrid" Margin="25" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid Name="OCRevItemDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Стоимость до переоценки" Binding="{Binding Old_PereocenCost}"></DataGridTextColumn>

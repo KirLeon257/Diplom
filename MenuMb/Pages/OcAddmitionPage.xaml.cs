@@ -123,10 +123,11 @@ namespace MenuMb.Pages
                 //{
                 //    await GenerateAktPrixod(Info);
                 //}
-                AktProgressWindow aktProgress = new AktProgressWindow(Selected.AddId);
-                aktProgress.ShowActivated = true;
-                aktProgress.ShowInTaskbar = false;
-                aktProgress.Show();
+                AktProgressWindow aktProgress = new AktProgressWindow();
+                //aktProgress.ShowActivated = true;
+                //aktProgress.ShowInTaskbar = false;
+                //aktProgress.Show();
+                await aktProgress.PrintAktPriem(Selected.AddId);
             }
             catch (Exception ex)
             {
@@ -137,11 +138,6 @@ namespace MenuMb.Pages
         
 
         
-
-        private void OcAddDataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
