@@ -1,23 +1,10 @@
 ﻿using ClosedXML.Excel;
 using MenuMb.Classes;
 using MenuMb.Classes.Acts;
-using MenuMb.Classes.OC;
 using MenuMb.Classes.Users;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MenuMb.Windows
 {
@@ -29,7 +16,7 @@ namespace MenuMb.Windows
         public AktProgressWindow()
         {
             InitializeComponent();
-            
+
         }
 
         public async Task PrintAktPriem(int addId)
@@ -266,13 +253,13 @@ namespace MenuMb.Windows
             var cellName = worksheet.CellsUsed().Where(x => x.GetString() == "<NomenName>").FirstOrDefault();
             var cellCount = worksheet.CellsUsed().Where(x => x.GetString() == "<CountType>").FirstOrDefault();
             var cellsCost = worksheet.CellsUsed().Where(x => x.GetString() == "<Cost>").ToList();
-            if (cellName == null || cellCount == null || cellsCost==null)
+            if (cellName == null || cellCount == null || cellsCost == null)
             {
                 throw new Exception("Не удалось заполнить характеристику ОС");
             }
             cellName.Value = infoAct.NomenName;
             cellCount.Value = "шт.";
-            foreach(var cell in cellsCost)
+            foreach (var cell in cellsCost)
             {
                 cell.Value = infoAct.InitialCost;
             }
@@ -296,6 +283,81 @@ namespace MenuMb.Windows
             //    row++;
             //}
 
+        }
+
+        internal async void PrintWriteOffAkt(int nomenId)
+        {
+            try
+            {
+                var param = $"?NomenId={nomenId}&ApiToken={LoginUser.User.ApiToken}";
+                var Info = await HttpRequestHelper.GetAsync<AktWriteoff>("/oc_writeoff/WriteOff_akt", param);
+                if (Info != null)
+                {
+                    this.Show();
+                    await GenerateAktWriteOff(Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        private async Task GenerateAktWriteOff(AktWriteoff info)
+        {
+            using (var workbook = new XLWorkbook(".\\ActsObrasec\\Akt_writeoff_oc.xlsx"))
+            {
+                try
+                {
+                    var worksheet = workbook.Worksheet(1);
+                    var cells = worksheet.CellsUsed();
+                    await SetAktPriemDates(cells, info);
+                    UpgradeStatusBar(28);
+                    string DirectoryName = "\\Акты\\Списание";
+                    if (!Directory.Exists(DirectoryName))
+                    {
+                        Directory.CreateDirectory(DirectoryName);
+                    }
+                    string filename = DirectoryName + "\\Акт_Списание_" + $"{info.NomenName}_" + DateTime.Now.ToString("yyyy-MM-dd") + ".xlsx";
+                    workbook.SaveAs(filename);
+                    UpgradeStatusBar(50);
+                    Process.Start("explorer.exe", DirectoryName);
+                    this.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private async Task SetAktPriemDates(IXLCells cells, AktWriteoff info)
+        {
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>
+            {
+                {"WriteOffDate",info.WriteOffDate.ToString("dd MMMM yyyy") },
+                {"WriteoffId",info.WriteoffId.ToString($"D6") },
+                {"NomenName",info.NomenName },
+                {"InventoryNum",info.InventoryNum},
+                {"PereocenCost",info.PereocenCost.ToString() },
+                {"AmortSum",info.AmortSum.ToString() },
+                {"OstatochCost",info.OstatochCost.ToString()},
+                {"WriteOffBasis",info.WriteOffBasis}
+            };
+
+            foreach (KeyValuePair<string, string> pair in keyValuePairs)
+            {
+                if (FillCell(cells, pair.Key, pair.Value) == false)
+                {
+                    throw new Exception("Не удалось заполнить данные с датами");
+                }
+                await UpgradeStatusBar(1);
+            }
         }
     }
 }

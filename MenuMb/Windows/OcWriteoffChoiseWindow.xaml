@@ -1,0 +1,27 @@
+﻿<Window x:Class="MenuMb.Windows.OcWriteoffChoiseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MenuMb.Windows"
+        mc:Ignorable="d"
+        Title="Выбор ОС для списания" Height="550" Width="500" Loaded="Window_Loaded">
+    <Grid>
+        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="0,15,0,0">Поиск по инвентарному номеру</Label>
+        <TextBox x:Name="SearchTextBox" Height="35" Width="250" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,10,0,0" TextChanged="SearchTextBox_TextChanged"></TextBox>
+        <DataGrid x:Name="OcNomenToWriteOffDataGrid" Margin="0,60,0,85" CanUserAddRows="False" AutoGenerateColumns="False" CanUserDeleteRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding NomenName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Инв. №" Width="auto" Binding="{Binding Inventory_number}"></DataGridTextColumn>
+                <DataGridTextColumn Header="МОЛ" Width="auto" Binding="{Binding MOL}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата ввода" Width="auto" Binding="{Binding EnterDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Первоначальная (переоцененная) стоимость" Binding="{Binding PereocenCost}" Width="auto"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label HorizontalAlignment="Left" Width="110" VerticalAlignment="Bottom" Margin="0,0,0,55">Дата списания</Label>
+        <DatePicker x:Name="WriteOffDate" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="125" Margin="110,0,0,55"/>
+        <Label HorizontalAlignment="Left" Width="110" VerticalAlignment="Bottom" Margin="0,0,0,25">Основание</Label>
+        <TextBox x:Name="BasisTextBox" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="125" Margin="110,0,0,25"/>
+        <Button Width="100" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,5" Click="Button_Click">Подтвердить</Button>
+    </Grid>
+</Window>

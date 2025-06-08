@@ -86,35 +86,35 @@ namespace MenuMb.Pages
                         }
                     }
                 };
-                var updateMenuItem = new MenuItem();
-                updateMenuItem.Header = "Изменить";
-                updateMenuItem.Click += async (o, e) =>
-                {
-                    var SelectedType = CoefDataGrid.SelectedItem as OCType;
-                    if (SelectedType != null)
-                    {
-                        var win = new OCTypeWindow(SelectedType.Code, SelectedType.Name, SelectedType.SPI);
-                        if (win.ShowDialog() == true)
-                        {
+                //var updateMenuItem = new MenuItem();
+                //updateMenuItem.Header = "Изменить";
+                //updateMenuItem.Click += async (o, e) =>
+                //{
+                //    var SelectedType = CoefDataGrid.SelectedItem as OCType;
+                //    if (SelectedType != null)
+                //    {
+                //        var win = new OCTypeWindow(SelectedType.Code, SelectedType.Name, SelectedType.SPI);
+                //        if (win.ShowDialog() == true)
+                //        {
 
-                            var Oc_Type = new
-                            {
-                                Code = win.Code,
-                                Name = win.Name,
-                                SPI = win.SPI,
-                                ApiToken = LoginUser.User.ApiToken
-                            };
+                //            var Oc_Type = new
+                //            {
+                //                Code = win.Code,
+                //                Name = win.Name,
+                //                SPI = win.SPI,
+                //                ApiToken = LoginUser.User.ApiToken
+                //            };
 
-                            var response = await HttpRequestHelper.PostAsync("/oc_type/edit", Oc_Type);
+                //            var response = await HttpRequestHelper.PostAsync("/oc_type/edit", Oc_Type);
 
-                            if (response == "OK")
-                            {
-                                NavigationService.Refresh();
-                            }
+                //            if (response == "OK")
+                //            {
+                //                NavigationService.Refresh();
+                //            }
 
-                        }
-                    }
-                };
+                //        }
+                //    }
+                //};
                 menu.Items.Add(deleteMenuItem);
                 CoefDataGrid.ContextMenu = menu;
             }
@@ -133,5 +133,6 @@ namespace MenuMb.Pages
             collectionViewGroup.GroupDescriptions.Add(new PropertyGroupDescription("OnDate"));
             CoefDataGrid.ItemsSource = collectionViewGroup;
         }
+
     }
 }

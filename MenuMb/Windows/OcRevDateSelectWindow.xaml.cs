@@ -28,9 +28,6 @@ namespace MenuMb.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            cmbMonth.ItemsSource = new[]
-                { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
             cmbYear.ItemsSource = Enumerable.Range(DateTime.Now.Year - 50, 100).ToList();
             cmbYear.SelectedValue = DateTime.Now.Year;
         }
@@ -38,7 +35,7 @@ namespace MenuMb.Windows
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Btn.IsEnabled = false;
-            DateTime selectedDate = new DateTime(int.Parse(cmbYear.Text), cmbMonth.SelectedIndex + 1, 1);
+            DateTime selectedDate = new DateTime(int.Parse(cmbYear.Text));
             try
             {
                 var data = new
