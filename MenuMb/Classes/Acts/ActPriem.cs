@@ -11,7 +11,7 @@ namespace MenuMb.Classes.Acts
     {
         public OCAddmitionFull AddInfo { get; set; }
         public List<OcCharacteristic> xaract { get; set; }
-        public Supplier supplier { get; set; }
+        public Supplier? supplier { get; set; }
         public Supplier excepter { get; set; }
     }
 }

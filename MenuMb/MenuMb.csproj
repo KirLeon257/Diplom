@@ -7,6 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ReferencePath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win64_x64\dotnet\</ReferencePath>
+    <AssemblyName>Diplom</AssemblyName>
+    <RootNamespace>Diplom</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +33,18 @@
   <ItemGroup>
     <None Update=".env">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ActsObrasec\Akt_obrazec_perem.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ActsObrasec\Akt_pereocen.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ActsObrasec\Akt_writeoff_oc.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ActsObrasec\blank-priem-peredacha-oc.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Images\free-icon-setting-4443102.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

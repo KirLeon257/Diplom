@@ -113,8 +113,8 @@ namespace MenuMb.Windows
                 {"DateEnter",info.AddInfo.EnterDate.ToString("dd MMMM yyyy") },
                 {"AddDate", info.AddInfo.AddmissionDate.ToString("dd MMMM yyyy")},
                 {"Basis_date",info.AddInfo.Basis_date.ToString("dd MMMM yyyy") },
-                {"Supplier",info.supplier.Name},
-                {"SupplierYNP",info.supplier.YNP},
+                {"Supplier",info.supplier?.Name},
+                {"SupplierYNP",info.supplier?.YNP},
                 {"Excepter",info.excepter.Name},
                 {"ExcepterYNP",info.excepter.YNP},
                 {"NomenDepartment",info.AddInfo.Department},
@@ -144,7 +144,7 @@ namespace MenuMb.Windows
         }
 
 
-        bool FillCell(IXLCells cells, string CellName, string value)
+        bool? FillCell(IXLCells cells, string CellName, string value)
         {
             var usedcells = cells.Where(c => c.Value.ToString() == $"<{CellName}>").ToList();
             if (usedcells != null)
@@ -155,7 +155,7 @@ namespace MenuMb.Windows
                 }
                 return true;
             }
-            return false;
+            return null;
         }
 
         bool FillCell(IXLCell cell, string value)

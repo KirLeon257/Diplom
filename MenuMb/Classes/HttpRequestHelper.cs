@@ -29,9 +29,9 @@ namespace MenuMb.Classes
                 var response = await httpClient.GetFromJsonAsync<T>(full_link);
                 return response;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Не удалось выполнить запрос!");
+                MessageBox.Show(ex.Message);
                 return default;
             }
 
