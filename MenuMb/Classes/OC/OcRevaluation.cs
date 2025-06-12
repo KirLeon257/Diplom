@@ -23,5 +23,8 @@ namespace MenuMb.Classes.OC
         public Decimal PereocenSum { get; set; }
         public Decimal New_PereocenCost { get; set; }
         public DateTime OnDate { get; set; }
+        public Decimal OldAmortSum { get; set; }
+        public Decimal NewAmortSum { get; set; }
+        public Decimal Value { get; set; }
     }
 }

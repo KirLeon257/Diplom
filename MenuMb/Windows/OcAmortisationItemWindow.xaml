@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Амортизация ОС" Height="400" Width="600" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid Margin="35" Name="AmortDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid Name="AmortDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Заводской код" Binding="{Binding Inventory_number}"></DataGridTextColumn>

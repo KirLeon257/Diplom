@@ -71,5 +71,16 @@ namespace MenuMb.Pages
                 this.NavigationService.Refresh();
             }
         }
+
+        private async void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            OcRevDateSelectWindow dateSelectWindow = new OcRevDateSelectWindow(isPereocenAkt: true);
+            if (dateSelectWindow.ShowDialog() == true)
+            {
+                var date = dateSelectWindow.SelectedDate;
+                AktProgressWindow aktProgressWindow = new AktProgressWindow();
+                await aktProgressWindow.PrintAktPereocen(date);
+            }
+        }
     }
 }

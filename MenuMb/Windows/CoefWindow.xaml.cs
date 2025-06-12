@@ -3,6 +3,7 @@ using MenuMb.Classes.OC;
 using MenuMb.Classes.Users;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -19,38 +20,39 @@ namespace MenuMb
     /// </summary>
     public partial class CoefWindow : Window
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
+        string[] months = { "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
         ObservableCollection<OCType> ocTypes;
-        internal ObservableCollection<NewCoef> coefficients = new ObservableCollection<NewCoef>();
+        internal ObservableCollection<NewCoef> coefficients;
         public CoefWindow()
         {
             InitializeComponent();
-            MonthComboBox.ItemsSource = new[]
-                { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru-RU");
             YearComboBox.ItemsSource = Enumerable.Range(DateTime.Now.Year - 50, 100).ToList();
             YearComboBox.SelectedValue = DateTime.Now.Year;
-
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             await LoadOCType();
-            NewCoefDataGrid.ItemsSource = coefficients;
-            var comboBoxColumn = NewCoefDataGrid.Columns.OfType<DataGridComboBoxColumn>().FirstOrDefault();
+            LoadCoefsMonth();
         }
 
         private async Task LoadOCType()
         {
             try
             {
+
                 var param = "?ApiToken=" + LoginUser.User.ApiToken;
-                coefficients = await HttpRequestHelper.GetAsync<ObservableCollection<NewCoef>>("/oc_type/list", param);
-                if (coefficients == null)
+                ocTypes = await HttpRequestHelper.GetAsync<ObservableCollection<OCType>>("/oc_type/list", param);
+                if (ocTypes == null)
                 {
                     StatusUpdater.UpdateStatusBar("Нет данных");
                 }
+
+                OcTypeComboBox.ItemsSource = ocTypes;
+                OcTypeComboBox.DisplayMemberPath = "Name";
+
             }
             catch (Exception)
             {
@@ -62,37 +64,54 @@ namespace MenuMb
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //List<(int code, double value)> values = new List<(int code, double value)>();
-            Dictionary<int, double> values = new Dictionary<int, double>();
-            foreach (var item in NewCoefDataGrid.Items)
-            {
-                var row = item as NewCoef;
-                if (row.NewValue == null)
-                {
-                    continue;
-                }
-                values.Add(row.Code, (double)row.NewValue);
-            }
-
             var data = new
             {
-                period = DateTime.Parse($"{YearComboBox.Text}-{MonthComboBox.SelectedIndex + 1}-{DateTime.Today.Day}"),
-                coefs = values,
+                coefficients,
+                BaseDate = BaseDate.SelectedDate.Value,
+                OcTypeCode = (OcTypeComboBox.SelectedItem as OCType).Code,
                 LoginUser.User.ApiToken
             };
-
-            //var json = JsonSerializer.Serialize(data);
-            //var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await HttpRequestHelper.PostAsync("/coefficient/add", data);
-            if (response == "OK")
+            Btn.IsEnabled = false;
+            try
             {
-                DialogResult = true;
+                var response = await HttpRequestHelper.PostAsync("/coefficient/add", data);
+                if(response == "OK")
+                {
+                    DialogResult = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DialogResult = null;
+                MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                Btn.IsEnabled = true;
+            }
+
+        }
+
+        void LoadCoefsMonth()
+        {
+            coefficients = new ObservableCollection<NewCoef>();
+            DateTime startDateTime = new DateTime((int)YearComboBox.SelectedItem - 1, 12, 1);
+            for (var i = 0; i < months.Length; i++)
+            {
+                if (i == 0)
+                {
+                    coefficients.Add(new NewCoef(startDateTime, 0));
+                    startDateTime = startDateTime.AddMonths(1);
+                    continue;
+                }
+                coefficients.Add(new NewCoef(startDateTime, 0));
+                startDateTime = startDateTime.AddMonths(1);
+            }
+            NewCoefDataGrid.ItemsSource = coefficients;
+        }
+
+        private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadCoefsMonth();
         }
     }
 }

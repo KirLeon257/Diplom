@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using Diplom.Classes.Acts;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MenuMb.Classes;
 using MenuMb.Classes.Acts;
 using MenuMb.Classes.Users;
@@ -263,26 +265,6 @@ namespace MenuMb.Windows
             {
                 cell.Value = infoAct.InitialCost;
             }
-            //var NamerowStart = cellName.Address.RowNumber;
-            //var NamecolumnStart = cellName.Address.ColumnNumber;
-            //var CountColumnStart = cellCount.Address.ColumnNumber;
-
-            //var row = NamerowStart;
-            //var columnName = NamecolumnStart;
-            //var columnCount = CountColumnStart;
-
-
-            //foreach (var xar in infoAct.xaract)
-            //{
-            //    if ((row - NamerowStart) > 4 && infoAct.xaract.Count() > 4)
-            //    {
-            //        worksheet.Row(row).InsertRowsBelow(1);
-            //    }
-            //    FillCell(worksheet.Cell(row, columnName), xar.NameCharacteristic);
-            //    FillCell(worksheet.Cell(row, columnCount), xar.Count.ToString());
-            //    row++;
-            //}
-
         }
 
         internal async void PrintWriteOffAkt(int nomenId)
@@ -358,6 +340,33 @@ namespace MenuMb.Windows
                 }
                 await UpgradeStatusBar(1);
             }
+        }
+    
+        public async Task PrintAktPereocen(DateTime date)
+        {
+            try
+            {
+                var param = $"?Date={date.ToString("yyyy-MM-dd")}&ApiToken={LoginUser.User.ApiToken}";
+                var Info = await HttpRequestHelper.GetAsync<List<AktPereocen>>("/oc_revaluation/akt_pereocen", param);
+                if (Info != null)
+                {
+                    this.Show();
+                    await GenerateAktPereocen(Info);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        private async Task GenerateAktPereocen(List<AktPereocen> info)
+        {
+            throw new NotImplementedException();
         }
     }
 }

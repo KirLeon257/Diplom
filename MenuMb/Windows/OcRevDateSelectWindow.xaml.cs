@@ -21,9 +21,17 @@ namespace MenuMb.Windows
     /// </summary>
     public partial class OcRevDateSelectWindow : Window
     {
+        bool isPereocenAkt = false;
+        public DateTime SelectedDate;
         public OcRevDateSelectWindow()
         {
             InitializeComponent();
+        }
+
+        public OcRevDateSelectWindow(bool isPereocenAkt)
+        {
+            InitializeComponent();
+            this.isPereocenAkt = isPereocenAkt;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -35,28 +43,37 @@ namespace MenuMb.Windows
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             Btn.IsEnabled = false;
-            DateTime selectedDate = new DateTime(int.Parse(cmbYear.Text));
-            try
+            SelectedDate = new DateTime((int)cmbYear.SelectedItem + 1, 1, 1);
+            if (!isPereocenAkt)
             {
-                var data = new
+                try
                 {
-                    Date = selectedDate,
-                    ApiToken = LoginUser.User.ApiToken
-                };
-                var respons = await HttpRequestHelper.PutAsync("/oc_revaluation/exec_rev", data);
-                if (respons == "OK")
+                    var data = new
+                    {
+                        Date = SelectedDate,
+                        ApiToken = LoginUser.User.ApiToken
+                    };
+                    var respons = await HttpRequestHelper.PutAsync("/oc_revaluation/exec_rev", data);
+                    if (respons == "OK")
+                    {
+                        DialogResult = true;
+                    }
+
+                }
+                catch (Exception ex)
                 {
-                    DialogResult = true;
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Btn.IsEnabled = true;
                 }
 
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                Btn.IsEnabled = true;
+                SelectedDate = new DateTime((int)cmbYear.SelectedItem + 1, 1, 1);
+                DialogResult = true;
             }
         }
     }

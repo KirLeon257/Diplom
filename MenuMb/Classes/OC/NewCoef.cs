@@ -6,8 +6,20 @@ using System.Threading.Tasks;
 
 namespace MenuMb.Classes.OC
 {
-    internal class NewCoef : OCType
+    internal class NewCoef
     {
+        public NewCoef(DateTime month, double? newValue)
+        {
+            Month = month;
+            NewValue = newValue;
+        }
+
+        public DateTime Month { get; set; }
         public double? NewValue { get; set; }
+    }
+
+    internal class NewCoefToSend
+    {
+        
     }
 }

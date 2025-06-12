@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         Title="Переоценка" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid Name="OCRevItemDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+        <DataGrid Name="OCRevItemDataGrid" HorizontalScrollBarVisibility="Auto" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Стоимость до переоценки" Binding="{Binding Old_PereocenCost}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Сумма переоценки" Binding="{Binding PereocenSum}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Стоимость после переоценки" Binding="{Binding New_PereocenCost}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата переоценки" Binding="{Binding OnDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Старая сумма амортизации" Binding="{Binding OldAmortSum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Новая сумма амортизации" Binding="{Binding NewAmortSum}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Коэффициент переоценки" Binding="{Binding Value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

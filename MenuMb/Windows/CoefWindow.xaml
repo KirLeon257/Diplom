@@ -5,27 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
+        Language="ru-RU"
         Title="Коэффициенты переоценки" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <Border VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1">
-            <StackPanel>
-                <Label  Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">Период</Label>
+        <Border VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1">
+            <WrapPanel Orientation="Horizontal">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Label Width="100" Height="30">Месяц</Label>
-                    <ComboBox x:Name="MonthComboBox" Width="100" Margin="10,0,10,0"></ComboBox>
-                    <Label Width="100" Height="30">Год</Label>
-                    <ComboBox x:Name="YearComboBox" Width="100" Margin="10,0,10,0"></ComboBox>
+                    <Label>Дата принятия коэффициентов</Label>
+                    <DatePicker x:Name="BaseDate"></DatePicker>
+                    <Label Margin="20,0,0,0">Вид ОС</Label>
+                    <ComboBox x:Name="OcTypeComboBox" Width="435"></ComboBox>
                 </StackPanel>
-            </StackPanel>
+                <Label Margin="0,15,0,0">Год назначения коэф.</Label>
+                <ComboBox x:Name="YearComboBox" Margin="0,15,0,0" Width="150" SelectionChanged="YearComboBox_SelectionChanged"></ComboBox>
+            </WrapPanel>
         </Border>
-        <DataGrid x:Name="NewCoefDataGrid" Margin="0,80,0,45" AutoGenerateColumns="False" CanUserAddRows="False">
+        <DataGrid x:Name="NewCoefDataGrid" Margin="0,80,0,45" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Код" Binding="{Binding Code}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" IsReadOnly="True" MaxWidth="250"></DataGridTextColumn>
-                <DataGridTextColumn Header="Значение" Binding="{Binding NewValue}">
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Месяц" IsReadOnly="True" CanUserSort="False" Binding="{Binding Month,StringFormat={}{0:MMMM yyyy}}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Значение" CanUserSort="False" Binding="{Binding NewValue}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="Button_Click">Подтвердить</Button>
+        <Button x:Name="Btn" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Click="Button_Click">Подтвердить</Button>
     </Grid>
 </Window>

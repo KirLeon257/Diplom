@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Windows;
 
 namespace MenuMb;
@@ -9,5 +10,6 @@ namespace MenuMb;
 /// </summary>
 public partial class App : Application
 {
+    
 }
 

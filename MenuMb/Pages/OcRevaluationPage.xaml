@@ -10,6 +10,7 @@
     <Grid>
         <Menu VerticalAlignment="Top" Height="35">
             <MenuItem Header="Выполнить переоценку" Height="35" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="Акт переоценки" Click="MenuItem_Click_1"></MenuItem>
         </Menu>
         <DataGrid x:Name="OcRevDataGrid" MouseDoubleClick="OcRevDataGrid_MouseDoubleClick" Margin="0,35,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
