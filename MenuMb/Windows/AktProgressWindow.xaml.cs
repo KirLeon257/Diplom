@@ -351,7 +351,7 @@ namespace MenuMb.Windows
                 if (Info != null)
                 {
                     this.Show();
-                    await GenerateAktPereocen(Info);
+                    await GenerateAktPereocen(Info,date);
                 }
             }
             catch (Exception ex)
@@ -364,9 +364,81 @@ namespace MenuMb.Windows
             }
         }
 
-        private async Task GenerateAktPereocen(List<AktPereocen> info)
+        private async Task GenerateAktPereocen(List<AktPereocen> info, DateTime date)
         {
-            throw new NotImplementedException();
+            using (var workbook = new XLWorkbook(".\\ActsObrasec\\Akt_pereocen.xlsx"))
+            {
+                try
+                {
+                    var worksheet = workbook.Worksheet(1);
+                    //var cells = worksheet.CellsUsed();
+                    await SetAktPereocenDates(worksheet, info,date);
+                    UpgradeStatusBar(28);
+                    string DirectoryName = "\\Акты\\Переоценка";
+                    if (!Directory.Exists(DirectoryName))
+                    {
+                        Directory.CreateDirectory(DirectoryName);
+                    }
+                    string filename = DirectoryName + "\\Акт_Переоценка_" + DateTime.Now.ToString("yyyy-MM-dd") + ".xlsx";
+                    workbook.SaveAs(filename);
+                    UpgradeStatusBar(50);
+                    Process.Start("explorer.exe", DirectoryName);
+                    this.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private async Task SetAktPereocenDates(IXLWorksheet worksheet, List<AktPereocen> info, DateTime date)
+        {
+            var cells = worksheet.CellsUsed();
+            var datecell = cells.Where(x => x.Value.ToString() == "<Year>").First();
+            var InvNumCell = cells.Where(x => x.Value.ToString() == "<NomenInv>").First();
+            var NomenName = cells.Where(x => x.Value.ToString() == "<NomenName>").First();
+            var NomenOcType = cells.Where(x => x.Value.ToString() == "<Oc_Type_Code>").First();
+            var EnterDate = cells.Where(x => x.Value.ToString() == "<EnterDate>").First();
+            var PereocenCost = cells.Where(x => x.Value.ToString() == "<PereocenCost>").First();
+            var Coef = cells.Where(x => x.Value.ToString() == "<Coef>").First();
+            var NewPereocenCost = cells.Where(x => x.Value.ToString() == "<NewPereocenCost>").First();
+            var YdelVes = cells.Where(x => x.Value.ToString() == "<YdelVes>").First();
+            var NewAmortSum = cells.Where(x => x.Value.ToString() == "<NewAmortSum>").First();
+            var NewOstCost = cells.Where(x => x.Value.ToString() == "<NewOstCost>").First();
+
+
+
+            datecell.Value = date.Year.ToString();
+            foreach ( var item in info )         
+            {
+                InvNumCell.Value = item.Inventory_number.ToString();
+                NomenName.Value = item.Name;
+                NomenOcType.Value = item.OC_Type_Code;
+                EnterDate.Value = item.EnterDate.ToString("MMMM yyyy");
+                PereocenCost.Value = item.Old_PereocenCost.ToString();
+                Coef.Value = item.Value.ToString();
+                NewPereocenCost.Value = item.New_PereocenCost.ToString();
+                YdelVes.Value = item.YdelVecAmort.ToString();
+                NewAmortSum.Value = item.NewAmortSum.ToString();
+                NewOstCost.Value = item.NewOstatichCoast.ToString();
+
+
+
+
+                InvNumCell = InvNumCell.CellBelow();
+                NomenName = NomenName.CellBelow();
+                NomenOcType = NomenOcType.CellBelow();
+                EnterDate = EnterDate.CellBelow();
+                PereocenCost = PereocenCost.CellBelow();
+                Coef = Coef.CellBelow();
+                NewPereocenCost = NewPereocenCost.CellBelow();
+                YdelVes = YdelVes.CellBelow();
+                NewAmortSum = NewAmortSum.CellBelow();
+                NewOstCost = NewOstCost.CellBelow();
+            }
+
         }
     }
 }

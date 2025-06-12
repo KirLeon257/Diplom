@@ -112,21 +112,7 @@ namespace MenuMb.Pages
             try
             {
                 var Selected = OcAddDataGrid.SelectedItem as OCAddmitionBase;
-                //if (Selected is null)
-                //{
-                //    MessageBox.Show("Выберите запись в таблице");
-                //    return;
-                //}
-                //var param = $"?AddId={Selected.AddId}&ApiToken={LoginUser.User.ApiToken}";
-                //var Info = await HttpRequestHelper.GetAsync<ActPriem>("/oc_addmition/act_priem", param);
-                //if (Info != null)
-                //{
-                //    await GenerateAktPrixod(Info);
-                //}
                 AktProgressWindow aktProgress = new AktProgressWindow();
-                //aktProgress.ShowActivated = true;
-                //aktProgress.ShowInTaskbar = false;
-                //aktProgress.Show();
                 await aktProgress.PrintAktPriem(Selected.AddId);
             }
             catch (Exception ex)
