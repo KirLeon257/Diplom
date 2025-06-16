@@ -368,3 +368,5 @@ FodyWeavers.xsd
 /DiplomShemaScript.sql
 /Diplomv2.mwb
 *.bak
+/erfinall.mwb
+*.cdw
