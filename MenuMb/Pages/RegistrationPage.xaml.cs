@@ -103,7 +103,7 @@ namespace MenuMb
                 MessageBox.Show("Пароли не совпадают.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            if (RoleComboBox.SelectedIndex == 0)
+            if (RoleComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Не выбрана роль пользователя!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;

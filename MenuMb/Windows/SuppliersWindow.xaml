@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MenuMb"
         mc:Ignorable="d"
-        Title="SuppliersWindow" Height="200" Width="300">
+        Title="Поставщик" Height="200" Width="300">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,5,0,0">
             <Label Margin="0,0,10,0">Название</Label>

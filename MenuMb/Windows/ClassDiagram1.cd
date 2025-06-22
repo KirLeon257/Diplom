@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MenuMb.Classes.Acts.ActPriem">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAACAAAIAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Classes\Acts\ActPriem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.Acts.AktPerem">
+    <Position X="7" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAEAAAAAAAAAABEAFAABAAAAAAAAABQ=</HashCode>
+      <FileName>Classes\Acts\AktPerem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.Acts.AktWriteoff">
+    <Position X="5.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAEAAAAAAAkAgAAAABAAEAAAAAAAAABAAAA=</HashCode>
+      <FileName>Classes\Acts\AktWriteoff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diplom.Classes.Acts.AktPereocen">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAQAAAAAAAAEAAgAAAAQAAAgAAAgAACAiAAAAAAA=</HashCode>
+      <FileName>Classes\Acts\AktPereocen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.BasisInfo">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAIAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Classes\OC\BasisInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.Coefficient">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAAQAAAACAAAAAAAAAAAQAAgAAAAAAA=</HashCode>
+      <FileName>Classes\OC\Coefficient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.Department">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\Department.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.EqupmentCode">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\EqupmentCode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.FormCode">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\FormCode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.NewCoef">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\NewCoef.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.NomenclaturaOCBase">
+    <Position X="1.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgAIQAAAEAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\NomenclaturaOCBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.NomenclaturaOCFull">
+    <Position X="1.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAgAAAAAAAAQAAAAAAAAAAIAAAAACAAAFAAAAAAA=</HashCode>
+      <FileName>Classes\OC\NomenclaturaOCBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.NomenclaturaOCInfoClass">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\NomenclaturaOCInfoClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OCAddmitionBase">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAEAAAAAAAAAJgAAAAAACAAACAAAAA=</HashCode>
+      <FileName>Classes\OC\OCAddmition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OCAddmitionFull">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgAAAAAABAEAAAAAAAEAEKAAAAAgAAAAAACAAAA=</HashCode>
+      <FileName>Classes\OC\OCAddmition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcAmortisation">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgAAAAAAAAAAAAAIAAQEACgAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Classes\OC\OcAmortisationClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcAmortisationItem">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAECAAQAAAAAAAABACAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\OcAmortisationClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcCharacteristic">
+    <Position X="14" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAQAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\OcCharacteristic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcGroup">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\OcGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcMoving">
+    <Position X="10.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEgAAAAAAAAAAAABAAAAAAAGAAAAAAAEA=</HashCode>
+      <FileName>Classes\OC\OcMoving.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcMovingItem">
+    <Position X="8.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAABEAAAAAACAAAAAAAFQ=</HashCode>
+      <FileName>Classes\OC\OcMoving.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcRevaluation">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAEABAACAAAAAAAAE=</HashCode>
+      <FileName>Classes\OC\OcRevaluation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcRevaluationItem">
+    <Position X="12.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAQAAAAAQAgAQAAiEAgAAAA=</HashCode>
+      <FileName>Classes\OC\OcRevaluation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OCType">
+    <Position X="5.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\OCType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcWriteoff">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAACAAAAAAABgAAAAAACAAAAAAAEA=</HashCode>
+      <FileName>Classes\OC\OcWriteoff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.OcNomenToWrite">
+    <Position X="12.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAABgAEAAAACAAAAAAAEA=</HashCode>
+      <FileName>Classes\OC\OcWriteoff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.PreciousMetals">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAgICAAAAAAAAAAgBAAAAAIAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Classes\OC\PreciousMetals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.ResponseblePerson">
+    <Position X="14" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAAAAAAAAAAAgAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\ResponseblePerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.OC.Supplier">
+    <Position X="7" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\OC\Supplier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.Users.User">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAKAAAAAAAAAAEAAAAAQABAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Classes\Users\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.Users.NewUserInfo">
+    <Position X="1.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAQAAACAAAQAAAAAAA=</HashCode>
+      <FileName>Classes\Users\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.Users.LoginUser">
+    <Position X="14.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Users\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.ConnectionServerSetings">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Classes\ConnectionServerSetings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.HttpRequestHelper">
+    <Position X="8.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAggAAAAAAAAAAAACAAAAAAAgAAAAAIAAIAIA=</HashCode>
+      <FileName>Classes\HttpRequestHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.PasswordHash">
+    <Position X="7" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\PasswordHash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.SocketService">
+    <Position X="14" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQACAAAEAAAAAAAAAAAAAAQAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Classes\SocketService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuMb.Classes.StatusUpdater">
+    <Position X="3.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAIAAAAA=</HashCode>
+      <FileName>Classes\StatusUpdater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="MenuMb.Classes.RoleEnum">
+    <Position X="3.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\RoleEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

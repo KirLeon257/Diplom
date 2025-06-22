@@ -17,9 +17,4 @@ namespace MenuMb.Classes.OC
         public DateTime Month { get; set; }
         public double? NewValue { get; set; }
     }
-
-    internal class NewCoefToSend
-    {
-        
-    }
 }

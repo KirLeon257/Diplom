@@ -236,7 +236,8 @@ namespace MenuMb.Windows
                 {"MoveId",info.MoveId.ToString($"D6") },
                 {"MOL",info.MOL },
                 {"Old_dep",info.Old_dep },
-                {"New_dep",info.New_dep }
+                {"New_dep",info.New_dep },
+                {"Coast",info.PereocenCost.ToString() }
             };
 
             foreach (KeyValuePair<string, string> pair in keyValuePairs)
@@ -263,7 +264,7 @@ namespace MenuMb.Windows
             cellCount.Value = "шт.";
             foreach (var cell in cellsCost)
             {
-                cell.Value = infoAct.InitialCost;
+                cell.Value = infoAct.PereocenCost;
             }
         }
 

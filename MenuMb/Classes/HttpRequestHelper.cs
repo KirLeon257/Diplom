@@ -16,11 +16,6 @@ namespace MenuMb.Classes
         private static HttpClient httpClient = new HttpClient()
         { BaseAddress = new Uri(ConnectionServerSetings.ServerIp) };
 
-        //static HttpRequestHelper()
-        //{
-        //    httpClient.DefaultRequestHeaders.Add("ApiToken", LoginUser.User.ApiToken);
-        //}
-     
         public async static Task<T?> GetAsync<T>(string link, string? param)
         {
             string full_link = param != null ? link + param : link;

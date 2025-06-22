@@ -139,7 +139,7 @@ namespace MenuMb
             }
             else
             {
-                MessageBox.Show("Не удалось войти :(");
+                MessageBox.Show("Неверный логин и/или пароль","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
             }
         }
 

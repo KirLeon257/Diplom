@@ -13,10 +13,10 @@
                 <TextBox x:Name="NomenNameText" IsReadOnly="True"></TextBox>
             </StackPanel>
             <Label>Старое подразделение</Label>
-            <TextBox x:Name="OldDepartmentText"></TextBox>
+            <TextBox Margin="15,0,15,0" x:Name="OldDepartmentText"></TextBox>
             <Label>Новое подразделение</Label>
-            <ComboBox DisplayMemberPath="Name" x:Name="NewDepartmentBox"></ComboBox>
-            <Button Margin="0,15,0,0" Click="Button_Click">Создать</Button>
+            <ComboBox Margin="15,0,15,0" DisplayMemberPath="Name" x:Name="NewDepartmentBox"></ComboBox>
+            <Button  Margin="15,15,15,0" Click="Button_Click">Создать</Button>
         </StackPanel>
     </Grid>
 </Window>

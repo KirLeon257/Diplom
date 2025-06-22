@@ -14,7 +14,7 @@
             </MenuItem>
         </Menu>
         <ScrollViewer>
-            <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" Width="450" Height="300" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,45,0,0" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid Grid.Row="1" x:Name="UsersDataGrid" AutoGenerateColumns="False" Margin="0,35,0,0" IsReadOnly="True" CanUserAddRows="False">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="UserDeleteBtn" Click="UserDeleteBtn_Click" Header="Удалить"></MenuItem>
